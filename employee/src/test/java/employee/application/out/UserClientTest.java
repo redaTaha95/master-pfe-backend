@@ -7,6 +7,7 @@ import employee.application.out.http.user.UserResponse;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -24,10 +25,10 @@ public class UserClientTest {
         mockWebServer = new MockWebServer();
         mockWebServer.start();
 
-        WebClient.Builder webClientBuilder = WebClient.builder()
-                .baseUrl(mockWebServer.url("/").toString());
+        WebClient.Builder userWebClient = WebClient.builder()
+                .baseUrl(mockWebServer.url("/users").toString());
 
-        userClient = new UserClient(webClientBuilder);
+        userClient = new UserClient(userWebClient);
     }
 
     @AfterEach

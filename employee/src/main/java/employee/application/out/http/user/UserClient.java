@@ -7,10 +7,11 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class UserClient {
+    public static final String BASE_URL = "http://user-service";
     private final WebClient webClient;
 
-    public UserClient(@Autowired WebClient.Builder webClient) {
-        this.webClient = webClient.baseUrl("http://user-service").build();
+    public UserClient(WebClient.Builder userWebclient) {
+        this.webClient = userWebclient.build();
     }
 
     public Mono<UserResponse> createUser(UserRequest userRequest) {
