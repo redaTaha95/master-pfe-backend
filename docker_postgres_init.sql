@@ -1,0 +1,2 @@
+CREATE DATABASE employee;
+CREATE DATABASE "user";
