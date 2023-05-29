@@ -85,7 +85,7 @@ public class EmployeeService {
 
     private UserResponse createUser(Employee employee) {
         UserRequest userRequest = new UserRequest();
-        userRequest.setUsername(employee.getFirstName()+employee.getLastName()+employee.getId());
+        userRequest.setUsername(employee.getFirstName() + employee.getLastName() + employee.getId());
         userRequest.setEmail(employee.getEmail());
         userRequest.setPassword(generateSecureRandomPassword());
 
@@ -94,6 +94,6 @@ public class EmployeeService {
 
     private String generateSecureRandomPassword() {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
-        return RandomStringUtils.random( 15, characters );
+        return RandomStringUtils.random(15, characters);
     }
 }

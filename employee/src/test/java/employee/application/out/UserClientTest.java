@@ -42,8 +42,8 @@ public class UserClientTest {
         UserResponse mockResponse = new UserResponse(1L, "john_doe", "john@example.com");
         mockWebServer.enqueue(
                 new MockResponse().setResponseCode(201)
-                .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .setBody(new Gson().toJson(mockResponse))
+                        .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                        .setBody(new Gson().toJson(mockResponse))
         );
 
         // Perform the actual method call

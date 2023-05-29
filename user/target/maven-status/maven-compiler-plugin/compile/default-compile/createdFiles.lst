@@ -1,0 +1,10 @@
+user\UserRequest.class
+user\UserController.class
+user\UserRepository.class
+user\Application.class
+user\UserExceptionHandler.class
+user\UserResponse.class
+user\UserService.class
+user\ErrorResponse.class
+user\User.class
+user\UserNotFoundException.class

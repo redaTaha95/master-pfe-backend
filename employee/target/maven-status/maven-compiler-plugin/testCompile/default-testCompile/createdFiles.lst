@@ -1,0 +1,5 @@
+employee\application\out\UserClientTest.class
+employee\application\in\EmployeeControllerTest.class
+employee\EmployeeRepositoryTest$DataSourceInitializer.class
+employee\EmployeeServiceTest.class
+employee\EmployeeRepositoryTest.class
