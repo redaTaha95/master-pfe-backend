@@ -25,7 +25,7 @@ public class ProjectService {
 
     }
 
-    public List<ProjectResponse> getAllprojects() {
+    public List<ProjectResponse> getAllProjects() {
         List<Project> projects = projectRepository.findAll();
         return projects.stream()
                 .map(this::convertToResponse)
@@ -37,12 +37,33 @@ public class ProjectService {
         return convertToResponse(employee);
     }
 
+    public ProjectResponse updateProject(Long id, ProjectRequest projectRequest) {
+        Project project = getProjectByIdIfExists(id);
+        updateEmployeeFromRequest(project, projectRequest);
+        projectRepository.save(project);
+        return convertToResponse(project);
+    }
+
+    public void deleteProject(Long id) {
+        if (!projectRepository.existsById(id)) {
+            throw new ProjectNotFoundException("Project not found with id: " + id);
+        }
+        projectRepository.deleteById(id);
+    }
+
+
+    private void updateEmployeeFromRequest(Project project, ProjectRequest projectRequest) {
+        project.setProjectName(projectRequest.getProjectName());
+        project.setDescription(projectRequest.getDescription());
+        project.setStartDate(projectRequest.getStartDate());
+        project.setEndDate(projectRequest.getEndDate());
+    }
 
 
 
     private Project getProjectByIdIfExists(Long id) {
         return projectRepository.findById(id)
-                .orElseThrow(() -> new ProjectNotFoundException("Employee not found with id: " + id));
+                .orElseThrow(() -> new ProjectNotFoundException("Project not found with id: " + id));
     }
 
     private ProjectResponse convertToResponse(Project project) {

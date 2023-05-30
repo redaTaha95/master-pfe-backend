@@ -23,7 +23,7 @@ public class ProjectController {
 
     @GetMapping
     public ResponseEntity<List<ProjectResponse>> getAllProjects() {
-        List<ProjectResponse> projects = projectService.getAllprojects();
+        List<ProjectResponse> projects = projectService.getAllProjects();
         return ResponseEntity.ok(projects);
     }
 
@@ -39,7 +39,17 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProject);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjectResponse> updateProject(@PathVariable @Min(value = 1, message = "Invalid project ID") Long id, @Valid @RequestBody ProjectRequest projectRequest) {
+        ProjectResponse updatedProject = projectService.updateProject(id, projectRequest);
+        return ResponseEntity.ok(updatedProject);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+        projectService.deleteProject(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
