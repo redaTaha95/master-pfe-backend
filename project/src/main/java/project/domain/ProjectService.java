@@ -53,7 +53,7 @@ public class ProjectService {
 
 
     private void updateEmployeeFromRequest(Project project, ProjectRequest projectRequest) {
-        project.setProjectName(projectRequest.getProjectName());
+        project.setName(projectRequest.getName());
         project.setDescription(projectRequest.getDescription());
         project.setStartDate(projectRequest.getStartDate());
         project.setEndDate(projectRequest.getEndDate());
@@ -69,7 +69,7 @@ public class ProjectService {
     private ProjectResponse convertToResponse(Project project) {
         return ProjectResponse.builder()
                 .id(project.getId())
-                .projectName(project.getProjectName())
+                .name(project.getName())
                 .description(project.getDescription())
                 .startDate(project.getStartDate())
                 .endDate(project.getEndDate())
@@ -78,7 +78,7 @@ public class ProjectService {
 
     private Project buildProjectFromRequest(ProjectRequest projectRequest) {
         return Project.builder()
-                .projectName(projectRequest.getProjectName())
+                .name(projectRequest.getName())
                 .description(projectRequest.getDescription())
                 .startDate(projectRequest.getStartDate())
                 .endDate(projectRequest.getEndDate())

@@ -39,7 +39,7 @@ public class ProjectReponsitoryTest {
         Date endDate = new Date("08/01/2023");
         // Create a new Project
         Project project = new Project();
-        project.setProjectName("Yassine's project");
+        project.setName("Yassine's project");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
@@ -48,7 +48,7 @@ public class ProjectReponsitoryTest {
         Project savedProject = projectRepository.save(project);
 
         // Assert that the saved project has the expected values
-        Assertions.assertEquals(savedProject.getProjectName(), "Yassine's project");
+        Assertions.assertEquals(savedProject.getName(), "Yassine's project");
         Assertions.assertEquals(savedProject.getDescription(), "Small little one");
         Assertions.assertEquals(savedProject.getStartDate(), startDate);
         Assertions.assertEquals(savedProject.getEndDate(), endDate);
@@ -62,7 +62,7 @@ public class ProjectReponsitoryTest {
         Date endDate = new Date("08/01/2023");
         // Create a new Project
         Project project = new Project();
-        project.setProjectName("Yassine's project");
+        project.setName("Yassine's project");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
@@ -71,13 +71,13 @@ public class ProjectReponsitoryTest {
         Project savedProject = projectRepository.save(project);
 
         // Update the Project's email
-        savedProject.setProjectName("not yassine's project");
+        savedProject.setName("not yassine's project");
 
         // Save the updated Project to the database
         Project updatedProject = projectRepository.save(savedProject);
 
         // Assert that the updated Project has the new name
-        Assertions.assertEquals(updatedProject.getProjectName(), "not yassine's project");
+        Assertions.assertEquals(updatedProject.getName(), "not yassine's project");
     }
 
     @Test
@@ -87,7 +87,7 @@ public class ProjectReponsitoryTest {
         Date endDate = new Date("08/01/2023");
         // Create a new Project
         Project project = new Project();
-        project.setProjectName("Yassine's project");
+        project.setName("Yassine's project");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
@@ -111,7 +111,7 @@ public class ProjectReponsitoryTest {
         Date endDate = new Date("08/01/2023");
         // Create a new Project
         Project project = new Project();
-        project.setProjectName("Yassine's project");
+        project.setName("Yassine's project");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
@@ -139,13 +139,13 @@ public class ProjectReponsitoryTest {
         Date endDate2 = new Date("08/01/2024");
         // Create a new Project
         Project project = new Project();
-        project.setProjectName("Yassine's project");
+        project.setName("Yassine's project");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
 
         Project project2 = new Project();
-        project2.setProjectName("Project 2 ");
+        project2.setName("Project 2 ");
         project2.setDescription("Small little one2");
         project2.setStartDate(startDate2);
         project2.setEndDate(endDate2);

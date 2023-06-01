@@ -17,7 +17,7 @@ public class Project {
     private Long id;
 
     @Column(nullable = false)
-    private String projectName;
+    private String name;
 
     @Column(nullable = false)
     private String description;

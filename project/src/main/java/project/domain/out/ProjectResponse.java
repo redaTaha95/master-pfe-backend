@@ -16,7 +16,7 @@ public class ProjectResponse {
 
     private Long id;
 
-    private String projectName;
+    private String name;
 
     private String description;
 

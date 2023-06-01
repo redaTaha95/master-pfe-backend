@@ -37,14 +37,14 @@ public class ProjectServiceTest {
         Date startDate = new Date("01/01/2023");
         Date endDate = new Date("08/01/2023");
         ProjectRequest projectRequest = new ProjectRequest();
-        projectRequest.setProjectName("Reda");
+        projectRequest.setName("Reda");
         projectRequest.setDescription("TAHA");
         projectRequest.setStartDate(startDate);
         projectRequest.setEndDate(endDate);
 
         Project savedProject = Project.builder()
-                .projectName(projectRequest.getProjectName())
-                .description(projectRequest.getProjectName())
+                .name(projectRequest.getName())
+                .description(projectRequest.getDescription())
                 .startDate(projectRequest.getStartDate())
                 .endDate(projectRequest.getEndDate())
                 .build();
@@ -53,7 +53,7 @@ public class ProjectServiceTest {
 
         ProjectResponse project = projectService.createProject(projectRequest);
 
-        Assertions.assertEquals(project.getProjectName(), projectRequest.getProjectName());
+        Assertions.assertEquals(project.getName(), projectRequest.getName());
     }
 
     @Test
@@ -86,10 +86,47 @@ public class ProjectServiceTest {
         ProjectResponse projectResponse = projectService.getProjectById(ProjectId);
 
         Assertions.assertEquals(project.getId(), projectResponse.getId());
-        Assertions.assertEquals(project.getProjectName(), projectResponse.getProjectName());
+        Assertions.assertEquals(project.getName(), projectResponse.getName());
         Assertions.assertEquals(project.getDescription(), projectResponse.getDescription());
         Assertions.assertEquals(project.getStartDate(), projectResponse.getStartDate());
         Assertions.assertEquals(project.getEndDate(), projectResponse.getEndDate());
+    }
+
+    @Test
+    @DisplayName("Should update project")
+    public void shouldUpdateProject() {
+        Long projectId = 1L;
+        Date startDate = new Date("01/01/2023");
+        Date endDate = new Date("08/01/2023");
+        Date oldStartDate = new Date("01/01/2023");
+        Date oldEndDate = new Date("08/01/2023");
+        ProjectRequest projectRequest = new ProjectRequest();
+        projectRequest.setName("P1");
+        projectRequest.setDescription("D1");
+        projectRequest.setStartDate(startDate);
+        projectRequest.setEndDate(endDate);
+
+        Project existingProject = new Project(projectId, "old P1", "old D1",oldStartDate,oldEndDate);
+        Mockito.when(projectRepository.findById(projectId)).thenReturn(Optional.of(existingProject));
+
+        ProjectResponse updatedEmployeeResponse = projectService.updateProject(projectId, projectRequest);
+
+        Assertions.assertEquals(existingProject.getId(), updatedEmployeeResponse.getId());
+        Assertions.assertEquals(projectRequest.getName(), updatedEmployeeResponse.getName());
+        Assertions.assertEquals(projectRequest.getDescription(), updatedEmployeeResponse.getDescription());
+        Assertions.assertEquals(projectRequest.getStartDate(), updatedEmployeeResponse.getStartDate());
+        Assertions.assertEquals(projectRequest.getEndDate(), updatedEmployeeResponse.getEndDate());
+    }
+
+    @Test
+    @DisplayName("Should delete project")
+    public void shouldDeleteProject() {
+        Long projectId = 1L;
+        Mockito.when(projectRepository.existsById(projectId)).thenReturn(true);
+
+        projectService.deleteProject(projectId);
+
+        Mockito.verify(projectRepository).deleteById(projectId);
     }
 
 
