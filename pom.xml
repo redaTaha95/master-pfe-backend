@@ -8,6 +8,7 @@
 		<module>discovery</module>
         <module>user</module>
 		<module>api-gateway</module>
+		<module>identity</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
