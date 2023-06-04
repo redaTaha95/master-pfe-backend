@@ -1,6 +1,6 @@
 package employee.domain;
 
-import employee.application.out.http.user.UserGateway;
+import employee.application.out.http.user.IdentityGateway;
 import employee.application.out.http.user.UserRequest;
 import employee.application.out.http.user.UserResponse;
 import employee.domain.out.EmployeeRepository;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final UserGateway userGateway;
+    private final IdentityGateway identityGateway;
 
     public List<EmployeeResponse> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
@@ -89,7 +89,7 @@ public class EmployeeService {
         userRequest.setEmail(employee.getEmail());
         userRequest.setPassword(generateSecureRandomPassword());
 
-        return userGateway.createUser(userRequest);
+        return identityGateway.createUser(userRequest);
     }
 
     private String generateSecureRandomPassword() {
