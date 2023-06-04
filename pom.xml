@@ -8,6 +8,7 @@
 		<module>discovery</module>
         <module>user</module>
         <module>candidate</module>
+        <module>recruitment_demand</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
