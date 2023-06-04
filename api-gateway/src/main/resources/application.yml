@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   cloud:
     gateway:
@@ -6,11 +8,18 @@ spring:
           uri: lb://employee-service
           predicates:
             - Path=/employees/**
+          filters:
+            - AuthenticationFilter
 
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/users/**
+
+        - id: identity-service
+          uri: lb://identity-service
+          predicates:
+            - Path=/auth/**
 
   application:
     name: API-GATEWAY
@@ -22,3 +31,6 @@ eureka:
   client:
     service-url:
       defaultZone : http://localhost:8761/eureka/
+
+jwt:
+  secret: "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437"
