@@ -6,7 +6,6 @@
 	<modules>
 		<module>employee</module>
 		<module>discovery</module>
-        <module>user</module>
 		<module>api-gateway</module>
 		<module>identity</module>
 	</modules>

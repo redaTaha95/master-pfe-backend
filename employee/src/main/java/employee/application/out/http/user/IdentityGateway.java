@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class UserGateway {
-    private final UserClient userClient;
+public class IdentityGateway {
+    private final IdentityClient identityClient;
 
     public UserResponse createUser(UserRequest userRequest) {
-        return userClient.createUser(userRequest)
+        return identityClient.createUser(userRequest)
                 .doOnError(throwable -> log.error("Error while creating a user !!"))
                 .doOnSuccess(userResponse -> log.info("User {} created with success", userResponse.getId()))
                 .block();

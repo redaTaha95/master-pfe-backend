@@ -1,13 +1,12 @@
 package employee.application.out;
 
 import com.google.gson.Gson;
-import employee.application.out.http.user.UserClient;
+import employee.application.out.http.user.IdentityClient;
 import employee.application.out.http.user.UserRequest;
 import employee.application.out.http.user.UserResponse;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,9 +15,9 @@ import reactor.test.StepVerifier;
 
 import java.io.IOException;
 
-public class UserClientTest {
+public class IdentityClientTest {
     private MockWebServer mockWebServer;
-    private UserClient userClient;
+    private IdentityClient identityClient;
 
     @BeforeEach
     public void setup() throws IOException {
@@ -28,7 +27,7 @@ public class UserClientTest {
         WebClient.Builder userWebClient = WebClient.builder()
                 .baseUrl(mockWebServer.url("/users").toString());
 
-        userClient = new UserClient(userWebClient);
+        identityClient = new IdentityClient(userWebClient);
     }
 
     @AfterEach
@@ -48,7 +47,7 @@ public class UserClientTest {
 
         // Perform the actual method call
         UserRequest userRequest = new UserRequest("john_doe", "password", "john@example.com");
-        Mono<UserResponse> createUserMono = userClient.createUser(userRequest);
+        Mono<UserResponse> createUserMono = identityClient.createUser(userRequest);
         StepVerifier.create(createUserMono)
                 .expectNext(mockResponse)
                 .verifyComplete();
