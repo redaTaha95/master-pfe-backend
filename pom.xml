@@ -6,8 +6,9 @@
 	<modules>
 		<module>employee</module>
 		<module>discovery</module>
-        <module>user</module>
-    </modules>
+		<module>api-gateway</module>
+		<module>identity</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

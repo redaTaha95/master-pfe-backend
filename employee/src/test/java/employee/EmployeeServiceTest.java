@@ -1,9 +1,7 @@
 package employee;
 
 import employee.application.in.EmployeeRequest;
-import employee.application.out.http.user.UserClient;
-import employee.application.out.http.user.UserGateway;
-import employee.application.out.http.user.UserRequest;
+import employee.application.out.http.user.IdentityGateway;
 import employee.domain.Employee;
 import employee.domain.EmployeeResponse;
 import employee.domain.EmployeeService;
@@ -28,7 +26,7 @@ public class EmployeeServiceTest {
     @Mock
     private EmployeeRepository employeeRepository;
     @Mock
-    private UserGateway userGateway;
+    private IdentityGateway identityGateway;
 
     @InjectMocks
     private EmployeeService employeeService;
@@ -48,7 +46,7 @@ public class EmployeeServiceTest {
                 .build();
 
         Mockito.when(employeeRepository.save(any(Employee.class))).thenReturn(savedEmployee);
-        Mockito.when(userGateway.createUser(any())).thenReturn(any());
+        Mockito.when(identityGateway.createUser(any())).thenReturn(any());
 
         EmployeeResponse employee = employeeService.createEmployee(employeeRequest);
 
