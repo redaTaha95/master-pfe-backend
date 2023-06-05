@@ -1,6 +1,7 @@
 package task.application.in;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
@@ -19,12 +20,12 @@ public class TaskRequest {
     @NotBlank(message = "description is required")
     private String description;
 
-    @NotBlank(message = "projectId is required")
+    @NotNull(message = "projectId is required")
     private Long projectId;
 
-    @NotBlank(message = "startDate is required")
+    @NotNull(message = "startDate is required")
     private Date startDate;
 
-    @NotBlank(message = "endDate is required")
+    @NotNull(message = "endDate is required")
     private Date endDate;
 }

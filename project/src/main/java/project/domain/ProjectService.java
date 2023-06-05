@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.application.in.ProjectRequest;
 import project.domain.out.ProjectRepository;
-import project.domain.out.ProjectResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +21,6 @@ public class ProjectService {
         Project project = buildProjectFromRequest(projectRequest);
         Project savedProject = projectRepository.save(project);
         return convertToResponse(savedProject);
-
     }
 
     public List<ProjectResponse> getAllProjects() {
@@ -33,13 +31,13 @@ public class ProjectService {
     }
 
     public ProjectResponse getProjectById(Long id) {
-        Project employee = getProjectByIdIfExists(id);
-        return convertToResponse(employee);
+        Project project = getProjectByIdIfExists(id);
+        return convertToResponse(project);
     }
 
     public ProjectResponse updateProject(Long id, ProjectRequest projectRequest) {
         Project project = getProjectByIdIfExists(id);
-        updateEmployeeFromRequest(project, projectRequest);
+        updateProjectFromRequest(project, projectRequest);
         projectRepository.save(project);
         return convertToResponse(project);
     }
@@ -51,15 +49,12 @@ public class ProjectService {
         projectRepository.deleteById(id);
     }
 
-
-    private void updateEmployeeFromRequest(Project project, ProjectRequest projectRequest) {
+    private void updateProjectFromRequest(Project project, ProjectRequest projectRequest) {
         project.setName(projectRequest.getName());
         project.setDescription(projectRequest.getDescription());
         project.setStartDate(projectRequest.getStartDate());
         project.setEndDate(projectRequest.getEndDate());
     }
-
-
 
     private Project getProjectByIdIfExists(Long id) {
         return projectRepository.findById(id)
@@ -83,8 +78,6 @@ public class ProjectService {
                 .startDate(projectRequest.getStartDate())
                 .endDate(projectRequest.getEndDate())
                 .build();
-
-
     }
 
 }

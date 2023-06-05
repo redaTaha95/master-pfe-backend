@@ -4,13 +4,13 @@ package task.domain;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 import task.application.in.TaskRequest;
-import task.application.out.http.project.ProjectClient;
 import task.application.out.http.project.ProjectGateway;
 import task.application.out.http.project.ProjectResponse;
 import task.domain.out.TaskRepository;
-import task.domain.out.TaskResponse;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +40,53 @@ public class TaskService {
         else {
             throw new ProjectNotFoundException("project not found");
         }
+    }
+
+    public List<TaskResponse> getAllTasks() {
+        List<Task> tasks = taskRepository.findAll();
+        return tasks.stream()
+                .map(this::convertToResponse)
+                .collect(Collectors.toList());
+    }
+
+    public TaskResponse getTaskById(Long id) {
+        Task task = getTaskByIdIfExists(id);
+        return convertToResponse(task);
+    }
+
+    public TaskResponse updateTask(Long id, TaskRequest taskRequest) {
+
+        ProjectResponse project = projectGateway.getProject(taskRequest.getProjectId());
+        if (project != null)
+        {
+            Task task = getTaskByIdIfExists(id);
+            updateTaskFromRequest(task, taskRequest);
+            taskRepository.save(task);
+            return convertToResponse(task);
+        }
+        else {
+            throw new ProjectNotFoundException("Project not found");
+        }
+
+    }
+
+    public void deleteTask(Long id) {
+        if (!taskRepository.existsById(id)) {
+            throw new ProjectNotFoundException("Task not found with id: " + id);
+        }
+        taskRepository.deleteById(id);
+    }
+
+    private void updateTaskFromRequest(Task task, TaskRequest taskRequest) {
+        task.setName(taskRequest.getName());
+        task.setDescription(taskRequest.getDescription());
+        task.setProjectId(taskRequest.getProjectId());
+        task.setStartDate(taskRequest.getStartDate());
+        task.setEndDate(taskRequest.getEndDate());
+    }
+
+    private Task getTaskByIdIfExists(Long id) {
+        return taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
     }
 
     private TaskResponse convertToResponse(Task task) {

@@ -9,12 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import project.application.in.ProjectRequest;
 import project.domain.Project;
 import project.domain.ProjectService;
 import project.domain.out.ProjectRepository;
-import project.domain.out.ProjectResponse;
+import project.domain.ProjectResponse;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -33,7 +32,7 @@ public class ProjectServiceTest {
 
     @Test
     @DisplayName("Should save a project")
-    public void shouldSaveAnEmployee() {
+    public void shouldSaveAProject() {
         Date startDate = new Date("01/01/2023");
         Date endDate = new Date("08/01/2023");
         ProjectRequest projectRequest = new ProjectRequest();
@@ -109,13 +108,13 @@ public class ProjectServiceTest {
         Project existingProject = new Project(projectId, "old P1", "old D1",oldStartDate,oldEndDate);
         Mockito.when(projectRepository.findById(projectId)).thenReturn(Optional.of(existingProject));
 
-        ProjectResponse updatedEmployeeResponse = projectService.updateProject(projectId, projectRequest);
+        ProjectResponse updatedProjectResponse = projectService.updateProject(projectId, projectRequest);
 
-        Assertions.assertEquals(existingProject.getId(), updatedEmployeeResponse.getId());
-        Assertions.assertEquals(projectRequest.getName(), updatedEmployeeResponse.getName());
-        Assertions.assertEquals(projectRequest.getDescription(), updatedEmployeeResponse.getDescription());
-        Assertions.assertEquals(projectRequest.getStartDate(), updatedEmployeeResponse.getStartDate());
-        Assertions.assertEquals(projectRequest.getEndDate(), updatedEmployeeResponse.getEndDate());
+        Assertions.assertEquals(existingProject.getId(), updatedProjectResponse.getId());
+        Assertions.assertEquals(projectRequest.getName(), updatedProjectResponse.getName());
+        Assertions.assertEquals(projectRequest.getDescription(), updatedProjectResponse.getDescription());
+        Assertions.assertEquals(projectRequest.getStartDate(), updatedProjectResponse.getStartDate());
+        Assertions.assertEquals(projectRequest.getEndDate(), updatedProjectResponse.getEndDate());
     }
 
     @Test

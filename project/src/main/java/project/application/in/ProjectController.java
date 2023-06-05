@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.domain.ProjectService;
-import project.domain.out.ProjectResponse;
+import project.domain.ProjectResponse;
 
 import java.util.List;
 

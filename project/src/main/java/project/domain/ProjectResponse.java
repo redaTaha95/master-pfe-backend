@@ -1,31 +1,23 @@
-package task.domain.out;
-
-
-
-import lombok.*;
-
+package project.domain;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.Date;
-@Getter
-@Setter
+
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskResponse {
+public class ProjectResponse {
 
     private Long id;
 
-
     private String name;
-
 
     private String description;
 
-
-    private Long projectId;
-
-
     private Date startDate;
-
 
     private Date endDate;
 }
