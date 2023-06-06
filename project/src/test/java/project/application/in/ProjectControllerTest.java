@@ -117,10 +117,15 @@ public class ProjectControllerTest {
         ProjectRequest projectRequest = new ProjectRequest();
         projectRequest.setName("P1");
         projectRequest.setDescription("D1");
-        projectRequest.setStartDate(new  Date());
+        projectRequest.setStartDate(startDate);
         projectRequest.setEndDate(endDate);
 
-        ProjectResponse createdProject = new ProjectResponse(1L, "P1", "D1", startDate,endDate);
+        ProjectResponse createdProject = new ProjectResponse();
+        createdProject.setId(1L);
+        createdProject.setName("P1");
+        createdProject.setDescription("D1");
+        createdProject.setStartDate(startDate);
+        createdProject.setEndDate(endDate);
         Mockito.when(projectService.createProject(projectRequest)).thenReturn(createdProject);
 
         // Act and Assert

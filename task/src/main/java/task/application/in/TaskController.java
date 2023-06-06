@@ -39,6 +39,12 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
+    @GetMapping("project/{id}")
+    public ResponseEntity<List<TaskResponse>> getTasksByProjectId(@PathVariable @Min(value = 1, message = "Invalid project ID") Long id) {
+        List<TaskResponse> tasks = taskService.getTasksByProjectId(id);
+        return ResponseEntity.ok(tasks);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<TaskResponse> updateTask(@PathVariable @Min(value = 1, message = "Invalid task ID") Long id, @Valid @RequestBody TaskRequest taskRequest) {
         TaskResponse updatedTask = taskService.updateTask(id, taskRequest);

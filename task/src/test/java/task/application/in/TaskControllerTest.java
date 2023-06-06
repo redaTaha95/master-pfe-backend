@@ -29,7 +29,6 @@ public class TaskControllerTest {
     @MockBean
     private TaskService taskService;
 
-
     @Test
     public void shouldReturnAllTask() throws Exception {
 
@@ -120,7 +119,7 @@ public class TaskControllerTest {
         taskRequest.setName("P1");
         taskRequest.setDescription("D1");
         taskRequest.setProjectId(1L);
-        taskRequest.setStartDate(new  Date());
+        taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 
         TaskResponse createdTask = new TaskResponse(1L, "P1", "D1",1L, startDate,endDate);
@@ -128,7 +127,7 @@ public class TaskControllerTest {
 
         // Act and Assert
         mockMvc.perform(post("/tasks")
-                .content(new ObjectMapper().writeValueAsString(taskService))
+                .content(new ObjectMapper().writeValueAsString(taskRequest))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
@@ -142,13 +141,20 @@ public class TaskControllerTest {
     @Test
     public void shouldUpdateTask() throws Exception {
 
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
         // Arrange
         Long taskId = 1L;
         TaskRequest taskRequest = new TaskRequest();
         taskRequest.setName("P1");
         taskRequest.setDescription("D1");
+        taskRequest.setProjectId(1L);
         taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 

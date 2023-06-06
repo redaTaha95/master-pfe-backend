@@ -11,6 +11,21 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: project-service
+          uri: lb://project-service
+          predicates:
+            - Path=/projects/**
+          filters:
+            - AuthenticationFilter
+
+        - id: project-service
+          uri: lb://project-service
+          predicates:
+            - Path=/projects/**
+          filters:
+            - AuthenticationFilter
+
+
         - id: identity-service
           uri: lb://identity-service
           predicates:

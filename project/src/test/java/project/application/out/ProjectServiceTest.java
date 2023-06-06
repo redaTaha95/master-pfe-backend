@@ -15,10 +15,7 @@ import project.domain.ProjectService;
 import project.domain.out.ProjectRepository;
 import project.domain.ProjectResponse;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -58,10 +55,23 @@ public class ProjectServiceTest {
     @Test
     @DisplayName("Should return all projects")
     public void shouldReturnAllProjects() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
-        Date startDate2 = new Date("01/01/2024");
-        Date endDate2 = new Date("08/01/2024");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate2 = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate2 = startDateCalendar.getTime();
+
         List<Project> projects = Arrays.asList(
                 new Project(1L,"P1", "D1", startDate, endDate),
                 new Project(1L,"P2", "D2", startDate2, endDate2)
@@ -77,8 +87,14 @@ public class ProjectServiceTest {
     @DisplayName("Should return project by ID")
     public void shouldReturnProjectById() {
         Long ProjectId = 1L;
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
         Project project = new Project(1L,"P1", "D1", startDate, endDate);
         Mockito.when(projectRepository.findById(ProjectId)).thenReturn(Optional.of(project));
 
@@ -95,10 +111,23 @@ public class ProjectServiceTest {
     @DisplayName("Should update project")
     public void shouldUpdateProject() {
         Long projectId = 1L;
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
-        Date oldStartDate = new Date("01/01/2023");
-        Date oldEndDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date oldStartDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date oldEndDate = startDateCalendar.getTime();
+
         ProjectRequest projectRequest = new ProjectRequest();
         projectRequest.setName("P1");
         projectRequest.setDescription("D1");

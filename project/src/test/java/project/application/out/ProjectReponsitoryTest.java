@@ -17,8 +17,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import project.domain.Project;
 import project.domain.out.ProjectRepository;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Testcontainers
 @DataJpaTest
@@ -35,8 +37,14 @@ public class ProjectReponsitoryTest {
     @DisplayName("should save a project to the database")
     public void shouldSaveAnEmployee() {
 
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
         project.setName("Yassine's project");
@@ -58,8 +66,14 @@ public class ProjectReponsitoryTest {
     @DisplayName("should update a project in the database")
     public void shouldUpdateAnEmployee() {
 
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
         project.setName("Yassine's project");
@@ -83,8 +97,14 @@ public class ProjectReponsitoryTest {
     @Test
     @DisplayName("should retrieve a project from the database")
     public void shouldRetrieveAProject() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
         project.setName("Yassine's project");
@@ -107,8 +127,14 @@ public class ProjectReponsitoryTest {
     @Test
     @DisplayName("should delete a project from the database")
     public void shouldDeleteAnEmployee() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
         project.setName("Yassine's project");
@@ -132,11 +158,22 @@ public class ProjectReponsitoryTest {
     @Test
     @DisplayName("should retrieve all projects from the database")
     public void shouldRetrieveAllEmployees() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
 
-        Date startDate2 = new Date("01/01/2024");
-        Date endDate2 = new Date("08/01/2024");
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate2 = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate2 = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
         project.setName("Yassine's project");

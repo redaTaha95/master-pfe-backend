@@ -18,8 +18,10 @@ import task.domain.Task;
 import task.domain.out.TaskRepository;
 
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Testcontainers
 @DataJpaTest
@@ -36,8 +38,14 @@ public class TaskReponsitoryTest {
     @DisplayName("should save a task to the database")
     public void shouldSaveATask() {
 
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
 
         Task task = new Task();
         task.setName("Yassine's task");
@@ -59,8 +67,14 @@ public class TaskReponsitoryTest {
     @DisplayName("should update a task in the database")
     public void shouldUpdateATask() {
 
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
 
         Task task = new Task();
         task.setName("Yassine's task");
@@ -81,8 +95,14 @@ public class TaskReponsitoryTest {
     @Test
     @DisplayName("should retrieve a task from the database")
     public void shouldRetrieveATask() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
 
         Task task = new Task();
         task.setName("Yassine's task");
@@ -102,8 +122,14 @@ public class TaskReponsitoryTest {
     @Test
     @DisplayName("should delete a task from the database")
     public void shouldDeleteAnEmployee() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
 
         Task task = new Task();
         task.setName("Yassine's task");
@@ -124,11 +150,22 @@ public class TaskReponsitoryTest {
     @Test
     @DisplayName("should retrieve all tasks from the database")
     public void shouldRetrieveAllEmployees() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
 
-        Date startDate2 = new Date("01/01/2024");
-        Date endDate2 = new Date("08/01/2024");
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate2 = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate2 = startDateCalendar.getTime();
 
         Task task = new Task();
         task.setName("Yassine's task");
@@ -141,8 +178,8 @@ public class TaskReponsitoryTest {
         task2.setName("Yassine's task 2");
         task2.setDescription("Small little one 2");
         task2.setProjectId(1L);
-        task2.setStartDate(startDate);
-        task2.setEndDate(endDate);
+        task2.setStartDate(startDate2);
+        task2.setEndDate(endDate2);
 
         taskRepository.saveAll(List.of(task, task2));
 

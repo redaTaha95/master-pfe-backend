@@ -54,6 +54,13 @@ public class TaskService {
         return convertToResponse(task);
     }
 
+    public List<TaskResponse>  getTasksByProjectId(Long id) {
+            List<Task> tasks = taskRepository.findByProjectId(id);
+            return tasks.stream()
+                    .map(this::convertToResponse)
+                    .collect(Collectors.toList());
+    }
+
     public TaskResponse updateTask(Long id, TaskRequest taskRequest) {
 
         ProjectResponse project = projectGateway.getProject(taskRequest.getProjectId());

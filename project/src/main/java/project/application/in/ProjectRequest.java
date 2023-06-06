@@ -6,8 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectRequest {
@@ -17,9 +16,7 @@ public class ProjectRequest {
     @NotBlank(message = "description is required")
     private String description;
 
-    @NotNull(message = "start date is required")
     private Date startDate;
 
-    @NotNull(message = "end date is required")
     private Date endDate;
 }

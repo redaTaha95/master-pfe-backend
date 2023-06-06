@@ -10,15 +10,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import task.application.in.TaskRequest;
+import task.application.out.http.project.ProjectGateway;
 import task.domain.Task;
 import task.domain.TaskService;
 import task.domain.out.TaskRepository;
 import task.domain.TaskResponse;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -29,12 +27,21 @@ public class TaskServiceTest {
 
     @InjectMocks
     private TaskService taskService;
+    @InjectMocks
+    private ProjectGateway projectGateway;
 
     @Test
     @DisplayName("Should save a task")
     public void shouldSaveATask() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
         TaskRequest taskRequest = new TaskRequest();
         taskRequest.setName("Yassine");
         taskRequest.setDescription("Haddaj");
@@ -60,10 +67,23 @@ public class TaskServiceTest {
     @Test
     @DisplayName("Should return all tasks")
     public void shouldReturnAllTasks() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
-        Date startDate2 = new Date("01/01/2024");
-        Date endDate2 = new Date("08/01/2024");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate2 = startDateCalendar.getTime();
+
+        startDateCalendar.set(2024, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate2 = startDateCalendar.getTime();
+
         List<Task> tasks = Arrays.asList(
                 new Task(1L,"P1", "D1",1L, startDate, endDate),
                 new Task(2L,"P2", "D2",1L, startDate2, endDate2)
@@ -79,8 +99,15 @@ public class TaskServiceTest {
     @DisplayName("Should return task by ID")
     public void shouldReturnTaskById() {
         Long TaskId = 1L;
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
         Task task = new Task(1L,"P1", "D1",1L, startDate, endDate);
         Mockito.when(taskRepository.findById(TaskId)).thenReturn(Optional.of(task));
 
@@ -98,10 +125,23 @@ public class TaskServiceTest {
     @DisplayName("Should update task")
     public void shouldUpdateTask() {
         Long taskId = 1L;
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
-        Date oldStartDate = new Date("01/01/2022");
-        Date oldEndDate = new Date("08/01/2022");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date oldStartDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date oldEndDate = startDateCalendar.getTime();
+
         TaskRequest taskRequest = new TaskRequest();
         taskRequest.setName("P1");
         taskRequest.setDescription("D1");
