@@ -31,8 +31,8 @@ public class InterviewServiceTest {
     public void shouldReturnAllInterviews() {
 
         List<Interview> interviews = Arrays.asList(
-          new Interview(1L, "Entretien téléphonique", new Date(2023, Calendar.JULY, 9)),
-          new Interview(2L, "Entretien technique", new Date(2023, Calendar.SEPTEMBER, 9))
+                new Interview(1L, "Entretien téléphonique", new Date(2023, Calendar.JULY, 9)),
+                new Interview(2L, "Entretien technique", new Date(2023, Calendar.SEPTEMBER, 9))
         );
 
         Mockito.when(interviewRepository.findAll()).thenReturn(interviews);

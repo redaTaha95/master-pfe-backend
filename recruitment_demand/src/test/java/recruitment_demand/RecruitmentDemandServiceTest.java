@@ -102,6 +102,7 @@ public class RecruitmentDemandServiceTest {
     @Test
     @DisplayName("should update recruitment demand")
     public void shouldUpdateRecruitmentDemand() {
+
         Long recruitmentDemandId = 1L;
         RecruitmentDemandRequest recruitmentDemandRequest = new RecruitmentDemandRequest();
 
@@ -133,6 +134,7 @@ public class RecruitmentDemandServiceTest {
     @Test
     @DisplayName("should delete recruitment demand")
     public void shouldDeleteRecruitmentDemand() {
+
         Long recruitmentDemandId = 1L;
         Mockito.when(recruitmentDemandRepository.existsById(recruitmentDemandId)).thenReturn(true);
 

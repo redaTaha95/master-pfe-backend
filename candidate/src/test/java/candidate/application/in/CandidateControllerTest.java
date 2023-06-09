@@ -62,9 +62,11 @@ public class CandidateControllerTest {
 
     @Test
     public void shouldReturnCandidateById() throws Exception {
+
         // Arrange
         Long candidateId = 1L;
         CandidateResponse candidateResponse = new CandidateResponse(candidateId, "John", "Doe", "john.doe@example.com", "0666666666", "Marseille, France");
+
         Mockito.when(candidateService.getCandidateById(candidateId)).thenReturn(candidateResponse);
 
         // Act and Assert
@@ -80,6 +82,7 @@ public class CandidateControllerTest {
 
     @Test
     public void shouldCreateCandidate() throws Exception {
+
         // Arrange
         CandidateRequest candidateRequest = new CandidateRequest();
         candidateRequest.setFirstName("John");
@@ -89,6 +92,7 @@ public class CandidateControllerTest {
         candidateRequest.setAddress("Marseille, France");
 
         CandidateResponse createdCandidate = new CandidateResponse(1L, "John", "Doe", "john.doe@example.com", "0699515293", "Marseille, France");
+
         Mockito.when(candidateService.createCandidate(candidateRequest)).thenReturn(createdCandidate);
 
         // Act and Assert
@@ -104,6 +108,7 @@ public class CandidateControllerTest {
 
     @Test
     public void shouldUpdateCandidate() throws Exception {
+
         // Arrange
         Long candidateId = 1L;
         CandidateRequest candidateRequest = new CandidateRequest();
@@ -112,7 +117,6 @@ public class CandidateControllerTest {
         candidateRequest.setEmail("john.doe@example.com");
         candidateRequest.setPhone("0699515293");
         candidateRequest.setAddress("Marseille, France");
-
 
         CandidateResponse updatedCandidate = new CandidateResponse(candidateId, "John", "Doe", "john.doe@example.com", "0666666666", "Paris, France");
 

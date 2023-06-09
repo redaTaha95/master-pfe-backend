@@ -50,6 +50,7 @@ public class CandidateServiceTest {
 
         Long candidateId = 1L;
         Candidate candidate = new Candidate(candidateId, "John", "Doe", "john.doe@example.com", "0522232425", "Fes, Maroc");
+
         Mockito.when(candidateRepository.findById(candidateId)).thenReturn(Optional.of(candidate));
 
         CandidateResponse candidateResponse = candidateService.getCandidateById(candidateId);
@@ -92,6 +93,7 @@ public class CandidateServiceTest {
     @Test
     @DisplayName("Should update candidate")
     public void shouldUpdateCandidate() {
+
         Long candidateId = 1L;
         CandidateRequest candidateRequest = new CandidateRequest();
         candidateRequest.setFirstName("John");
@@ -114,6 +116,7 @@ public class CandidateServiceTest {
     @Test
     @DisplayName("should delete candidate")
     public void shouldDeleteCandidate() {
+
         Long candidateId = 1L;
         Mockito.when(candidateRepository.existsById(candidateId)).thenReturn(true);
 

@@ -129,8 +129,8 @@ public class CandidateRepositoryTest {
         // Save the updated candidate to the database
         Candidate updatedCandidate = candidateRepository.save(savedCandidate);
 
-        // Assert that the saved candidate has the expected values
-        Assertions.assertEquals(savedCandidate.getAddress(), "Seville, Spain");
+        // Assert that the updated candidate has the new address
+        Assertions.assertEquals(updatedCandidate.getAddress(), "Seville, Spain");
     }
 
     @Test
@@ -155,7 +155,7 @@ public class CandidateRepositoryTest {
         Candidate deletedCandidate = candidateRepository.findById(savedCandidate.getId())
                 .orElse(null);
 
-        // Assert that the saved candidate has the expected values
+        // Assert that the deleted candidate is null
         Assertions.assertNull(deletedCandidate);
     }
 

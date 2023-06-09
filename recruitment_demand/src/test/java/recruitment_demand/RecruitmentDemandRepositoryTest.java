@@ -46,7 +46,6 @@ public class RecruitmentDemandRepositoryTest {
         recruitmentDemand1.setStatusOfDemand("En cours");
         recruitmentDemand1.setDateOfDemand(new Date(2023, 5, 7));
 
-        //Create multiple recruitment demands
         RecruitmentDemand recruitmentDemand2 = new RecruitmentDemand();
         recruitmentDemand2.setPostTitle("Software Engineer");
         recruitmentDemand2.setPostDescription("Post Description");
@@ -83,7 +82,7 @@ public class RecruitmentDemandRepositoryTest {
         // Save the recruitment demand to the database
         RecruitmentDemand savedRecruitmentDemand = recruitmentDemandRepository.save(recruitmentDemand);
 
-        // Retrieve the recruitmentDemand from the database
+        // Retrieve the recruitment demand from the database
         RecruitmentDemand retrieveRecruitmentDemand = recruitmentDemandRepository.findById(savedRecruitmentDemand.getId())
                 .orElse(null);
 
@@ -98,7 +97,7 @@ public class RecruitmentDemandRepositoryTest {
     @DisplayName("should save a recruitment demand to the database")
     public void shouldSaveARecruitmentDemand() {
 
-        // Create a new recruitmentDemand
+        // Create a new recruitment demand
         RecruitmentDemand recruitmentDemand = new RecruitmentDemand();
         recruitmentDemand.setPostTitle("Software Developer");
         recruitmentDemand.setPostDescription("Post Description");
@@ -108,10 +107,10 @@ public class RecruitmentDemandRepositoryTest {
         recruitmentDemand.setStatusOfDemand("En cours");
         recruitmentDemand.setDateOfDemand(new Date(2023, 5, 7));
 
-        // Save the recruitmentDemand to the database
+        // Save the recruitment demand to the database
         RecruitmentDemand savedRecruitmentDemand = recruitmentDemandRepository.save(recruitmentDemand);
 
-        // Assert that the saved recruitmentDemand has the expected values
+        // Assert that the saved recruitment demand has the expected values
         Assertions.assertEquals(savedRecruitmentDemand.getPostTitle(), "Software Developer");
         Assertions.assertEquals(savedRecruitmentDemand.getPostDescription(), "Post Description");
         Assertions.assertEquals(savedRecruitmentDemand.getNumberOfProfiles(), 5);
@@ -125,7 +124,7 @@ public class RecruitmentDemandRepositoryTest {
     @DisplayName("should update a recruitment demand in the database")
     public void shouldUpdateARecruitmentDemand() {
 
-        // Create a new recruitmentDemand
+        // Create a new recruitment demand
         RecruitmentDemand recruitmentDemand = new RecruitmentDemand();
         recruitmentDemand.setPostTitle("Software Developer");
         recruitmentDemand.setPostDescription("Post Description");
@@ -135,16 +134,16 @@ public class RecruitmentDemandRepositoryTest {
         recruitmentDemand.setStatusOfDemand("En cours");
         recruitmentDemand.setDateOfDemand(new Date(2023, 5, 7));
 
-        // Save the recruitmentDemand to the database
+        // Save the recruitment demand to the database
         RecruitmentDemand savedRecruitmentDemand = recruitmentDemandRepository.save(recruitmentDemand);
 
-        // Update the recruitmentDemand's address
+        // Update the recruitment demand's level of studies
         savedRecruitmentDemand.setLevelOfStudies("Bac + 3");
 
         // Save the updated recruitmentDemand to the database
         RecruitmentDemand updatedRecruitmentDemand = recruitmentDemandRepository.save(savedRecruitmentDemand);
 
-        // Assert that the saved recruitmentDemand has the expected values
+        // Assert that the updated recruitment demand has the new level of studies
         Assertions.assertEquals(updatedRecruitmentDemand.getLevelOfStudies(), "Bac + 3");
     }
 
@@ -152,7 +151,7 @@ public class RecruitmentDemandRepositoryTest {
     @DisplayName("should delete a recruitment demand from the database")
     public void shouldDeleteARecruitmentDemand() {
 
-        // Create a new recruitmentDemand
+        // Create a new recruitment demand
         RecruitmentDemand recruitmentDemand = new RecruitmentDemand();
         recruitmentDemand.setPostTitle("Software Developer");
         recruitmentDemand.setPostDescription("Post Description");
@@ -162,17 +161,17 @@ public class RecruitmentDemandRepositoryTest {
         recruitmentDemand.setStatusOfDemand("En cours");
         recruitmentDemand.setDateOfDemand(new Date(2023, 5, 7));
 
-        // Save the recruitmentDemand to the database
+        // Save the recruitment demand to the database
         RecruitmentDemand savedRecruitmentDemand = recruitmentDemandRepository.save(recruitmentDemand);
 
-        // Delete the recruitmentDemand from the database
+        // Delete the recruitment demand from the database
         recruitmentDemandRepository.delete(savedRecruitmentDemand);
 
-        // Try to retrieve the deleted recruitmentDemand from the database
+        // Try to retrieve the deleted recruitment demand from the database
         RecruitmentDemand deletedRecruitmentDemand = recruitmentDemandRepository.findById(savedRecruitmentDemand.getId())
                 .orElse(null);
 
-        // Assert that the saved recruitmentDemand has the expected values
+        // Assert that the deleted recruitment demand is null
         Assertions.assertNull(deletedRecruitmentDemand);
     }
 
