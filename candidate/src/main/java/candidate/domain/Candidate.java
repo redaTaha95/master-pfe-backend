@@ -31,4 +31,14 @@ public class Candidate {
 
     @Column(nullable = false)
     private String address;
+
+    @Column(nullable = false)
+    private String sector;
+
+    @Column(nullable = false, name = "number_of_years_of_experience")
+    private Integer numberOfYearsOfExperience;
+
+    @Column(nullable = false, name = "level_of_studies")
+    private String levelOfStudies;
+
 }

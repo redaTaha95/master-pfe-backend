@@ -33,8 +33,8 @@ public class CandidateServiceTest {
     public void shouldReturnAllCandidates() {
 
         List<Candidate> candidates = Arrays.asList(
-                new Candidate(1L, "John", "Doe", "john.doe@example.com", "0666666666", "Marseille, France"),
-                new Candidate(2L, "Pepsi", "Coca", "pepsi.coca@example.com", "0908070605", "Lyon, France")
+                new Candidate(1L, "John", "Doe", "john.doe@example.com", "0666666666", "Marseille, France", "RH", 5, "Bac + 5"),
+                new Candidate(2L, "Pepsi", "Coca", "pepsi.coca@example.com", "0908070605", "Lyon, France", "Commerce", 2, "Bac + 2")
         );
 
         Mockito.when(candidateRepository.findAll()).thenReturn(candidates);
@@ -49,7 +49,7 @@ public class CandidateServiceTest {
     public void shouldReturnCandidateById() {
 
         Long candidateId = 1L;
-        Candidate candidate = new Candidate(candidateId, "John", "Doe", "john.doe@example.com", "0522232425", "Fes, Maroc");
+        Candidate candidate = new Candidate(candidateId, "John", "Doe", "john.doe@example.com", "0522232425", "Fes, Maroc", "Commerce", 2, "Bac + 2");
 
         Mockito.when(candidateRepository.findById(candidateId)).thenReturn(Optional.of(candidate));
 
@@ -61,6 +61,9 @@ public class CandidateServiceTest {
         Assertions.assertEquals(candidate.getEmail(), candidateResponse.getEmail());
         Assertions.assertEquals(candidate.getPhone(), candidateResponse.getPhone());
         Assertions.assertEquals(candidate.getAddress(), candidateResponse.getAddress());
+        Assertions.assertEquals(candidate.getSector(), candidateResponse.getSector());
+        Assertions.assertEquals(candidate.getNumberOfYearsOfExperience(), candidateResponse.getNumberOfYearsOfExperience());
+        Assertions.assertEquals(candidate.getLevelOfStudies(), candidateResponse.getLevelOfStudies());
     }
 
     @Test
@@ -74,6 +77,9 @@ public class CandidateServiceTest {
         candidateRequest.setEmail("john.cena@gmail.com");
         candidateRequest.setPhone("0699887766");
         candidateRequest.setAddress("Lisbone, Potugal");
+        candidateRequest.setSector("Gestion comptabilité");
+        candidateRequest.setNumberOfYearsOfExperience(3);
+        candidateRequest.setLevelOfStudies("Bac + 2");
 
         Candidate savedCandidate = Candidate.builder()
                 .firstName(candidateRequest.getFirstName())
@@ -81,6 +87,9 @@ public class CandidateServiceTest {
                 .email(candidateRequest.getEmail())
                 .phone(candidateRequest.getPhone())
                 .address(candidateRequest.getAddress())
+                .sector(candidateRequest.getSector())
+                .numberOfYearsOfExperience(candidateRequest.getNumberOfYearsOfExperience())
+                .levelOfStudies(candidateRequest.getLevelOfStudies())
                 .build();
 
         Mockito.when(candidateRepository.save(any(Candidate.class))).thenReturn(savedCandidate);
@@ -99,8 +108,11 @@ public class CandidateServiceTest {
         candidateRequest.setFirstName("John");
         candidateRequest.setLastName("Doe");
         candidateRequest.setEmail("john.doe@example.com");
+        candidateRequest.setSector("Logistique");
+        candidateRequest.setNumberOfYearsOfExperience(3);
+        candidateRequest.setLevelOfStudies("Bac + 2");
 
-        Candidate existingCandidate = new Candidate(candidateId, "Old First Name", "Old Last Name", "old.email@example.com", "09080706", "Alger, Alger");
+        Candidate existingCandidate = new Candidate(candidateId, "Old First Name", "Old Last Name", "old.email@example.com", "09080706", "Alger, Alger", "Commerce", 2, "Bac + 2");
         Mockito.when(candidateRepository.findById(candidateId)).thenReturn(Optional.of(existingCandidate));
 
         CandidateResponse updatedCandidateResponse = candidateService.updateCandidate(candidateId, candidateRequest);
@@ -111,6 +123,9 @@ public class CandidateServiceTest {
         Assertions.assertEquals(candidateRequest.getEmail(), updatedCandidateResponse.getEmail());
         Assertions.assertEquals(candidateRequest.getPhone(), updatedCandidateResponse.getPhone());
         Assertions.assertEquals(candidateRequest.getAddress(), updatedCandidateResponse.getAddress());
+        Assertions.assertEquals(candidateRequest.getSector(), updatedCandidateResponse.getSector());
+        Assertions.assertEquals(candidateRequest.getNumberOfYearsOfExperience(), updatedCandidateResponse.getNumberOfYearsOfExperience());
+        Assertions.assertEquals(candidateRequest.getLevelOfStudies(), updatedCandidateResponse.getLevelOfStudies());
     }
 
     @Test

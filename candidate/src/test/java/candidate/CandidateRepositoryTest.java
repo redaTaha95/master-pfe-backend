@@ -41,6 +41,9 @@ public class CandidateRepositoryTest {
         candidate1.setEmail("khamlichiwiam@gmail.com");
         candidate1.setPhone("0691929394");
         candidate1.setAddress("Casablanca, Maroc");
+        candidate1.setSector("Informatique");
+        candidate1.setNumberOfYearsOfExperience(1);
+        candidate1.setLevelOfStudies("Bac + 3");
 
         Candidate candidate2 = new Candidate();
         candidate2.setFirstName("Abdou");
@@ -48,6 +51,9 @@ public class CandidateRepositoryTest {
         candidate2.setEmail("khamlichiabdou@gmail.com");
         candidate2.setPhone("0707070001");
         candidate2.setAddress("Casablanca, Maroc");
+        candidate2.setSector("Informatique");
+        candidate2.setNumberOfYearsOfExperience(0);
+        candidate2.setLevelOfStudies("Bac + 2");
 
         // Save the candidates to the database
         candidateRepository.saveAll(List.of(candidate1, candidate2));
@@ -70,6 +76,9 @@ public class CandidateRepositoryTest {
         candidate.setEmail("janesmith@example.com");
         candidate.setPhone("0001020304");
         candidate.setAddress("Paris, France");
+        candidate.setSector("Informatique");
+        candidate.setNumberOfYearsOfExperience(1);
+        candidate.setLevelOfStudies("Bac + 3");
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);
@@ -96,6 +105,9 @@ public class CandidateRepositoryTest {
         candidate.setEmail("johndoe@example.com");
         candidate.setPhone("1234567890");
         candidate.setAddress("123 Main Street, City, State");
+        candidate.setSector("RH");
+        candidate.setNumberOfYearsOfExperience(1);
+        candidate.setLevelOfStudies("Bac + 3");
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);
@@ -106,6 +118,9 @@ public class CandidateRepositoryTest {
         Assertions.assertEquals(savedCandidate.getEmail(), "johndoe@example.com");
         Assertions.assertEquals(savedCandidate.getPhone(), "1234567890");
         Assertions.assertEquals(savedCandidate.getAddress(), "123 Main Street, City, State");
+        Assertions.assertEquals(savedCandidate.getSector(), "RH");
+        Assertions.assertEquals(savedCandidate.getNumberOfYearsOfExperience(), 1);
+        Assertions.assertEquals(savedCandidate.getLevelOfStudies(), "Bac + 3");
     }
 
     @Test
@@ -119,6 +134,9 @@ public class CandidateRepositoryTest {
         candidate.setEmail("johndoe@example.com");
         candidate.setPhone("1234567890");
         candidate.setAddress("123 Main Street, City, State");
+        candidate.setSector("Finance");
+        candidate.setNumberOfYearsOfExperience(5);
+        candidate.setLevelOfStudies("Bac + 3");
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);
@@ -144,6 +162,9 @@ public class CandidateRepositoryTest {
         candidate.setEmail("johndoe@example.com");
         candidate.setPhone("1234567890");
         candidate.setAddress("123 Main Street, City, State");
+        candidate.setSector("Marketing");
+        candidate.setNumberOfYearsOfExperience(1);
+        candidate.setLevelOfStudies("Bac + 5");
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);

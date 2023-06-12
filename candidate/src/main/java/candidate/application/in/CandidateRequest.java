@@ -2,6 +2,7 @@ package candidate.application.in;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -22,4 +23,13 @@ public class CandidateRequest {
 
     @NotBlank(message = "Address is required")
     private String address;
+
+    @NotBlank(message = "Sector is required")
+    private String sector;
+
+    @NotNull(message = "Number of years of experience is required")
+    private Integer numberOfYearsOfExperience;
+
+    @NotBlank(message = "Level of studies is required")
+    private String levelOfStudies;
 }

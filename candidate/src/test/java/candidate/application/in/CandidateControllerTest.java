@@ -35,8 +35,8 @@ public class CandidateControllerTest {
 
         // Arrange
         List<CandidateResponse> candidateResponses = Arrays.asList(
-                new CandidateResponse(1L, "John", "Doe", "john.doe@example.com", "0099887766", "Casablanca, Maroc"),
-                new CandidateResponse(2L, "Jane", "Smith", "jane.smith@example.com", "0102030405", "Meknes, Maroc")
+                new CandidateResponse(1L, "John", "Doe", "john.doe@example.com", "0099887766", "Casablanca, Maroc", "Commerce", 2, "Bac + 2"),
+                new CandidateResponse(2L, "Jane", "Smith", "jane.smith@example.com", "0102030405", "Meknes, Maroc", "Droit", 5, "Bac + 5")
         );
 
         Mockito.when(candidateService.getAllCandidates()).thenReturn(candidateResponses);
@@ -51,13 +51,19 @@ public class CandidateControllerTest {
                 .andExpect(jsonPath("$[0].email").value("john.doe@example.com"))
                 .andExpect(jsonPath("$[0].phone").value("0099887766"))
                 .andExpect(jsonPath("$[0].address").value("Casablanca, Maroc"))
+                .andExpect(jsonPath("$[0].sector").value("Commerce"))
+                .andExpect(jsonPath("$[0].numberOfYearsOfExperience").value(2))
+                .andExpect(jsonPath("$[0].levelOfStudies").value("Bac + 2"))
 
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].firstName").value("Jane"))
                 .andExpect(jsonPath("$[1].lastName").value("Smith"))
                 .andExpect(jsonPath("$[1].email").value("jane.smith@example.com"))
                 .andExpect(jsonPath("$[1].phone").value("0102030405"))
-                .andExpect(jsonPath("$[1].address").value("Meknes, Maroc"));
+                .andExpect(jsonPath("$[1].address").value("Meknes, Maroc"))
+                .andExpect(jsonPath("$[1].sector").value("Droit"))
+                .andExpect(jsonPath("$[1].numberOfYearsOfExperience").value(5))
+                .andExpect(jsonPath("$[1].levelOfStudies").value("Bac + 5"));
     }
 
     @Test
@@ -65,7 +71,7 @@ public class CandidateControllerTest {
 
         // Arrange
         Long candidateId = 1L;
-        CandidateResponse candidateResponse = new CandidateResponse(candidateId, "John", "Doe", "john.doe@example.com", "0666666666", "Marseille, France");
+        CandidateResponse candidateResponse = new CandidateResponse(candidateId, "John", "Doe", "john.doe@example.com", "0666666666", "Marseille, France", "Audit", 2, "Bac + 2");
 
         Mockito.when(candidateService.getCandidateById(candidateId)).thenReturn(candidateResponse);
 
@@ -77,7 +83,10 @@ public class CandidateControllerTest {
                 .andExpect(jsonPath("$.lastName").value("Doe"))
                 .andExpect(jsonPath("$.email").value("john.doe@example.com"))
                 .andExpect(jsonPath("$.phone").value("0666666666"))
-                .andExpect(jsonPath("$.address").value("Marseille, France"));
+                .andExpect(jsonPath("$.address").value("Marseille, France"))
+                .andExpect(jsonPath("$.sector").value("Audit"))
+                .andExpect(jsonPath("$.numberOfYearsOfExperience").value(2))
+                .andExpect(jsonPath("$.levelOfStudies").value("Bac + 2"));
     }
 
     @Test
@@ -90,8 +99,11 @@ public class CandidateControllerTest {
         candidateRequest.setEmail("john.doe@example.com");
         candidateRequest.setPhone("0699515293");
         candidateRequest.setAddress("Marseille, France");
+        candidateRequest.setSector("Logistique");
+        candidateRequest.setNumberOfYearsOfExperience(3);
+        candidateRequest.setLevelOfStudies("Bac + 2");
 
-        CandidateResponse createdCandidate = new CandidateResponse(1L, "John", "Doe", "john.doe@example.com", "0699515293", "Marseille, France");
+        CandidateResponse createdCandidate = new CandidateResponse(1L, "John", "Doe", "john.doe@example.com", "0699515293", "Marseille, France", "Logistique", 3, "Bac + 2");
 
         Mockito.when(candidateService.createCandidate(candidateRequest)).thenReturn(createdCandidate);
 
@@ -103,7 +115,10 @@ public class CandidateControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.firstName").value("John"))
                 .andExpect(jsonPath("$.lastName").value("Doe"))
-                .andExpect(jsonPath("$.email").value("john.doe@example.com"));
+                .andExpect(jsonPath("$.email").value("john.doe@example.com"))
+                .andExpect(jsonPath("$.sector").value("Logistique"))
+                .andExpect(jsonPath("$.numberOfYearsOfExperience").value(3))
+                .andExpect(jsonPath("$.levelOfStudies").value("Bac + 2"));
     }
 
     @Test
@@ -117,8 +132,11 @@ public class CandidateControllerTest {
         candidateRequest.setEmail("john.doe@example.com");
         candidateRequest.setPhone("0699515293");
         candidateRequest.setAddress("Marseille, France");
+        candidateRequest.setSector("Commerce");
+        candidateRequest.setNumberOfYearsOfExperience(5);
+        candidateRequest.setLevelOfStudies("Bac + 5");
 
-        CandidateResponse updatedCandidate = new CandidateResponse(candidateId, "John", "Doe", "john.doe@example.com", "0666666666", "Paris, France");
+        CandidateResponse updatedCandidate = new CandidateResponse(candidateId, "John", "Doe", "john.doe@example.com", "0666666666", "Paris, France", "Commerce", 5, "Bac + 5");
 
         Mockito.when(candidateService.updateCandidate(candidateId, candidateRequest)).thenReturn(updatedCandidate);
 
@@ -132,7 +150,10 @@ public class CandidateControllerTest {
                 .andExpect(jsonPath("$.lastName").value("Doe"))
                 .andExpect(jsonPath("$.email").value("john.doe@example.com"))
                 .andExpect(jsonPath("$.phone").value("0666666666"))
-                .andExpect(jsonPath("$.address").value("Paris, France"));
+                .andExpect(jsonPath("$.address").value("Paris, France"))
+                .andExpect(jsonPath("$.sector").value("Commerce"))
+                .andExpect(jsonPath("$.numberOfYearsOfExperience").value(5))
+                .andExpect(jsonPath("$.levelOfStudies").value("Bac + 5"));
     }
 
     @Test

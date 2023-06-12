@@ -17,4 +17,7 @@ public class CandidateResponse {
     private String email;
     private String phone;
     private String address;
+    private String sector;
+    private Integer numberOfYearsOfExperience;
+    private String levelOfStudies;
 }

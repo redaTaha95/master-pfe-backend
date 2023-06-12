@@ -76,6 +76,9 @@ public class CandidateService implements ICandidateService {
                 .email(candidateRequest.getEmail())
                 .phone(candidateRequest.getPhone())
                 .address(candidateRequest.getAddress())
+                .sector(candidateRequest.getSector())
+                .numberOfYearsOfExperience(candidateRequest.getNumberOfYearsOfExperience())
+                .levelOfStudies(candidateRequest.getLevelOfStudies())
                 .build();
     }
 
@@ -86,6 +89,9 @@ public class CandidateService implements ICandidateService {
         candidate.setEmail(candidateRequest.getEmail());
         candidate.setPhone(candidateRequest.getPhone());
         candidate.setAddress(candidateRequest.getAddress());
+        candidate.setSector(candidateRequest.getSector());
+        candidate.setNumberOfYearsOfExperience(candidateRequest.getNumberOfYearsOfExperience());
+        candidate.setLevelOfStudies(candidateRequest.getLevelOfStudies());
     }
 
     private CandidateResponse convertToResponse(Candidate candidate) {
@@ -97,6 +103,9 @@ public class CandidateService implements ICandidateService {
                 .email(candidate.getEmail())
                 .phone(candidate.getPhone())
                 .address(candidate.getAddress())
+                .sector(candidate.getSector())
+                .numberOfYearsOfExperience(candidate.getNumberOfYearsOfExperience())
+                .levelOfStudies(candidate.getLevelOfStudies())
                 .build();
     }
 }
