@@ -34,7 +34,7 @@ public class AuthConfig {
                                 "/auth/validate-token",
                                 "/auth/generate-new-token").permitAll()
                         .anyRequest().authenticated()
-                );
+                ).cors(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
