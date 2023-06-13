@@ -16,6 +16,7 @@ public class RecruitmentDemandResponse {
     private Long id;
     private String postTitle;
     private String postDescription;
+    private String department;
     private Integer numberOfProfiles;
     private Integer numberOfYearsOfExperience;
     private String levelOfStudies;

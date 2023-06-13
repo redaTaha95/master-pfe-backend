@@ -73,6 +73,7 @@ public class RecruitmentDemandService implements IRecruitmentDemandService {
         return RecruitmentDemand.builder()
                 .postTitle(recruitmentDemandRequest.getPostTitle())
                 .postDescription(recruitmentDemandRequest.getPostDescription())
+                .department(recruitmentDemandRequest.getDepartment())
                 .numberOfProfiles(recruitmentDemandRequest.getNumberOfProfiles())
                 .numberOfYearsOfExperience(recruitmentDemandRequest.getNumberOfYearsOfExperience())
                 .levelOfStudies(recruitmentDemandRequest.getLevelOfStudies())
@@ -85,6 +86,7 @@ public class RecruitmentDemandService implements IRecruitmentDemandService {
 
         recruitmentDemand.setPostTitle(recruitmentDemandRequest.getPostTitle());
         recruitmentDemand.setPostDescription(recruitmentDemandRequest.getPostDescription());
+        recruitmentDemand.setDepartment(recruitmentDemandRequest.getDepartment());
         recruitmentDemand.setNumberOfProfiles(recruitmentDemandRequest.getNumberOfProfiles());
         recruitmentDemand.setNumberOfYearsOfExperience(recruitmentDemandRequest.getNumberOfYearsOfExperience());
         recruitmentDemand.setLevelOfStudies(recruitmentDemandRequest.getLevelOfStudies());
@@ -98,6 +100,7 @@ public class RecruitmentDemandService implements IRecruitmentDemandService {
                 .id(recruitmentDemand.getId())
                 .postTitle(recruitmentDemand.getPostTitle())
                 .postDescription(recruitmentDemand.getPostDescription())
+                .department(recruitmentDemand.getDepartment())
                 .numberOfProfiles(recruitmentDemand.getNumberOfProfiles())
                 .numberOfYearsOfExperience(recruitmentDemand.getNumberOfYearsOfExperience())
                 .levelOfStudies(recruitmentDemand.getLevelOfStudies())

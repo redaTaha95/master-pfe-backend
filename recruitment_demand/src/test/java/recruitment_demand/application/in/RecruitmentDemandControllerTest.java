@@ -46,8 +46,8 @@ public class RecruitmentDemandControllerTest {
 
         //Arrange
         List<RecruitmentDemandResponse> recruitmentDemandResponse = Arrays.asList(
-                new RecruitmentDemandResponse(1L, "Software Developer", "Post Description", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate),
-                new RecruitmentDemandResponse(2L, "Software Engineer", "Post Description", 1, 3, "Bac + 3", "Annulé", recruitmentDemandDate2)
+                new RecruitmentDemandResponse(1L, "Software Developer", "Post Description", "IT", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate),
+                new RecruitmentDemandResponse(2L, "Software Engineer", "Post Description", "IT", 1, 3, "Bac + 3", "Annulé", recruitmentDemandDate2)
         );
 
         Mockito.when(recruitmentDemandService.getAllRecruitmentDemands()).thenReturn(recruitmentDemandResponse);
@@ -59,6 +59,7 @@ public class RecruitmentDemandControllerTest {
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[0].postTitle").value("Software Developer"))
                 .andExpect(jsonPath("$[0].postDescription").value("Post Description"))
+                .andExpect(jsonPath("$[0].department").value("IT"))
                 .andExpect(jsonPath("$[0].numberOfProfiles").value(5))
                 .andExpect(jsonPath("$[0].numberOfYearsOfExperience").value(2))
                 .andExpect(jsonPath("$[0].levelOfStudies").value("Bac + 5"))
@@ -68,6 +69,7 @@ public class RecruitmentDemandControllerTest {
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].postTitle").value("Software Engineer"))
                 .andExpect(jsonPath("$[1].postDescription").value("Post Description"))
+                .andExpect(jsonPath("$[1].department").value("IT"))
                 .andExpect(jsonPath("$[1].numberOfProfiles").value(1))
                 .andExpect(jsonPath("$[1].numberOfYearsOfExperience").value(3))
                 .andExpect(jsonPath("$[1].levelOfStudies").value("Bac + 3"))
@@ -86,7 +88,7 @@ public class RecruitmentDemandControllerTest {
 
         Date recruitmentDemandDate = recruitmentDemandDateCalendar.getTime();
 
-        RecruitmentDemandResponse recruitmentDemandResponse = new RecruitmentDemandResponse(1L, "Software Developer", "Post Description", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate);
+        RecruitmentDemandResponse recruitmentDemandResponse = new RecruitmentDemandResponse(1L, "Software Developer", "Post Description", "IT", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate);
 
         Mockito.when(recruitmentDemandService.getRecruitmentDemandById(recruitmentDemandId)).thenReturn(recruitmentDemandResponse);
 
@@ -96,6 +98,7 @@ public class RecruitmentDemandControllerTest {
                 .andExpect(jsonPath("$.id").value(recruitmentDemandId.intValue()))
                 .andExpect(jsonPath("$.postTitle").value("Software Developer"))
                 .andExpect(jsonPath("$.postDescription").value("Post Description"))
+                .andExpect(jsonPath("$.department").value("IT"))
                 .andExpect(jsonPath("$.numberOfProfiles").value(5))
                 .andExpect(jsonPath("$.numberOfYearsOfExperience").value(2))
                 .andExpect(jsonPath("$.levelOfStudies").value("Bac + 5"))
@@ -115,13 +118,14 @@ public class RecruitmentDemandControllerTest {
         RecruitmentDemandRequest recruitmentDemandRequest = new RecruitmentDemandRequest();
         recruitmentDemandRequest.setPostTitle("Software Developer");
         recruitmentDemandRequest.setPostDescription("Post Description");
+        recruitmentDemandRequest.setDepartment("IT");
         recruitmentDemandRequest.setNumberOfProfiles(5);
         recruitmentDemandRequest.setNumberOfYearsOfExperience(2);
         recruitmentDemandRequest.setLevelOfStudies("Bac + 5");
         recruitmentDemandRequest.setStatusOfDemand("En cours");
         recruitmentDemandRequest.setDateOfDemand(recruitmentDemandDate);
 
-        RecruitmentDemandResponse createdRecruitmentDemand = new RecruitmentDemandResponse(1L, "Software Developer", "Post Description", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate);
+        RecruitmentDemandResponse createdRecruitmentDemand = new RecruitmentDemandResponse(1L, "Software Developer", "Post Description", "IT", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate);
 
         Mockito.when(recruitmentDemandService.createRecruitmentDemand(recruitmentDemandRequest)).thenReturn(createdRecruitmentDemand);
 
@@ -133,6 +137,7 @@ public class RecruitmentDemandControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.postTitle").value("Software Developer"))
                 .andExpect(jsonPath("$.postDescription").value("Post Description"))
+                .andExpect(jsonPath("$.department").value("IT"))
                 .andExpect(jsonPath("$.numberOfProfiles").value(5))
                 .andExpect(jsonPath("$.numberOfYearsOfExperience").value(2))
                 .andExpect(jsonPath("$.levelOfStudies").value("Bac + 5"))
@@ -153,13 +158,14 @@ public class RecruitmentDemandControllerTest {
         RecruitmentDemandRequest recruitmentDemandRequest = new RecruitmentDemandRequest();
         recruitmentDemandRequest.setPostTitle("Software Developer");
         recruitmentDemandRequest.setPostDescription("Post Description");
+        recruitmentDemandRequest.setDepartment("IT");
         recruitmentDemandRequest.setNumberOfProfiles(5);
         recruitmentDemandRequest.setNumberOfYearsOfExperience(2);
         recruitmentDemandRequest.setLevelOfStudies("Bac + 5");
         recruitmentDemandRequest.setStatusOfDemand("En cours");
         recruitmentDemandRequest.setDateOfDemand(recruitmentDemandDate);
 
-        RecruitmentDemandResponse updatedRecruitmentDemand = new RecruitmentDemandResponse(recruitmentDemandId, "Software Developer", "Post Description", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate);
+        RecruitmentDemandResponse updatedRecruitmentDemand = new RecruitmentDemandResponse(recruitmentDemandId, "Software Developer", "Post Description", "IT", 5, 2, "Bac + 5", "En cours", recruitmentDemandDate);
 
         Mockito.when(recruitmentDemandService.updateRecruitmentDemand(recruitmentDemandId, recruitmentDemandRequest)).thenReturn(updatedRecruitmentDemand);
 
@@ -171,6 +177,7 @@ public class RecruitmentDemandControllerTest {
                 .andExpect(jsonPath("$.id").value(recruitmentDemandId.intValue()))
                 .andExpect(jsonPath("$.postTitle").value("Software Developer"))
                 .andExpect(jsonPath("$.postDescription").value("Post Description"))
+                .andExpect(jsonPath("$.department").value("IT"))
                 .andExpect(jsonPath("$.numberOfProfiles").value(5))
                 .andExpect(jsonPath("$.numberOfYearsOfExperience").value(2))
                 .andExpect(jsonPath("$.levelOfStudies").value("Bac + 5"))

@@ -35,8 +35,8 @@ public class RecruitmentDemandServiceTest {
     public void shouldReturnAllRecruitmentDemand() {
 
         List<RecruitmentDemand> recruitmentDemands = Arrays.asList(
-                new RecruitmentDemand(1L, "Software Developer", "Post Description", 5, 2, "Bac + 5", "En cours", new Date()),
-                new RecruitmentDemand(2L, "Software Engineer", "Post Description", 1, 2, "Bac + 2", "En cours", new Date())
+                new RecruitmentDemand(1L, "Software Developer", "Post Description", "IT", 5, 2, "Bac + 5", "En cours", new Date()),
+                new RecruitmentDemand(2L, "Software Engineer", "Post Description", "IT", 1, 2, "Bac + 2", "En cours", new Date())
         );
 
         Mockito.when(recruitmentDemandRepository.findAll()).thenReturn(recruitmentDemands);
@@ -51,7 +51,7 @@ public class RecruitmentDemandServiceTest {
     public void shouldReturnRecruitmentDemandById() {
 
         Long recruitmentDemandId = 1L;
-        RecruitmentDemand recruitmentDemand = new RecruitmentDemand(recruitmentDemandId, "Software Developer", "Post Description", 5, 2, "Bac + 5", "En cours", new Date());
+        RecruitmentDemand recruitmentDemand = new RecruitmentDemand(recruitmentDemandId, "Software Developer", "Post Description", "IT", 5, 2, "Bac + 5", "En cours", new Date());
 
         Mockito.when(recruitmentDemandRepository.findById(recruitmentDemandId)).thenReturn(Optional.of(recruitmentDemand));
 
@@ -60,6 +60,7 @@ public class RecruitmentDemandServiceTest {
         Assertions.assertEquals(recruitmentDemand.getId(), recruitmentDemandResponse.getId());
         Assertions.assertEquals(recruitmentDemand.getPostTitle(), recruitmentDemandResponse.getPostTitle());
         Assertions.assertEquals(recruitmentDemand.getPostDescription(), recruitmentDemandResponse.getPostDescription());
+        Assertions.assertEquals(recruitmentDemand.getDepartment(), recruitmentDemandResponse.getDepartment());
         Assertions.assertEquals(recruitmentDemand.getNumberOfProfiles(), recruitmentDemandResponse.getNumberOfProfiles());
         Assertions.assertEquals(recruitmentDemand.getNumberOfYearsOfExperience(), recruitmentDemandResponse.getNumberOfYearsOfExperience());
         Assertions.assertEquals(recruitmentDemand.getLevelOfStudies(), recruitmentDemandResponse.getLevelOfStudies());
@@ -76,6 +77,7 @@ public class RecruitmentDemandServiceTest {
 
         recruitmentDemandRequest.setPostTitle("Post Title");
         recruitmentDemandRequest.setPostDescription("Post Description");
+        recruitmentDemandRequest.setDepartment("IT");
         recruitmentDemandRequest.setNumberOfProfiles(3);
         recruitmentDemandRequest.setNumberOfYearsOfExperience(4);
         recruitmentDemandRequest.setLevelOfStudies("Bac + 4");
@@ -85,6 +87,7 @@ public class RecruitmentDemandServiceTest {
         RecruitmentDemand savedRecruitmentDemand = RecruitmentDemand.builder()
                 .postTitle(recruitmentDemandRequest.getPostTitle())
                 .postDescription(recruitmentDemandRequest.getPostDescription())
+                .department(recruitmentDemandRequest.getDepartment())
                 .numberOfProfiles(recruitmentDemandRequest.getNumberOfProfiles())
                 .numberOfYearsOfExperience(recruitmentDemandRequest.getNumberOfYearsOfExperience())
                 .levelOfStudies(recruitmentDemandRequest.getLevelOfStudies())
@@ -108,13 +111,14 @@ public class RecruitmentDemandServiceTest {
 
         recruitmentDemandRequest.setPostTitle("Title");
         recruitmentDemandRequest.setPostDescription("Description");
+        recruitmentDemandRequest.setDepartment("IT");
         recruitmentDemandRequest.setNumberOfProfiles(3);
         recruitmentDemandRequest.setNumberOfYearsOfExperience(4);
         recruitmentDemandRequest.setLevelOfStudies("Bac + 4");
         recruitmentDemandRequest.setStatusOfDemand("Annulé");
         recruitmentDemandRequest.setDateOfDemand(new Date());
 
-        RecruitmentDemand existingRecruitmentDemand = new RecruitmentDemand(recruitmentDemandId, "Old Title", "Old Description", 5, 2, "Bac + 5", "En cours", new Date());
+        RecruitmentDemand existingRecruitmentDemand = new RecruitmentDemand(recruitmentDemandId, "Old Title", "Old Description", "IT", 5, 2, "Bac + 5", "En cours", new Date());
 
         Mockito.when(recruitmentDemandRepository.findById(recruitmentDemandId)).thenReturn(Optional.of(existingRecruitmentDemand));
 
@@ -123,6 +127,7 @@ public class RecruitmentDemandServiceTest {
         Assertions.assertEquals(existingRecruitmentDemand.getId(), updatedRecruitmentDemandResponse.getId());
         Assertions.assertEquals(existingRecruitmentDemand.getPostTitle(), updatedRecruitmentDemandResponse.getPostTitle());
         Assertions.assertEquals(existingRecruitmentDemand.getPostDescription(), updatedRecruitmentDemandResponse.getPostDescription());
+        Assertions.assertEquals(existingRecruitmentDemand.getDepartment(), updatedRecruitmentDemandResponse.getDepartment());
         Assertions.assertEquals(existingRecruitmentDemand.getNumberOfProfiles(), updatedRecruitmentDemandResponse.getNumberOfProfiles());
         Assertions.assertEquals(existingRecruitmentDemand.getNumberOfYearsOfExperience(), updatedRecruitmentDemandResponse.getNumberOfYearsOfExperience());
         Assertions.assertEquals(existingRecruitmentDemand.getLevelOfStudies(), updatedRecruitmentDemandResponse.getLevelOfStudies());

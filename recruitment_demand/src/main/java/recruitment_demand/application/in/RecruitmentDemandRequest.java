@@ -15,6 +15,9 @@ public class RecruitmentDemandRequest {
     @NotBlank(message = "Post description is required")
     private String postDescription;
 
+    @NotBlank(message = "Department is required")
+    private String department;
+
     @NotNull(message = "Number of profiles is required")
     private Integer numberOfProfiles;
 

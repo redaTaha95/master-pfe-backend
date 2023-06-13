@@ -40,6 +40,7 @@ public class RecruitmentDemandRepositoryTest {
         RecruitmentDemand recruitmentDemand1 = new RecruitmentDemand();
         recruitmentDemand1.setPostTitle("Software Developer");
         recruitmentDemand1.setPostDescription("Post Description");
+        recruitmentDemand1.setDepartment("IT");
         recruitmentDemand1.setNumberOfProfiles(5);
         recruitmentDemand1.setNumberOfYearsOfExperience(2);
         recruitmentDemand1.setLevelOfStudies("Bac + 5");
@@ -49,6 +50,7 @@ public class RecruitmentDemandRepositoryTest {
         RecruitmentDemand recruitmentDemand2 = new RecruitmentDemand();
         recruitmentDemand2.setPostTitle("Software Engineer");
         recruitmentDemand2.setPostDescription("Post Description");
+        recruitmentDemand2.setDepartment("IT");
         recruitmentDemand2.setNumberOfProfiles(1);
         recruitmentDemand2.setNumberOfYearsOfExperience(1);
         recruitmentDemand2.setLevelOfStudies("Bac + 5");
@@ -73,6 +75,7 @@ public class RecruitmentDemandRepositoryTest {
         RecruitmentDemand recruitmentDemand = new RecruitmentDemand();
         recruitmentDemand.setPostTitle("Software Developer");
         recruitmentDemand.setPostDescription("Post Description");
+        recruitmentDemand.setDepartment("IT");
         recruitmentDemand.setNumberOfProfiles(5);
         recruitmentDemand.setNumberOfYearsOfExperience(2);
         recruitmentDemand.setLevelOfStudies("Bac + 5");
@@ -101,6 +104,7 @@ public class RecruitmentDemandRepositoryTest {
         RecruitmentDemand recruitmentDemand = new RecruitmentDemand();
         recruitmentDemand.setPostTitle("Software Developer");
         recruitmentDemand.setPostDescription("Post Description");
+        recruitmentDemand.setDepartment("IT");
         recruitmentDemand.setNumberOfProfiles(5);
         recruitmentDemand.setNumberOfYearsOfExperience(2);
         recruitmentDemand.setLevelOfStudies("Bac + 5");
@@ -113,6 +117,7 @@ public class RecruitmentDemandRepositoryTest {
         // Assert that the saved recruitment demand has the expected values
         Assertions.assertEquals(savedRecruitmentDemand.getPostTitle(), "Software Developer");
         Assertions.assertEquals(savedRecruitmentDemand.getPostDescription(), "Post Description");
+        Assertions.assertEquals(savedRecruitmentDemand.getDepartment(), "IT");
         Assertions.assertEquals(savedRecruitmentDemand.getNumberOfProfiles(), 5);
         Assertions.assertEquals(savedRecruitmentDemand.getNumberOfYearsOfExperience(), 2);
         Assertions.assertEquals(savedRecruitmentDemand.getLevelOfStudies(), "Bac + 5");
@@ -128,6 +133,7 @@ public class RecruitmentDemandRepositoryTest {
         RecruitmentDemand recruitmentDemand = new RecruitmentDemand();
         recruitmentDemand.setPostTitle("Software Developer");
         recruitmentDemand.setPostDescription("Post Description");
+        recruitmentDemand.setDepartment("IT");
         recruitmentDemand.setNumberOfProfiles(5);
         recruitmentDemand.setNumberOfYearsOfExperience(2);
         recruitmentDemand.setLevelOfStudies("Bac + 5");
@@ -155,6 +161,7 @@ public class RecruitmentDemandRepositoryTest {
         RecruitmentDemand recruitmentDemand = new RecruitmentDemand();
         recruitmentDemand.setPostTitle("Software Developer");
         recruitmentDemand.setPostDescription("Post Description");
+        recruitmentDemand.setDepartment("IT");
         recruitmentDemand.setNumberOfProfiles(5);
         recruitmentDemand.setNumberOfYearsOfExperience(2);
         recruitmentDemand.setLevelOfStudies("Bac + 5");

@@ -25,6 +25,9 @@ public class RecruitmentDemand {
     @Column(nullable = false, name = "post_description")
     private String postDescription;
 
+    @Column(nullable = false)
+    private String department;
+
     @Column(nullable = false, name = "number_of_profiles")
     private Integer numberOfProfiles;
 
