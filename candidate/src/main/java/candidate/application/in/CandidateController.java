@@ -36,6 +36,14 @@ public class CandidateController {
         return ResponseEntity.ok(candidate);
     }
 
+    @GetMapping("recruitment_demand/{id}")
+    public ResponseEntity<List<CandidateResponse>> getCandidatesByRecruitmentDemandId(@PathVariable @Min(value = 1, message = "Invalid recruitment demand ID") Long id) {
+
+        List<CandidateResponse> candidates = candidateService.getCandidatesByRecruitmentDemandId(id);
+
+        return ResponseEntity.ok(candidates);
+    }
+
     @PostMapping
     public ResponseEntity<CandidateResponse> createCandidate(@Valid @RequestBody CandidateRequest candidateRequest) {
 

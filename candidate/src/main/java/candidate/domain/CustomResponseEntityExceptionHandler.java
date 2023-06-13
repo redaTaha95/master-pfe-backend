@@ -34,6 +34,14 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return handleExceptionInternal(e, errorResponse, null, HttpStatus.NOT_FOUND, exchange).block();
     }
 
+    @ExceptionHandler(RecruitmentDemandNotFoundException.class)
+    public ResponseEntity<Object> handleRecruitmentDemandNotFoundException(RecruitmentDemandNotFoundException e, ServerWebExchange exchange) {
+        String error = e.getMessage();
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, error);
+
+        return handleExceptionInternal(e, errorResponse, null, HttpStatus.NOT_FOUND, exchange).block();
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleValidationError(ConstraintViolationException exception) {
 

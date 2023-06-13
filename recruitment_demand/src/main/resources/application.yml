@@ -2,7 +2,7 @@ server:
   port: 8091
 spring:
   application:
-    name: recruitment_demand-service
+    name: recruitment-demand-service
   datasource:
     password: root
     url: jdbc:postgresql://localhost:5432/recruitment_demand

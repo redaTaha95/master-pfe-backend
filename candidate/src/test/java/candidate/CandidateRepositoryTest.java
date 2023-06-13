@@ -44,6 +44,7 @@ public class CandidateRepositoryTest {
         candidate1.setSector("Informatique");
         candidate1.setNumberOfYearsOfExperience(1);
         candidate1.setLevelOfStudies("Bac + 3");
+        candidate1.setRecruitmentDemandId(1L);
 
         Candidate candidate2 = new Candidate();
         candidate2.setFirstName("Abdou");
@@ -54,6 +55,7 @@ public class CandidateRepositoryTest {
         candidate2.setSector("Informatique");
         candidate2.setNumberOfYearsOfExperience(0);
         candidate2.setLevelOfStudies("Bac + 2");
+        candidate2.setRecruitmentDemandId(1L);
 
         // Save the candidates to the database
         candidateRepository.saveAll(List.of(candidate1, candidate2));
@@ -79,6 +81,7 @@ public class CandidateRepositoryTest {
         candidate.setSector("Informatique");
         candidate.setNumberOfYearsOfExperience(1);
         candidate.setLevelOfStudies("Bac + 3");
+        candidate.setRecruitmentDemandId(1L);
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);
@@ -108,6 +111,7 @@ public class CandidateRepositoryTest {
         candidate.setSector("RH");
         candidate.setNumberOfYearsOfExperience(1);
         candidate.setLevelOfStudies("Bac + 3");
+        candidate.setRecruitmentDemandId(1L);
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);
@@ -121,6 +125,7 @@ public class CandidateRepositoryTest {
         Assertions.assertEquals(savedCandidate.getSector(), "RH");
         Assertions.assertEquals(savedCandidate.getNumberOfYearsOfExperience(), 1);
         Assertions.assertEquals(savedCandidate.getLevelOfStudies(), "Bac + 3");
+        Assertions.assertEquals(savedCandidate.getRecruitmentDemandId(), 1);
     }
 
     @Test
@@ -137,6 +142,7 @@ public class CandidateRepositoryTest {
         candidate.setSector("Finance");
         candidate.setNumberOfYearsOfExperience(5);
         candidate.setLevelOfStudies("Bac + 3");
+        candidate.setRecruitmentDemandId(1L);
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);
@@ -165,6 +171,7 @@ public class CandidateRepositoryTest {
         candidate.setSector("Marketing");
         candidate.setNumberOfYearsOfExperience(1);
         candidate.setLevelOfStudies("Bac + 5");
+        candidate.setRecruitmentDemandId(1L);
 
         // Save the candidate to the database
         Candidate savedCandidate = candidateRepository.save(candidate);

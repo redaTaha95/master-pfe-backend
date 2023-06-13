@@ -1,6 +1,8 @@
 package candidate.domain;
 
 import candidate.application.in.CandidateRequest;
+import candidate.application.out.http.recruitment_demand.RecruitmentDemandGateway;
+import candidate.application.out.http.recruitment_demand.RecruitmentDemandResponse;
 import candidate.domain.out.CandidateRepository;
 import candidate.domain.out.ICandidateService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 public class CandidateService implements ICandidateService {
 
     private final CandidateRepository candidateRepository;
+    private final RecruitmentDemandGateway recruitmentDemandGateway;
 
     @Override
     public List<CandidateResponse> getAllCandidates() {
@@ -34,22 +37,50 @@ public class CandidateService implements ICandidateService {
     }
 
     @Override
+    public List<CandidateResponse> getCandidatesByRecruitmentDemandId(Long id) {
+
+        List<Candidate> candidates = candidateRepository.findByRecruitmentDemandId(id);
+
+        return candidates.stream()
+                .map(this::convertToResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public CandidateResponse createCandidate(CandidateRequest candidateRequest) {
 
-        Candidate candidate = buildCandidateFromRequest(candidateRequest);
-        Candidate savedCandidate = candidateRepository.save(candidate);
+        RecruitmentDemandResponse recruitmentDemand = recruitmentDemandGateway.getRecruitmentDemand(candidateRequest.getRecruitmentDemandId());
 
-        return convertToResponse(savedCandidate);
+        if (recruitmentDemand != null) {
+
+            Candidate candidate = buildCandidateFromRequest(candidateRequest);
+            Candidate savedCandidate = candidateRepository.save(candidate);
+
+            return convertToResponse(savedCandidate);
+        }
+        else {
+            throw new RecruitmentDemandNotFoundException("Recruitment demand not found");
+        }
+
     }
 
     @Override
     public CandidateResponse updateCandidate(Long id, CandidateRequest candidateRequest) {
 
-        Candidate candidate = getCandidateByIdIfExists(id);
-        updateCandidateFromRequest(candidate, candidateRequest);
-        candidateRepository.save(candidate);
+        RecruitmentDemandResponse recruitmentDemand = recruitmentDemandGateway.getRecruitmentDemand(candidateRequest.getRecruitmentDemandId());
 
-        return convertToResponse(candidate);
+        if (recruitmentDemand != null) {
+
+            Candidate candidate = getCandidateByIdIfExists(id);
+            updateCandidateFromRequest(candidate, candidateRequest);
+            candidateRepository.save(candidate);
+
+            return convertToResponse(candidate);
+        }
+        else {
+            throw new RecruitmentDemandNotFoundException("Recruitment demand not found");
+        }
     }
 
     @Override
@@ -68,7 +99,7 @@ public class CandidateService implements ICandidateService {
                 .orElseThrow(() -> new CandidateNotFoundException("Candidate not found with id: " + id));
     }
 
-    private Candidate buildCandidateFromRequest(CandidateRequest candidateRequest) {
+    private Candidate buildCandidateFromRequest(CandidateRequest candidateRequest ) {
 
         return Candidate.builder()
                 .firstName(candidateRequest.getFirstName())
@@ -79,6 +110,7 @@ public class CandidateService implements ICandidateService {
                 .sector(candidateRequest.getSector())
                 .numberOfYearsOfExperience(candidateRequest.getNumberOfYearsOfExperience())
                 .levelOfStudies(candidateRequest.getLevelOfStudies())
+                .recruitmentDemandId(candidateRequest.getRecruitmentDemandId())
                 .build();
     }
 
@@ -92,6 +124,7 @@ public class CandidateService implements ICandidateService {
         candidate.setSector(candidateRequest.getSector());
         candidate.setNumberOfYearsOfExperience(candidateRequest.getNumberOfYearsOfExperience());
         candidate.setLevelOfStudies(candidateRequest.getLevelOfStudies());
+        candidate.setRecruitmentDemandId(candidateRequest.getRecruitmentDemandId());
     }
 
     private CandidateResponse convertToResponse(Candidate candidate) {
@@ -106,6 +139,7 @@ public class CandidateService implements ICandidateService {
                 .sector(candidate.getSector())
                 .numberOfYearsOfExperience(candidate.getNumberOfYearsOfExperience())
                 .levelOfStudies(candidate.getLevelOfStudies())
+                .recruitmentDemandId(candidate.getRecruitmentDemandId())
                 .build();
     }
 }

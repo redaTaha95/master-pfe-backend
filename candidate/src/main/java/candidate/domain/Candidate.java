@@ -41,4 +41,6 @@ public class Candidate {
     @Column(nullable = false, name = "level_of_studies")
     private String levelOfStudies;
 
+    @Column(nullable = false, name = "recruitment_demand_id")
+    private Long recruitmentDemandId;
 }

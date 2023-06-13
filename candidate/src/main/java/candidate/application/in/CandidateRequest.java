@@ -3,9 +3,15 @@ package candidate.application.in;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CandidateRequest {
 
     @NotBlank(message = "First name is required")
@@ -32,4 +38,8 @@ public class CandidateRequest {
 
     @NotBlank(message = "Level of studies is required")
     private String levelOfStudies;
+
+    @NotNull(message = "Recruitment demand id is required")
+    private Long recruitmentDemandId;
+
 }

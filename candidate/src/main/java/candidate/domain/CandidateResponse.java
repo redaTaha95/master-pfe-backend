@@ -20,4 +20,5 @@ public class CandidateResponse {
     private String sector;
     private Integer numberOfYearsOfExperience;
     private String levelOfStudies;
+    private Long recruitmentDemandId;
 }

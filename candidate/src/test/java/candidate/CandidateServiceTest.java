@@ -1,6 +1,8 @@
 package candidate;
 
 import candidate.application.in.CandidateRequest;
+import candidate.application.out.http.recruitment_demand.RecruitmentDemandGateway;
+import candidate.application.out.http.recruitment_demand.RecruitmentDemandResponse;
 import candidate.domain.Candidate;
 import candidate.domain.CandidateResponse;
 import candidate.domain.CandidateService;
@@ -19,11 +21,15 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+
 @ExtendWith(MockitoExtension.class)
 public class CandidateServiceTest {
 
     @Mock
     private CandidateRepository candidateRepository;
+
+    @Mock
+    private RecruitmentDemandGateway recruitmentDemandGateway;
 
     @InjectMocks
     private CandidateService candidateService;
@@ -33,8 +39,8 @@ public class CandidateServiceTest {
     public void shouldReturnAllCandidates() {
 
         List<Candidate> candidates = Arrays.asList(
-                new Candidate(1L, "John", "Doe", "john.doe@example.com", "0666666666", "Marseille, France", "RH", 5, "Bac + 5"),
-                new Candidate(2L, "Pepsi", "Coca", "pepsi.coca@example.com", "0908070605", "Lyon, France", "Commerce", 2, "Bac + 2")
+                new Candidate(1L, "John", "Doe", "john.doe@example.com", "0666666666", "Marseille, France", "RH", 5, "Bac + 5", 1L),
+                new Candidate(2L, "Pepsi", "Coca", "pepsi.coca@example.com", "0908070605", "Lyon, France", "Commerce", 2, "Bac + 2", 1L)
         );
 
         Mockito.when(candidateRepository.findAll()).thenReturn(candidates);
@@ -49,7 +55,7 @@ public class CandidateServiceTest {
     public void shouldReturnCandidateById() {
 
         Long candidateId = 1L;
-        Candidate candidate = new Candidate(candidateId, "John", "Doe", "john.doe@example.com", "0522232425", "Fes, Maroc", "Commerce", 2, "Bac + 2");
+        Candidate candidate = new Candidate(candidateId, "John", "Doe", "john.doe@example.com", "0522232425", "Fes, Maroc", "Commerce", 2, "Bac + 2", 1L);
 
         Mockito.when(candidateRepository.findById(candidateId)).thenReturn(Optional.of(candidate));
 
@@ -64,6 +70,7 @@ public class CandidateServiceTest {
         Assertions.assertEquals(candidate.getSector(), candidateResponse.getSector());
         Assertions.assertEquals(candidate.getNumberOfYearsOfExperience(), candidateResponse.getNumberOfYearsOfExperience());
         Assertions.assertEquals(candidate.getLevelOfStudies(), candidateResponse.getLevelOfStudies());
+        Assertions.assertEquals(candidate.getRecruitmentDemandId(), candidateResponse.getRecruitmentDemandId());
     }
 
     @Test
@@ -71,7 +78,6 @@ public class CandidateServiceTest {
     public void shouldSaveCandidate() {
 
         CandidateRequest candidateRequest = new CandidateRequest();
-
         candidateRequest.setFirstName("John");
         candidateRequest.setLastName("Cena");
         candidateRequest.setEmail("john.cena@gmail.com");
@@ -80,6 +86,7 @@ public class CandidateServiceTest {
         candidateRequest.setSector("Gestion comptabilité");
         candidateRequest.setNumberOfYearsOfExperience(3);
         candidateRequest.setLevelOfStudies("Bac + 2");
+        candidateRequest.setRecruitmentDemandId(1L);
 
         Candidate savedCandidate = Candidate.builder()
                 .firstName(candidateRequest.getFirstName())
@@ -90,9 +97,13 @@ public class CandidateServiceTest {
                 .sector(candidateRequest.getSector())
                 .numberOfYearsOfExperience(candidateRequest.getNumberOfYearsOfExperience())
                 .levelOfStudies(candidateRequest.getLevelOfStudies())
+                .recruitmentDemandId(candidateRequest.getRecruitmentDemandId())
                 .build();
 
         Mockito.when(candidateRepository.save(any(Candidate.class))).thenReturn(savedCandidate);
+        Mockito.doReturn(new RecruitmentDemandResponse())
+                .when(recruitmentDemandGateway)
+                .getRecruitmentDemand(Mockito.anyLong());
 
         CandidateResponse candidate =candidateService.createCandidate(candidateRequest);
 
@@ -108,12 +119,19 @@ public class CandidateServiceTest {
         candidateRequest.setFirstName("John");
         candidateRequest.setLastName("Doe");
         candidateRequest.setEmail("john.doe@example.com");
+        candidateRequest.setPhone("0908070600");
+        candidateRequest.setAddress("Safi, Maroc");
         candidateRequest.setSector("Logistique");
         candidateRequest.setNumberOfYearsOfExperience(3);
         candidateRequest.setLevelOfStudies("Bac + 2");
+        candidateRequest.setRecruitmentDemandId(1L);
 
-        Candidate existingCandidate = new Candidate(candidateId, "Old First Name", "Old Last Name", "old.email@example.com", "09080706", "Alger, Alger", "Commerce", 2, "Bac + 2");
+        Candidate existingCandidate = new Candidate(candidateId, "Old First Name", "Old Last Name", "old.email@example.com", "09080706", "Alger, Alger", "Commerce", 2, "Bac + 2", 1L);
+
         Mockito.when(candidateRepository.findById(candidateId)).thenReturn(Optional.of(existingCandidate));
+        Mockito.doReturn(new RecruitmentDemandResponse())
+                .when(recruitmentDemandGateway)
+                .getRecruitmentDemand(Mockito.anyLong());
 
         CandidateResponse updatedCandidateResponse = candidateService.updateCandidate(candidateId, candidateRequest);
 
@@ -126,6 +144,7 @@ public class CandidateServiceTest {
         Assertions.assertEquals(candidateRequest.getSector(), updatedCandidateResponse.getSector());
         Assertions.assertEquals(candidateRequest.getNumberOfYearsOfExperience(), updatedCandidateResponse.getNumberOfYearsOfExperience());
         Assertions.assertEquals(candidateRequest.getLevelOfStudies(), updatedCandidateResponse.getLevelOfStudies());
+        Assertions.assertEquals(candidateRequest.getRecruitmentDemandId(), updatedCandidateResponse.getRecruitmentDemandId());
     }
 
     @Test
@@ -133,6 +152,7 @@ public class CandidateServiceTest {
     public void shouldDeleteCandidate() {
 
         Long candidateId = 1L;
+
         Mockito.when(candidateRepository.existsById(candidateId)).thenReturn(true);
 
         candidateService.deleteCandidate(candidateId);
