@@ -24,4 +24,7 @@ public class Interview {
 
     @Column(nullable = false)
     private Date interviewDate;
+
+    @Column(nullable = false, name = "candidate_id")
+    private Long candidateId;
 }

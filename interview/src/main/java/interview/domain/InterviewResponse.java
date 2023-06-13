@@ -16,4 +16,5 @@ public class InterviewResponse {
     private Long id;
     private String interviewTitle;
     private Date interviewDate;
+    private Long candidateId;
 }

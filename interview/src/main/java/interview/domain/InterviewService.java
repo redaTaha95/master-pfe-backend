@@ -1,6 +1,8 @@
 package interview.domain;
 
 import interview.application.in.InterviewRequest;
+import interview.application.out.http.candidate.CandidateGateway;
+import interview.application.out.http.candidate.CandidateResponse;
 import interview.domain.out.IInterviewService;
 import interview.domain.out.InterviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 public class InterviewService implements IInterviewService {
 
     private final InterviewRepository interviewRepository;
+    private final CandidateGateway candidateGateway;
 
     @Override
     public List<InterviewResponse> getAllInterviews() {
@@ -34,22 +37,48 @@ public class InterviewService implements IInterviewService {
     }
 
     @Override
+    public List<InterviewResponse> getInterviewsByCandidateId(Long id) {
+
+        List<Interview> interviews = interviewRepository.findByCandidateId(id);
+
+        return interviews.stream()
+                .map(this::convertToResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public InterviewResponse createInterview(InterviewRequest interviewRequest) {
 
-        Interview interview = buildInterviewFromRequest(interviewRequest);
-        Interview savedInterview = interviewRepository.save(interview);
+        CandidateResponse candidate = candidateGateway.getCandidate(interviewRequest.getCandidateId());
 
-        return convertToResponse(savedInterview);
+        if (candidate != null) {
+
+            Interview interview = buildInterviewFromRequest(interviewRequest);
+            Interview savedInterview = interviewRepository.save(interview);
+
+            return convertToResponse(savedInterview);
+        }
+        else {
+            throw new CandidateNotFoundException("Candidate not found");
+        }
     }
 
     @Override
     public InterviewResponse updateInterview(Long id, InterviewRequest interviewRequest) {
 
-        Interview interview = getInterviewByIdIfExists(id);
-        updateInterviewFromRequest(interview, interviewRequest);
-        interviewRepository.save(interview);
+        CandidateResponse candidate = candidateGateway.getCandidate(interviewRequest.getCandidateId());
 
-        return convertToResponse(interview);
+        if (candidate != null) {
+
+            Interview interview = getInterviewByIdIfExists(id);
+            updateInterviewFromRequest(interview, interviewRequest);
+            interviewRepository.save(interview);
+
+            return convertToResponse(interview);
+        }
+        else {
+            throw new CandidateNotFoundException("Candidate not found");
+        }
     }
 
     @Override
@@ -73,6 +102,7 @@ public class InterviewService implements IInterviewService {
         return Interview.builder()
                 .interviewTitle(interviewRequest.getInterviewTitle())
                 .interviewDate(interviewRequest.getInterviewDate())
+                .candidateId(interviewRequest.getCandidateId())
                 .build();
     }
 
@@ -80,6 +110,7 @@ public class InterviewService implements IInterviewService {
 
         interview.setInterviewTitle(interviewRequest.getInterviewTitle());
         interview.setInterviewDate(interviewRequest.getInterviewDate());
+        interview.setCandidateId(interviewRequest.getCandidateId());
     }
 
     private InterviewResponse convertToResponse(Interview interview) {
@@ -88,6 +119,7 @@ public class InterviewService implements IInterviewService {
                 .id(interview.getId())
                 .interviewTitle(interview.getInterviewTitle())
                 .interviewDate(interview.getInterviewDate())
+                .candidateId(interview.getCandidateId())
                 .build();
     }
 }

@@ -40,10 +40,12 @@ public class InterviewRepositoryTest {
         Interview interview1 = new Interview();
         interview1.setInterviewTitle("Entretien telephonique");
         interview1.setInterviewDate(new Date(2023, 7, 7));
+        interview1.setCandidateId(1L);
 
         Interview interview2 = new Interview();
         interview2.setInterviewTitle("Entretien technique");
         interview2.setInterviewDate(new Date(2023, 6, 7));
+        interview2.setCandidateId(1L);
 
         // Save the interviews to the database
         interviewRepository.saveAll(List.of(interview1, interview2));
@@ -63,6 +65,7 @@ public class InterviewRepositoryTest {
         Interview interview = new Interview();
         interview.setInterviewTitle("Entretien RH");
         interview.setInterviewDate(new Date(2024, 7, 20));
+        interview.setCandidateId(1L);
 
         // Save the interview to the database
         Interview savedInterview = interviewRepository.save(interview);
@@ -86,6 +89,7 @@ public class InterviewRepositoryTest {
         Interview interview = new Interview();
         interview.setInterviewTitle("Entretien d'embauche");
         interview.setInterviewDate(new Date(2023, 7, 9));
+        interview.setCandidateId(1L);
 
         // Save the interview to the database
         Interview savedInterview = interviewRepository.save(interview);
@@ -93,6 +97,7 @@ public class InterviewRepositoryTest {
         // Assert that the saved recruitmentDemand has the expected values
         Assertions.assertEquals(savedInterview.getInterviewTitle(), "Entretien d'embauche");
         Assertions.assertEquals(savedInterview.getInterviewDate(), new Date(2023, 7, 9));
+        Assertions.assertEquals(savedInterview.getCandidateId(), 1L);
     }
 
     @Test
@@ -103,6 +108,7 @@ public class InterviewRepositoryTest {
         Interview interview = new Interview();
         interview.setInterviewTitle("Entretien d'embauche");
         interview.setInterviewDate(new Date(2023, 7, 9));
+        interview.setCandidateId(1L);
 
         // Save the interview to the database
         Interview savedInterview = interviewRepository.save(interview);
@@ -125,6 +131,7 @@ public class InterviewRepositoryTest {
         Interview interview = new Interview();
         interview.setInterviewTitle("Entretien d'embauche");
         interview.setInterviewDate(new Date(2023, 7, 9));
+        interview.setCandidateId(1L);
 
         // Save the interview to the database
         Interview savedInterview = interviewRepository.save(interview);

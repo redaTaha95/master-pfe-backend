@@ -1,6 +1,8 @@
 package interview;
 
 import interview.application.in.InterviewRequest;
+import interview.application.out.http.candidate.CandidateGateway;
+import interview.application.out.http.candidate.CandidateResponse;
 import interview.domain.Interview;
 import interview.domain.InterviewResponse;
 import interview.domain.InterviewService;
@@ -23,6 +25,9 @@ public class InterviewServiceTest {
     @Mock
     private InterviewRepository interviewRepository;
 
+    @Mock
+    private CandidateGateway candidateGateway;
+
     @InjectMocks
     private InterviewService interviewService;
 
@@ -31,8 +36,8 @@ public class InterviewServiceTest {
     public void shouldReturnAllInterviews() {
 
         List<Interview> interviews = Arrays.asList(
-                new Interview(1L, "Entretien téléphonique", new Date(2023, Calendar.JULY, 9)),
-                new Interview(2L, "Entretien technique", new Date(2023, Calendar.SEPTEMBER, 9))
+                new Interview(1L, "Entretien téléphonique", new Date(2023, Calendar.JULY, 9), 1L),
+                new Interview(2L, "Entretien technique", new Date(2023, Calendar.SEPTEMBER, 9), 1L)
         );
 
         Mockito.when(interviewRepository.findAll()).thenReturn(interviews);
@@ -47,7 +52,7 @@ public class InterviewServiceTest {
     public void shouldReturnAnInterviewById() {
 
         Long interviewId = 1L;
-        Interview interview = new Interview(interviewId, "Entretien téléphonique", new Date(2023, Calendar.JULY, 9));
+        Interview interview = new Interview(interviewId, "Entretien téléphonique", new Date(2023, Calendar.JULY, 9), 1L);
 
         Mockito.when(interviewRepository.findById(interviewId)).thenReturn(Optional.of(interview));
 
@@ -56,6 +61,7 @@ public class InterviewServiceTest {
         Assertions.assertEquals(interview.getId(), interviewResponse.getId());
         Assertions.assertEquals(interview.getInterviewTitle(), interviewResponse.getInterviewTitle());
         Assertions.assertEquals(interview.getInterviewDate(), interviewResponse.getInterviewDate());
+        Assertions.assertEquals(interview.getCandidateId(), interviewResponse.getCandidateId());
     }
 
     @Test
@@ -65,13 +71,18 @@ public class InterviewServiceTest {
         InterviewRequest interviewRequest = new InterviewRequest();
         interviewRequest.setInterviewTitle("Entretien RH");
         interviewRequest.setInterviewDate(new Date(2023, Calendar.JUNE, 7));
+        interviewRequest.setCandidateId(1L);
 
         Interview savedInterview = Interview.builder()
                 .interviewTitle(interviewRequest.getInterviewTitle())
                 .interviewDate(interviewRequest.getInterviewDate())
+                .candidateId(interviewRequest.getCandidateId())
                 .build();
 
         Mockito.when(interviewRepository.save(any(Interview.class))).thenReturn(savedInterview);
+        Mockito.doReturn(new CandidateResponse())
+                .when(candidateGateway)
+                .getCandidate(Mockito.anyLong());
 
         InterviewResponse interview = interviewService.createInterview(interviewRequest);
 
@@ -86,15 +97,20 @@ public class InterviewServiceTest {
         InterviewRequest interviewRequest = new InterviewRequest();
         interviewRequest.setInterviewTitle("Entretien final");
         interviewRequest.setInterviewDate(new Date(2023, Calendar.DECEMBER, 8));
+        interviewRequest.setCandidateId(1L);
 
-        Interview existingInterview = new Interview(interviewId, "Old Interview Title", new Date());
+        Interview existingInterview = new Interview(interviewId, "Old Interview Title", new Date(), 1L);
 
         Mockito.when(interviewRepository.findById(interviewId)).thenReturn(Optional.of(existingInterview));
+        Mockito.doReturn(new CandidateResponse())
+                .when(candidateGateway)
+                .getCandidate(Mockito.anyLong());
 
         InterviewResponse updatedInterview = interviewService.updateInterview(interviewId, interviewRequest);
 
         Assertions.assertEquals(existingInterview.getInterviewTitle(), updatedInterview.getInterviewTitle());
         Assertions.assertEquals(existingInterview.getInterviewDate(), updatedInterview.getInterviewDate());
+        Assertions.assertEquals(existingInterview.getCandidateId(), updatedInterview.getCandidateId());
     }
 
     @Test

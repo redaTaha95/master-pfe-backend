@@ -14,4 +14,7 @@ public class InterviewRequest {
 
     @NotNull(message = "Interview date is required")
     private Date interviewDate;
+
+    @NotNull(message = "Candidate id is required")
+    private Long candidateId;
 }

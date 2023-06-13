@@ -36,6 +36,14 @@ public class InterviewController {
         return ResponseEntity.ok(interview);
     }
 
+    @GetMapping("/candidates/{id}")
+    public ResponseEntity<List<InterviewResponse>> getInterviewsByCandidateId(@PathVariable @Min(value = 1, message = "Invalid candidate ID") Long id) {
+
+        List<InterviewResponse> interviews = interviewService.getInterviewsByCandidateId(id);
+
+        return ResponseEntity.ok(interviews);
+    }
+
     @PostMapping
     public ResponseEntity<InterviewResponse> createInterview(@Valid @RequestBody InterviewRequest interviewRequest) {
 

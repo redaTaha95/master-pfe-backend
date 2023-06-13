@@ -9,6 +9,7 @@ public interface IInterviewService {
 
     List<InterviewResponse> getAllInterviews();
     InterviewResponse getInterviewById(Long id);
+    List<InterviewResponse> getInterviewsByCandidateId(Long id);
     InterviewResponse createInterview(InterviewRequest interviewRequest);
     InterviewResponse updateInterview(Long id, InterviewRequest interviewRequest);
     void deleteInterview(Long id);

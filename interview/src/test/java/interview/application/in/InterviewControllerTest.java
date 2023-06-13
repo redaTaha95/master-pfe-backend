@@ -45,8 +45,8 @@ public class InterviewControllerTest {
 
         //Arrange
         List<InterviewResponse> interviewResponse = Arrays.asList(
-                new InterviewResponse(1L, "Entretien RH", interviewDate),
-                new InterviewResponse(2L, "Entretien technique", interviewDate2)
+                new InterviewResponse(1L, "Entretien RH", interviewDate, 1L),
+                new InterviewResponse(2L, "Entretien technique", interviewDate2, 1L)
         );
 
         Mockito.when(interviewService.getAllInterviews()).thenReturn(interviewResponse);
@@ -58,10 +58,12 @@ public class InterviewControllerTest {
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[0].interviewTitle").value("Entretien RH"))
                 .andExpect(jsonPath("$[0].interviewDate").value("2023-06-07T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$[0].candidateId").value(1L))
 
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].interviewTitle").value("Entretien technique"))
-                .andExpect(jsonPath("$[1].interviewDate").value("2023-07-17T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$[1].interviewDate").value("2023-07-17T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$[1].candidateId").value(1L));
     }
 
     @Test
@@ -75,7 +77,7 @@ public class InterviewControllerTest {
 
         Date interviewDate = interviewDateCalendar.getTime();
 
-        InterviewResponse interviewResponse = new InterviewResponse(1L, "Entretien RH", interviewDate);
+        InterviewResponse interviewResponse = new InterviewResponse(1L, "Entretien RH", interviewDate, 1L);
 
         Mockito.when(interviewService.getInterviewById(interviewId)).thenReturn(interviewResponse);
 
@@ -84,7 +86,8 @@ public class InterviewControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(interviewId.intValue()))
                 .andExpect(jsonPath("$.interviewTitle").value("Entretien RH"))
-                .andExpect(jsonPath("$.interviewDate").value("2023-06-07T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$.interviewDate").value("2023-06-07T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.candidateId").value(1L));
     }
 
     @Test
@@ -99,8 +102,9 @@ public class InterviewControllerTest {
         InterviewRequest interviewRequest = new InterviewRequest();
         interviewRequest.setInterviewTitle("Software Developer");
         interviewRequest.setInterviewDate(interviewDate);
+        interviewRequest.setCandidateId(1L);
 
-        InterviewResponse createdInterview = new InterviewResponse(1L, "Entretien RH", interviewDate);
+        InterviewResponse createdInterview = new InterviewResponse(1L, "Entretien RH", interviewDate, 1L);
 
         Mockito.when(interviewService.createInterview(interviewRequest)).thenReturn(createdInterview);
 
@@ -111,7 +115,8 @@ public class InterviewControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.interviewTitle").value("Entretien RH"))
-                .andExpect(jsonPath("$.interviewDate").value("2023-06-07T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$.interviewDate").value("2023-06-07T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.candidateId").value(1L));
     }
 
     @Test
@@ -127,8 +132,9 @@ public class InterviewControllerTest {
         InterviewRequest interviewRequest = new InterviewRequest();
         interviewRequest.setInterviewTitle("Entretien RH");
         interviewRequest.setInterviewDate(interviewDate);
+        interviewRequest.setCandidateId(1L);
 
-        InterviewResponse updatedInterview = new InterviewResponse(1L, "Entretien RH", interviewDate);
+        InterviewResponse updatedInterview = new InterviewResponse(1L, "Entretien RH", interviewDate, 1L);
 
         Mockito.when(interviewService.updateInterview(interviewId, interviewRequest)).thenReturn(updatedInterview);
 
@@ -139,7 +145,8 @@ public class InterviewControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(interviewId.intValue()))
                 .andExpect(jsonPath("$.interviewTitle").value("Entretien RH"))
-                .andExpect(jsonPath("$.interviewDate").value("2023-06-07T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$.interviewDate").value("2023-06-07T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.candidateId").value(1L));
     }
 
     @Test
