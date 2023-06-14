@@ -40,7 +40,7 @@ public class TaskController {
     }
 
     @GetMapping("project/{id}")
-    public ResponseEntity<List<TaskResponse>> getTasksByProjectId(@PathVariable @Min(value = 1, message = "Invalid project ID") Long id) {
+    public ResponseEntity<List<TaskResponse>> getTasksByProjectId(@PathVariable @Min(value = 1, message = "Invalid payroll ID") Long id) {
         List<TaskResponse> tasks = taskService.getTasksByProjectId(id);
         return ResponseEntity.ok(tasks);
     }

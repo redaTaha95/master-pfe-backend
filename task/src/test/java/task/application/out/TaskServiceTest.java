@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import task.application.in.TaskRequest;
 import task.application.out.http.project.ProjectGateway;
+import task.application.out.http.project.ProjectResponse;
 import task.domain.Task;
 import task.domain.TaskService;
 import task.domain.out.TaskRepository;
@@ -24,11 +25,11 @@ import static org.mockito.ArgumentMatchers.any;
 public class TaskServiceTest {
     @Mock
     private TaskRepository taskRepository;
+    @Mock
+    private ProjectGateway projectGateway;
 
     @InjectMocks
     private TaskService taskService;
-    @InjectMocks
-    private ProjectGateway projectGateway;
 
     @Test
     @DisplayName("Should save a task")
@@ -58,6 +59,8 @@ public class TaskServiceTest {
                 .build();
 
         Mockito.when(taskRepository.save(any(Task.class))).thenReturn(savedTask);
+
+        Mockito.when(projectGateway.getProject(taskRequest.getProjectId())).thenReturn(new ProjectResponse());
 
         TaskResponse task = taskService.createTask(taskRequest);
 
@@ -151,6 +154,8 @@ public class TaskServiceTest {
 
         Task existingTask = new Task(taskId, "old P1", "old D1",1L,oldStartDate,oldEndDate);
         Mockito.when(taskRepository.findById(taskId)).thenReturn(Optional.of(existingTask));
+
+        Mockito.when(projectGateway.getProject(taskRequest.getProjectId())).thenReturn(new ProjectResponse());
 
         TaskResponse updatedTaskResponse = taskService.updateTask(taskId, taskRequest);
 

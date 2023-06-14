@@ -11,7 +11,7 @@ public class WebClientConfig {
 
     @Bean
     @LoadBalanced
-    public WebClient.Builder userWebclient() {
+    public WebClient.Builder projectWebclient() {
         return WebClient.builder().baseUrl(ProjectClient.BASE_URL);
     }
 }

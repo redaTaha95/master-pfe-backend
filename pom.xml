@@ -8,7 +8,12 @@
 		<module>discovery</module>
 		<module>api-gateway</module>
 		<module>identity</module>
-	</modules>
+        <module>payroll</module>
+        <module>paidTimeOff</module>
+        <module>benifit</module>
+        <module>payslip</module>
+        <module>type-validation</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

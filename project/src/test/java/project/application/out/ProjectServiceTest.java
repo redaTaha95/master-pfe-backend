@@ -28,10 +28,17 @@ public class ProjectServiceTest {
     private ProjectService projectService;
 
     @Test
-    @DisplayName("Should save a project")
+    @DisplayName("Should save a payroll")
     public void shouldSaveAProject() {
-        Date startDate = new Date("01/01/2023");
-        Date endDate = new Date("08/01/2023");
+        Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = startDateCalendar.getTime();
+
+        startDateCalendar.set(2023, Calendar.AUGUST, 1,00,00,00);
+        startDateCalendar.set(Calendar.MILLISECOND, 0);
+        Date endDate = startDateCalendar.getTime();
+
         ProjectRequest projectRequest = new ProjectRequest();
         projectRequest.setName("Reda");
         projectRequest.setDescription("TAHA");
@@ -84,7 +91,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    @DisplayName("Should return project by ID")
+    @DisplayName("Should return payroll by ID")
     public void shouldReturnProjectById() {
         Long ProjectId = 1L;
         Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
@@ -108,7 +115,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    @DisplayName("Should update project")
+    @DisplayName("Should update payroll")
     public void shouldUpdateProject() {
         Long projectId = 1L;
         Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
@@ -147,7 +154,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    @DisplayName("Should delete project")
+    @DisplayName("Should delete payroll")
     public void shouldDeleteProject() {
         Long projectId = 1L;
         Mockito.when(projectRepository.existsById(projectId)).thenReturn(true);

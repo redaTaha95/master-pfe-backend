@@ -2,10 +2,10 @@ server:
   port: 8082
 spring:
   application:
-    name: project-service
+    name: payroll-service
   datasource:
     password: root
-    url: jdbc:postgresql://localhost:5432/project
+    url: jdbc:postgresql://localhost:5432/payroll
     username: root
   jpa:
     hibernate:

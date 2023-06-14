@@ -28,7 +28,7 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectResponse> getProjectById(@PathVariable @Min(value = 1, message = "Invalid project ID") Long id) {
+    public ResponseEntity<ProjectResponse> getProjectById(@PathVariable @Min(value = 1, message = "Invalid payroll ID") Long id) {
         ProjectResponse project = projectService.getProjectById(id);
         return ResponseEntity.ok(project);
     }
@@ -40,7 +40,7 @@ public class ProjectController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjectResponse> updateProject(@PathVariable @Min(value = 1, message = "Invalid project ID") Long id, @Valid @RequestBody ProjectRequest projectRequest) {
+    public ResponseEntity<ProjectResponse> updateProject(@PathVariable @Min(value = 1, message = "Invalid payroll ID") Long id, @Valid @RequestBody ProjectRequest projectRequest) {
         ProjectResponse updatedProject = projectService.updateProject(id, projectRequest);
         return ResponseEntity.ok(updatedProject);
     }

@@ -11,20 +11,40 @@ spring:
           filters:
             - AuthenticationFilter
 
-        - id: project-service
-          uri: lb://project-service
+        - id: payroll-service
+          uri: lb://payroll-service
           predicates:
-            - Path=/projects/**
+            - Path=/payrolls/**
           filters:
             - AuthenticationFilter
 
-        - id: project-service
-          uri: lb://project-service
+        - id: pto-service
+          uri: lb://pto-service
           predicates:
-            - Path=/projects/**
+            - Path=/paidTimesOff/**
           filters:
             - AuthenticationFilter
 
+        - id: payslip-service
+          uri: lb://payslip-service
+          predicates:
+            - Path=/payslips/**
+          filters:
+            - AuthenticationFilter
+
+        - id: benifit-service
+          uri: lb://benifit-service
+          predicates:
+            - Path=/benifits/**
+          filters:
+            - AuthenticationFilter
+
+        - id: typeValidation-service
+          uri: lb://typeValidation-service
+          predicates:
+            - Path=/typeValidations/**
+          filters:
+            - AuthenticationFilter
 
         - id: identity-service
           uri: lb://identity-service

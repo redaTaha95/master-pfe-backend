@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProjectRequest {
-    @NotBlank(message = "project name is required")
+    @NotBlank(message = "payroll name is required")
     private String name;
 
     @NotBlank(message = "description is required")

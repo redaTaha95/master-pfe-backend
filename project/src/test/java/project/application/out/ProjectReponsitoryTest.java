@@ -34,7 +34,7 @@ public class ProjectReponsitoryTest {
     private static final PostgreSQLContainer<?> database = new PostgreSQLContainer<>("postgres:15.3");
 
     @Test
-    @DisplayName("should save a project to the database")
+    @DisplayName("should save a payroll to the database")
     public void shouldSaveAnEmployee() {
 
         Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
@@ -47,23 +47,23 @@ public class ProjectReponsitoryTest {
         Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
-        project.setName("Yassine's project");
+        project.setName("Yassine's payroll");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
 
-        // Save the project to the database
+        // Save the payroll to the database
         Project savedProject = projectRepository.save(project);
 
-        // Assert that the saved project has the expected values
-        Assertions.assertEquals(savedProject.getName(), "Yassine's project");
+        // Assert that the saved payroll has the expected values
+        Assertions.assertEquals(savedProject.getName(), "Yassine's payroll");
         Assertions.assertEquals(savedProject.getDescription(), "Small little one");
         Assertions.assertEquals(savedProject.getStartDate(), startDate);
         Assertions.assertEquals(savedProject.getEndDate(), endDate);
     }
 
     @Test
-    @DisplayName("should update a project in the database")
+    @DisplayName("should update a payroll in the database")
     public void shouldUpdateAnEmployee() {
 
         Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
@@ -76,7 +76,7 @@ public class ProjectReponsitoryTest {
         Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
-        project.setName("Yassine's project");
+        project.setName("Yassine's payroll");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
@@ -85,17 +85,17 @@ public class ProjectReponsitoryTest {
         Project savedProject = projectRepository.save(project);
 
         // Update the Project's email
-        savedProject.setName("not yassine's project");
+        savedProject.setName("not yassine's payroll");
 
         // Save the updated Project to the database
         Project updatedProject = projectRepository.save(savedProject);
 
         // Assert that the updated Project has the new name
-        Assertions.assertEquals(updatedProject.getName(), "not yassine's project");
+        Assertions.assertEquals(updatedProject.getName(), "not yassine's payroll");
     }
 
     @Test
-    @DisplayName("should retrieve a project from the database")
+    @DisplayName("should retrieve a payroll from the database")
     public void shouldRetrieveAProject() {
         Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
@@ -107,25 +107,25 @@ public class ProjectReponsitoryTest {
         Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
-        project.setName("Yassine's project");
+        project.setName("Yassine's payroll");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
 
-        // Save the project to the database
+        // Save the payroll to the database
         Project savedProject = projectRepository.save(project);
 
-        // Retrieve the project from the database
+        // Retrieve the payroll from the database
         Project retrievedProject = projectRepository.findById(savedProject.getId()).orElse(null);
 
-        // Assert that the retrieved project is not null
+        // Assert that the retrieved payroll is not null
         Assertions.assertNotNull(retrievedProject);
-        // Assert that the retrieved project has the same ID as the saved project
+        // Assert that the retrieved payroll has the same ID as the saved payroll
         Assertions.assertEquals(retrievedProject.getId(), savedProject.getId());
     }
 
     @Test
-    @DisplayName("should delete a project from the database")
+    @DisplayName("should delete a payroll from the database")
     public void shouldDeleteAnEmployee() {
         Calendar startDateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         startDateCalendar.set(2023, Calendar.JANUARY, 1,00,00,00);
@@ -137,21 +137,21 @@ public class ProjectReponsitoryTest {
         Date endDate = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
-        project.setName("Yassine's project");
+        project.setName("Yassine's payroll");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
 
-        // Save the project to the database
+        // Save the payroll to the database
         Project savedProject = projectRepository.save(project);
 
-        // Delete the project from the database
+        // Delete the payroll from the database
         projectRepository.delete(savedProject);
 
-        // Try to retrieve the deleted project from the database
+        // Try to retrieve the deleted payroll from the database
         Project deletedEmployee = projectRepository.findById(savedProject.getId()).orElse(null);
 
-        // Assert that the deleted project is null
+        // Assert that the deleted payroll is null
         Assertions.assertNull(deletedEmployee);
     }
 
@@ -176,7 +176,7 @@ public class ProjectReponsitoryTest {
         Date endDate2 = startDateCalendar.getTime();
         // Create a new Project
         Project project = new Project();
-        project.setName("Yassine's project");
+        project.setName("Yassine's payroll");
         project.setDescription("Small little one");
         project.setStartDate(startDate);
         project.setEndDate(endDate);
@@ -187,7 +187,7 @@ public class ProjectReponsitoryTest {
         project2.setStartDate(startDate2);
         project2.setEndDate(endDate2);
 
-        // Save the project to the database
+        // Save the payroll to the database
         projectRepository.saveAll(List.of(project, project2));
 
         // Retrieve all projects from the database

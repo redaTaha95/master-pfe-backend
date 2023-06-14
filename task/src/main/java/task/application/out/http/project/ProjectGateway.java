@@ -16,7 +16,6 @@ public class ProjectGateway {
                 .doOnSuccess(projectResponse -> log.info("Task {} created with success", projectResponse.getId()))
                 .doOnError(throwable -> log.error("Error while creating a task !!"))
                 .onErrorResume(throwable -> Mono.empty())
-
                 .block();
     }
 }
