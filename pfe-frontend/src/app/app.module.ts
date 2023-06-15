@@ -19,6 +19,10 @@ import { EditEmployeesComponent } from './components/employee/edit-employees/edi
 import { AppLayoutComponent } from './shared/app-layout/app-layout.component';
 import { TokenInterceptor } from './core/token.interceptor';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
+import { IndexCandidatesComponent } from './components/candidate/index-candidates/index-candidates.component';
+import { CreateCandidateComponent } from './components/candidate/create-candidate/create-candidate.component';
+import { EditCandidateComponent } from './components/candidate/edit-candidate/edit-candidate.component';
+import { ViewCandidateComponent } from './components/candidate/view-candidate/view-candidate.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -27,7 +31,11 @@ const routes: Routes = [
   { path: 'employees/:id', component: ViewEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id/edit', component: EditEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent },
+  { path: 'candidates', component: IndexCandidatesComponent, canActivate: [AuthGuard] },
+  { path: 'candidates/add', component: CreateCandidateComponent, canActivate: [AuthGuard] },
+  { path: 'candidates/:id', component: ViewCandidateComponent, canActivate: [AuthGuard] },
+  { path: 'candidates/:id/edit', component: EditCandidateComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -43,6 +51,10 @@ const routes: Routes = [
     EditEmployeesComponent,
     AppLayoutComponent,
     ViewEmployeesComponent,
+    IndexCandidatesComponent,
+    CreateCandidateComponent,
+    EditCandidateComponent,
+    ViewCandidateComponent,
   ],
   imports: [
     BrowserModule,
