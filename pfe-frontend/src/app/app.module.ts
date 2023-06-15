@@ -19,6 +19,7 @@ import { EditEmployeesComponent } from './components/employee/edit-employees/edi
 import { AppLayoutComponent } from './shared/app-layout/app-layout.component';
 import { TokenInterceptor } from './core/token.interceptor';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -43,6 +44,7 @@ const routes: Routes = [
     EditEmployeesComponent,
     AppLayoutComponent,
     ViewEmployeesComponent,
+    ChatbotComponent,
   ],
   imports: [
     BrowserModule,
