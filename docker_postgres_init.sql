@@ -1,8 +1,3 @@
 CREATE DATABASE employee;
 CREATE DATABASE "project";
 CREATE DATABASE "task";
-CREATE DATABASE "payroll";
-CREATE DATABASE "payslip";
-CREATE DATABASE "paidTimeOff";
-CREATE DATABASE "benifit";
-CREATE DATABASE "typeValidation";
