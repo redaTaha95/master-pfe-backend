@@ -1,2 +1,6 @@
 CREATE DATABASE employee;
-CREATE DATABASE "user";
+CREATE DATABASE "paidTimeOff";
+CREATE DATABASE "payroll";
+CREATE DATABASE "payslip";
+CREATE DATABASE "benifit";
+CREATE DATABASE "typeValidation";
