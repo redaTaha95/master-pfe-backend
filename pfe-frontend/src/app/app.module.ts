@@ -23,6 +23,7 @@ import { IndexCandidatesComponent } from './components/candidate/index-candidate
 import { CreateCandidateComponent } from './components/candidate/create-candidate/create-candidate.component';
 import { EditCandidateComponent } from './components/candidate/edit-candidate/edit-candidate.component';
 import { ViewCandidateComponent } from './components/candidate/view-candidate/view-candidate.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -55,6 +56,7 @@ const routes: Routes = [
     CreateCandidateComponent,
     EditCandidateComponent,
     ViewCandidateComponent,
+    ChatbotComponent,
   ],
   imports: [
     BrowserModule,

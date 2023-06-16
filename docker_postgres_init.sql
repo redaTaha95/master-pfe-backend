@@ -1,2 +1,3 @@
 CREATE DATABASE employee;
 CREATE DATABASE "user";
+CREATE DATABASE chatbot ;
