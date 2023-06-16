@@ -6,9 +6,12 @@
 	<modules>
 		<module>employee</module>
 		<module>discovery</module>
+        <module>candidate</module>
+        <module>recruitment_demand</module>
 		<module>api-gateway</module>
 		<module>identity</module>
         <module>chatbot</module>
+        <module>interview</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
