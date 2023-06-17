@@ -20,6 +20,10 @@ import { AppLayoutComponent } from './shared/app-layout/app-layout.component';
 import { TokenInterceptor } from './core/token.interceptor';
 import { ViewEmployeesComponent } from './components/employee/view-employees/view-employees.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { ViewQuestionsComponent } from './components/chatbot/questions-management/view-questions/view-questions.component';
+import { CreateQuestionsComponent } from './components/chatbot/questions-management/create-questions/create-questions.component';
+import { UpdateQuestionsComponent } from './components/chatbot/questions-management/update-questions/update-questions.component';
+import { IndexQuestionsComponent } from './components/chatbot/questions-management/index-questions/index-questions.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -27,6 +31,10 @@ const routes: Routes = [
   { path: 'employees/add', component: CreateEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id', component: ViewEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id/edit', component: EditEmployeesComponent, canActivate: [AuthGuard] },
+  { path: 'chatbot', component: IndexQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/add', component: CreateQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/:id', component: ViewQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/:id/edit', component: UpdateQuestionsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -45,6 +53,10 @@ const routes: Routes = [
     AppLayoutComponent,
     ViewEmployeesComponent,
     ChatbotComponent,
+    ViewQuestionsComponent,
+    CreateQuestionsComponent,
+    UpdateQuestionsComponent,
+    IndexQuestionsComponent,
   ],
   imports: [
     BrowserModule,
