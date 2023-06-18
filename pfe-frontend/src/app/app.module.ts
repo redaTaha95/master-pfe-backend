@@ -24,6 +24,10 @@ import { CreateCandidateComponent } from './components/candidate/create-candidat
 import { EditCandidateComponent } from './components/candidate/edit-candidate/edit-candidate.component';
 import { ViewCandidateComponent } from './components/candidate/view-candidate/view-candidate.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { IndexInterviewsComponent } from './components/interview/index-interviews/index-interviews.component';
+import { CreateInterviewComponent } from './components/interview/create-interview/create-interview.component';
+import { EditInterviewComponent } from './components/interview/edit-interview/edit-interview.component';
+import { ViewInterviewComponent } from './components/interview/view-interview/view-interview.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -32,11 +36,15 @@ const routes: Routes = [
   { path: 'employees/:id', component: ViewEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id/edit', component: EditEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '**', component: PageNotFoundComponent },
   { path: 'candidates', component: IndexCandidatesComponent, canActivate: [AuthGuard] },
   { path: 'candidates/add', component: CreateCandidateComponent, canActivate: [AuthGuard] },
   { path: 'candidates/:id', component: ViewCandidateComponent, canActivate: [AuthGuard] },
   { path: 'candidates/:id/edit', component: EditCandidateComponent, canActivate: [AuthGuard] },
+  { path: 'interviews', component: IndexInterviewsComponent, canActivate: [AuthGuard] },
+  { path: 'interviews/add', component: CreateInterviewComponent, canActivate: [AuthGuard] },
+  { path: 'interviews/:id/edit', component: EditInterviewComponent, canActivate: [AuthGuard] },
+  { path: 'interviews/:id', component: ViewInterviewComponent, canActivate: [AuthGuard] },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
@@ -57,6 +65,10 @@ const routes: Routes = [
     EditCandidateComponent,
     ViewCandidateComponent,
     ChatbotComponent,
+    IndexInterviewsComponent,
+    CreateInterviewComponent,
+    EditInterviewComponent,
+    ViewInterviewComponent,
   ],
   imports: [
     BrowserModule,
