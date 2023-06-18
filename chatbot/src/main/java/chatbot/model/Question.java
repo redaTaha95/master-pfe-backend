@@ -26,6 +26,6 @@ public class Question {
     @JoinColumn(name = "parent_question_id")
     private Question parentQuestion;
 
-    @OneToMany(mappedBy = "parentQuestion")
+    @OneToMany(mappedBy = "parentQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> subQuestions;
 }

@@ -42,6 +42,14 @@ public class QuestionService {
                 .collect(Collectors.toList());
     }
 
+    public List<QuestionResponse> getAllParentQuestions() {
+        List<Question> questions = questionRepository.findByParentQuestionIsNull();
+
+        return questions.stream()
+                .map(this::mapToQuestionResponse)
+                .collect(Collectors.toList());
+    }
+
     public QuestionResponse getQuestionById(Long id) {
         Optional<Question> question = questionRepository.findById(id);
 
@@ -74,7 +82,9 @@ public class QuestionService {
     }
 
     public void deleteQuestion(Long id) {
-        questionRepository.deleteById(id);
+        Question question = questionRepository.findById(id)
+                .orElseThrow(() -> new QuestionNotFoundException("Question not found with id: " + id));
+        questionRepository.delete(question);
     }
 
     private QuestionResponse mapToQuestionResponse(Question question) {
