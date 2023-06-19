@@ -28,6 +28,10 @@ import { IndexInterviewsComponent } from './components/interview/index-interview
 import { CreateInterviewComponent } from './components/interview/create-interview/create-interview.component';
 import { EditInterviewComponent } from './components/interview/edit-interview/edit-interview.component';
 import { ViewInterviewComponent } from './components/interview/view-interview/view-interview.component';
+import { IndexRecruitmentDemandsComponent } from './components/recruitment_demand/index-recruitment-demands/index-recruitment-demands.component';
+import { CreateRecruitmentDemandComponent } from './components/recruitment_demand/create-recruitment-demand/create-recruitment-demand.component';
+import { EditRecruitmentDemandComponent } from './components/recruitment_demand/edit-recruitment-demand/edit-recruitment-demand.component';
+import { ViewRecruitmentDemandComponent } from './components/recruitment_demand/view-recruitment-demand/view-recruitment-demand.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -44,6 +48,11 @@ const routes: Routes = [
   { path: 'interviews/add', component: CreateInterviewComponent, canActivate: [AuthGuard] },
   { path: 'interviews/:id/edit', component: EditInterviewComponent, canActivate: [AuthGuard] },
   { path: 'interviews/:id', component: ViewInterviewComponent, canActivate: [AuthGuard] },
+  { path: 'recruitment_demands', component: IndexRecruitmentDemandsComponent, canActivate: [AuthGuard] },
+  { path: 'recruitment_demands/add', component: CreateRecruitmentDemandComponent, canActivate: [AuthGuard] },
+  { path: 'recruitment_demands/:id/edit', component: EditRecruitmentDemandComponent, canActivate: [AuthGuard] },
+  { path: 'recruitment_demands/:id', component: ViewRecruitmentDemandComponent, canActivate: [AuthGuard] },
+
   { path: '**', component: PageNotFoundComponent },
 ];
 
@@ -69,6 +78,10 @@ const routes: Routes = [
     CreateInterviewComponent,
     EditInterviewComponent,
     ViewInterviewComponent,
+    IndexRecruitmentDemandsComponent,
+    CreateRecruitmentDemandComponent,
+    EditRecruitmentDemandComponent,
+    ViewRecruitmentDemandComponent,
   ],
   imports: [
     BrowserModule,
