@@ -32,6 +32,10 @@ import { IndexRecruitmentDemandsComponent } from './components/recruitment_deman
 import { CreateRecruitmentDemandComponent } from './components/recruitment_demand/create-recruitment-demand/create-recruitment-demand.component';
 import { EditRecruitmentDemandComponent } from './components/recruitment_demand/edit-recruitment-demand/edit-recruitment-demand.component';
 import { ViewRecruitmentDemandComponent } from './components/recruitment_demand/view-recruitment-demand/view-recruitment-demand.component';
+import { ViewQuestionsComponent } from './components/chatbot/questions-management/view-questions/view-questions.component';
+import { CreateQuestionsComponent } from './components/chatbot/questions-management/create-questions/create-questions.component';
+import { UpdateQuestionsComponent } from './components/chatbot/questions-management/update-questions/update-questions.component';
+import { IndexQuestionsComponent } from './components/chatbot/questions-management/index-questions/index-questions.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -39,6 +43,10 @@ const routes: Routes = [
   { path: 'employees/add', component: CreateEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id', component: ViewEmployeesComponent, canActivate: [AuthGuard] },
   { path: 'employees/:id/edit', component: EditEmployeesComponent, canActivate: [AuthGuard] },
+  { path: 'chatbot', component: IndexQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/add', component: CreateQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/:id', component: ViewQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/:id/edit', component: UpdateQuestionsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'candidates', component: IndexCandidatesComponent, canActivate: [AuthGuard] },
   { path: 'candidates/add', component: CreateCandidateComponent, canActivate: [AuthGuard] },
@@ -82,6 +90,10 @@ const routes: Routes = [
     CreateRecruitmentDemandComponent,
     EditRecruitmentDemandComponent,
     ViewRecruitmentDemandComponent,
+    ViewQuestionsComponent,
+    CreateQuestionsComponent,
+    UpdateQuestionsComponent,
+    IndexQuestionsComponent,
   ],
   imports: [
     BrowserModule,
