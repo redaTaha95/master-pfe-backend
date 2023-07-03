@@ -9,7 +9,10 @@ import payslip.application.out.http.payroll.PayrollGateway;
 import payslip.application.out.http.payroll.PayrollResponse;
 import payslip.domain.out.PayslipRepository;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,10 +26,14 @@ public class PayslipService {
     public PayslipResponse createPayslip(PayslipRequest payslipRequest) {
         PayrollResponse payroll = payrollGateway.getPayroll(payslipRequest.getPayrollId());
 
+        Calendar dateCalendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        Calendar currentDate = Calendar.getInstance();
+        dateCalendar.setTimeInMillis(currentDate.getTimeInMillis());
+        Date payslipDate = dateCalendar.getTime();
         if (payroll != null)
         {
             Payslip payslip = Payslip.builder()
-                    .payslipDate(payslipRequest.getPayslipDate())
+                    .payslipDate(payslipDate)
                     .bonusPaiment(payroll.getBonusPaiment())
                     .monthlyBasedSalary(payroll.getMonthlyBasedSalary())
                     .monthlyNetSalary(payroll.getMonthlyNetSalary())

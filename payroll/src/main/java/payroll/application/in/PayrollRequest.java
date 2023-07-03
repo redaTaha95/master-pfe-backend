@@ -1,8 +1,6 @@
 package payroll.application.in;
 
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,14 +19,14 @@ public class PayrollRequest {
 
     private Double monthlyNetSalary;
 
-    @NotBlank(message = "monthlyBasedSalary is required")
+    @NotNull(message = "monthlyBasedSalary is required")
     private Double monthlyBasedSalary;
 
-    @NotBlank(message = "hoursWorkesMonthly is required")
+    @NotNull(message = "hoursWorkesMonthly is required")
     private Double monthlyHoursWorked;
 
     private Double bonusPaiment = 0.0;
 
-    @NotBlank(message = "EmployeeId is required")
+    @NotNull(message = "EmployeeId is required")
     private Long employeeId;
 }

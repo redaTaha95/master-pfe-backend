@@ -8,6 +8,7 @@ import paidTimeOff.application.out.http.pto.EmployeeGateway;
 import paidTimeOff.application.out.http.pto.EmployeeResponse;
 import paidTimeOff.domain.out.PaidTimeOffRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,29 +33,56 @@ public class PaidTimeService {
 
             PaidTimeOff savedPaidTimeOff = paidTimeOffRepository.save(paidTimeOff);
 
-            return  convertToResponse(savedPaidTimeOff);
+            return  convertToResponse(savedPaidTimeOff,employee);
+        }
+        else {
+            throw new EmployeeNotFoundException("employee not found");
+        }
+    }
+    public List<PaidTimeOffResponse> getAllEmployeesWithLatestPayroll() {
+        List<EmployeeResponse> employees = employeeGateway.getAllEmployees();
+        List<PaidTimeOffResponse> paidTimeOffResponses = new ArrayList<>();
+
+        employees.forEach(employee -> {
+            PaidTimeOff latestPaidTimeOff = paidTimeOffRepository.findFirstByEmployeeIdOrderByStartDateDesc(employee.getId());
+            if (latestPaidTimeOff != null) {
+                EmployeeResponse employeeResponse = employeeGateway.getEmployee(employee.getId());
+                PaidTimeOffResponse paidTimeOffResponse = convertToResponse(latestPaidTimeOff,employeeResponse);
+                paidTimeOffResponses.add(paidTimeOffResponse);
+            }
+        });
+
+        return paidTimeOffResponses;
+    }
+    public List<PaidTimeOffResponse> getAllPaidTimeOff() {
+        List<PaidTimeOff> paidTimeOffs = paidTimeOffRepository.findAll();
+        List<PaidTimeOffResponse> paidTimeOffResponses = new ArrayList<>();
+
+        paidTimeOffs.forEach(paidTimeOff -> {
+            EmployeeResponse employee = employeeGateway.getEmployee(paidTimeOff.getEmployeeId());
+            PaidTimeOffResponse paidTimeOffResponse = convertToResponse(paidTimeOff, employee);
+            paidTimeOffResponses.add(paidTimeOffResponse);
+        });
+        return paidTimeOffResponses;
+    }
+
+    public PaidTimeOffResponse getPaidTimeOffById(Long id) {
+        PaidTimeOff paidTimeOff = getPaidTimeOffByIdIfExists(id);
+        EmployeeResponse employee = employeeGateway.getEmployee(paidTimeOff.getEmployeeId());
+        if (employee != null) {
+            return convertToResponse(paidTimeOff, employee);
         }
         else {
             throw new EmployeeNotFoundException("employee not found");
         }
     }
 
-    public List<PaidTimeOffResponse> getAllPaidTimeOff() {
-        List<PaidTimeOff> paidTimeOffs = paidTimeOffRepository.findAll();
-        return paidTimeOffs.stream()
-                .map(this::convertToResponse)
-                .collect(Collectors.toList());
-    }
-
-    public PaidTimeOffResponse getPaidTimeOffById(Long id) {
-        PaidTimeOff paidTimeOff = getPaidTimeOffByIdIfExists(id);
-        return convertToResponse(paidTimeOff);
-    }
-
     public List<PaidTimeOffResponse>  getPaidTimesOffByEmployeeId(Long id) {
-        List<PaidTimeOff> tasks = paidTimeOffRepository.findByEmployeeId(id);
-        return tasks.stream()
-                .map(this::convertToResponse)
+        List<PaidTimeOff> paidTimeOffs = paidTimeOffRepository.findByEmployeeId(id);
+        EmployeeResponse employee = employeeGateway.getEmployee(id);
+
+        return paidTimeOffs.stream()
+                .map(paidTimeOff -> convertToResponse(paidTimeOff, employee))
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +94,7 @@ public class PaidTimeService {
             PaidTimeOff paidTimeOff = getPaidTimeOffByIdIfExists(id);
             updatePaidTimeOffFromRequest(paidTimeOff, paidTimeOffRequest);
             paidTimeOffRepository.save(paidTimeOff);
-            return convertToResponse(paidTimeOff);
+            return convertToResponse(paidTimeOff,employee);
         }
         else {
             throw new EmployeeNotFoundException("Employee not found");
@@ -93,13 +121,13 @@ public class PaidTimeService {
         return paidTimeOffRepository.findById(id).orElseThrow(() -> new PaidTimeOffNotFoundException("PaidTimeOff not found"));
     }
 
-    private PaidTimeOffResponse convertToResponse(PaidTimeOff paidTimeOff) {
+    private PaidTimeOffResponse convertToResponse(PaidTimeOff paidTimeOff,EmployeeResponse employeeResponse) {
         return PaidTimeOffResponse.builder()
                 .id(paidTimeOff.getId())
                 .details(paidTimeOff.getDetails())
                 .startDate(paidTimeOff.getStartDate())
                 .endDate(paidTimeOff.getEndDate())
-                .employeeId(paidTimeOff.getEmployeeId())
+                .employee(employeeResponse)
                 .build();
     }
 }

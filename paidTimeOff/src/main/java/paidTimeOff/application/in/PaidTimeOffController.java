@@ -32,6 +32,13 @@ public class PaidTimeOffController {
         return ResponseEntity.ok(paidTimeOff);
     }
 
+    @GetMapping("/employeesLatestPaidTimeOff")
+    public ResponseEntity<List<PaidTimeOffResponse>> getAllEmployeesWithLatestPayroll() {
+        List<PaidTimeOffResponse> employeesPayroll = paidTimeService.getAllEmployeesWithLatestPayroll();
+
+        return ResponseEntity.ok(employeesPayroll);
+    }
+
     @GetMapping
     public ResponseEntity<List<PaidTimeOffResponse>> getAllPaidTimesOff() {
         List<PaidTimeOffResponse> paidTimeOffs = paidTimeService.getAllPaidTimeOff();

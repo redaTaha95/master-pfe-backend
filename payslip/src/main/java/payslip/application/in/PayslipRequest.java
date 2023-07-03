@@ -20,14 +20,14 @@ public class PayslipRequest {
 
     private Double monthlyNetSalary;
 
-    @NotBlank(message = "monthlyBasedSalary is required")
+    @NotNull(message = "monthlyBasedSalary is required")
     private Double monthlyBasedSalary;
 
-    @NotBlank(message = "hoursWorkesMonthly is required")
+    @NotNull(message = "hoursWorkesMonthly is required")
     private Double monthlyHoursWorked;
 
     private Double bonusPaiment = 0.0;
 
-    @NotBlank(message = "payrollId is required")
+    @NotNull(message = "payrollId is required")
     private Long payrollId;
 }

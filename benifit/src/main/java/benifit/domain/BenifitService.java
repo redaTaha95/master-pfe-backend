@@ -78,11 +78,10 @@ public class BenifitService {
     public List<BenifitResponse>  getBenifitsByEmployeeId(Long id) {
 
         List<Benifit> benifits = benifitRepository.findByEmployeeId(id);
-        TypeValidationResponse typeValidationResponse = typeValidationGateway.getTypeValidation(id);
         EmployeeResponse employee = employeeGateway.getEmployee(id);
 
         return benifits.stream()
-                .map(benifit -> convertToResponse(benifit, employee,typeValidationResponse))
+                .map(benifit -> convertToResponse(benifit, employee,getTypeValidationByBenifitId(benifit.getTypeValidationId())))
                 .collect(Collectors.toList());
     }
 
@@ -145,6 +144,11 @@ public class BenifitService {
         return benifitRepository.findById(id).orElseThrow(() -> new BenifitNotFoundException("Benifit not found"));
     }
 
+    private TypeValidationResponse getTypeValidationByBenifitId(Long id) {
+        return typeValidationGateway.getTypeValidation(id);
+    }
+
+
     private Benifit BenifitWithMatricule(BenifitRequest benifitRequest) {
         return Benifit.builder()
                 .details(benifitRequest.getDetails())
@@ -163,11 +167,12 @@ public class BenifitService {
     }
 
     private BenifitResponse convertToResponse(Benifit benifit, EmployeeResponse employeeResponse,TypeValidationResponse typeValidationResponse) {
+
         return BenifitResponse.builder()
                 .id(benifit.getId())
                 .details(benifit.getDetails())
                 .matricule(benifit.getMatricule())
-                .typeValidationId(typeValidationResponse)
+                .typeValidation(typeValidationResponse)
                 .employee(employeeResponse)
                 .build();
     }

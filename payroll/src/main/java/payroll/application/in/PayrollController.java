@@ -26,6 +26,14 @@ public class PayrollController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(payrollResponse);
     }
+
+    @GetMapping("/employeesLatestPayroll")
+    public ResponseEntity<List<PayrollResponse>> getAllEmployeesWithLatestPayroll() {
+        List<PayrollResponse> employeesPayroll = payrollService.getAllEmployeesWithLatestPayroll();
+
+        return ResponseEntity.ok(employeesPayroll);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PayrollResponse> getPayrollById(@PathVariable @Min(value = 1, message = "Invalid payroll ID") Long id) {
         PayrollResponse payroll = payrollService.getPayrollById(id);

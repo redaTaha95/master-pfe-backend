@@ -2,6 +2,7 @@ package payslip.domain;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;
@@ -15,7 +16,8 @@ public class PayslipResponse {
 
 
     private Long id;
-
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date payslipDate;
 
     private Double monthlyNetSalary;

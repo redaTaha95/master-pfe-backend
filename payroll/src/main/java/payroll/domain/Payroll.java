@@ -3,7 +3,7 @@ package payroll.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.text.DecimalFormat;
 import java.util.Date;
 
 @Getter
@@ -30,7 +30,5 @@ public class Payroll {
 
     @Column(nullable = false)
     private Long employeeId;
-
-    private Double monthlyNetSalary;
 
 }

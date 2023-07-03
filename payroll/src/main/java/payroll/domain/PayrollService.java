@@ -8,6 +8,7 @@ import payroll.application.out.http.payroll.EmployeeGateway;
 import payroll.application.out.http.payroll.EmployeeResponse;
 import payroll.domain.out.PayrollRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,26 +23,20 @@ public class PayrollService {
     public PayrollResponse createPayroll(PayrollRequest payrollRequest) {
         EmployeeResponse employee = employeeGateway.getEmployee(payrollRequest.getEmployeeId());
 
-        Double salaryPerHour ;
-        Double net_salary_monthly ;
-
         if (employee != null)
         {
-            salaryPerHour = (payrollRequest.getMonthlyBasedSalary() / 24) / 8;
-            net_salary_monthly = (salaryPerHour * payrollRequest.getMonthlyHoursWorked()) + payrollRequest.getBonusPaiment();
 
             Payroll payroll = Payroll.builder()
                     .payrollDate(payrollRequest.getPayrollDate())
                     .monthlyBasedSalary(payrollRequest.getMonthlyBasedSalary())
                     .bonusPaiment(payrollRequest.getBonusPaiment())
                     .monthlyHoursWorked(payrollRequest.getMonthlyHoursWorked())
-                    .monthlyNetSalary(net_salary_monthly)
                     .employeeId(payrollRequest.getEmployeeId())
                     .build();
 
             Payroll savedPayroll = payrollRepository.save(payroll);
 
-            return  convertToResponse(savedPayroll);
+            return  convertToResponse(savedPayroll,employee);
         }
         else {
             throw new EmployeeNotFoundException("employee not found");
@@ -50,22 +45,53 @@ public class PayrollService {
 
     public List<PayrollResponse> getAllPayrolls() {
         List<Payroll> payrolls = payrollRepository.findAll();
-        return payrolls.stream()
-                .map(this::convertToResponse)
-                .collect(Collectors.toList());
+        List<PayrollResponse> payrollResponses = new ArrayList<>();
+
+        payrolls.forEach(payroll -> {
+             EmployeeResponse employee = employeeGateway.getEmployee(payroll.getEmployeeId());
+            PayrollResponse payrollResponse = convertToResponse(payroll, employee);
+            payrollResponses.add(payrollResponse);
+        });
+        return payrollResponses;
     }
+
+    public List<PayrollResponse> getAllEmployeesWithLatestPayroll() {
+        List<EmployeeResponse> employees = employeeGateway.getAllEmployees();
+        List<PayrollResponse> payrollResponses = new ArrayList<>();
+
+        employees.forEach(employee -> {
+            Payroll latestPayroll = payrollRepository.findFirstByEmployeeIdOrderByPayrollDateDesc(employee.getId());
+            if (latestPayroll != null) {
+                EmployeeResponse employeeResponse = employeeGateway.getEmployee(employee.getId());
+                PayrollResponse payrollResponse = convertToResponse(latestPayroll,employeeResponse);
+                payrollResponses.add(payrollResponse);
+            }
+        });
+
+        return payrollResponses;
+    }
+
 
     public PayrollResponse getPayrollById(Long id) {
         Payroll payroll = getPayrollByIdIfExists(id);
-        return convertToResponse(payroll);
+        EmployeeResponse employee = employeeGateway.getEmployee(payroll.getEmployeeId());
+        if (employee != null) {
+            return convertToResponse(payroll, employee);
+        }
+        else {
+            throw new EmployeeNotFoundException("employee not found");
+        }
     }
 
     public List<PayrollResponse>  getPayrollsByEmployeeId(Long id) {
-        List<Payroll> tasks = payrollRepository.findByEmployeeId(id);
-        return tasks.stream()
-                .map(this::convertToResponse)
+        List<Payroll> payrolls = payrollRepository.findByEmployeeId(id);
+        EmployeeResponse employee = employeeGateway.getEmployee(id);
+
+        return payrolls.stream()
+                .map(payroll -> convertToResponse(payroll, employee))
                 .collect(Collectors.toList());
     }
+
 
     public PayrollResponse updatePayroll(Long id, PayrollRequest payrollRequest) {
 
@@ -75,7 +101,7 @@ public class PayrollService {
             Payroll payroll = getPayrollByIdIfExists(id);
             updatePayrollFromRequest(payroll, payrollRequest);
             payrollRepository.save(payroll);
-            return convertToResponse(payroll);
+            return convertToResponse(payroll,employee);
         }
         else {
             throw new EmployeeNotFoundException("Employee not found");
@@ -100,7 +126,6 @@ public class PayrollService {
         payroll.setPayrollDate(payrollRequest.getPayrollDate());
         payroll.setMonthlyHoursWorked(payrollRequest.getMonthlyHoursWorked());
         payroll.setEmployeeId(payrollRequest.getEmployeeId());
-        payroll.setMonthlyNetSalary(net_salary_monthly);
 
     }
 
@@ -108,15 +133,21 @@ public class PayrollService {
         return payrollRepository.findById(id).orElseThrow(() -> new PayrollNotFoundException("Payroll not found"));
     }
 
-    private PayrollResponse convertToResponse(Payroll payroll) {
+    private PayrollResponse convertToResponse(Payroll payroll, EmployeeResponse employeeResponse) {
         return PayrollResponse.builder()
                 .id(payroll.getId())
                 .monthlyBasedSalary(payroll.getMonthlyBasedSalary())
                 .monthlyHoursWorked(payroll.getMonthlyHoursWorked())
-                .monthlyNetSalary(payroll.getMonthlyNetSalary())
+                .monthlyNetSalary(getNetSalaryPerMonth(payroll))
                 .payrollDate(payroll.getPayrollDate())
                 .bonusPaiment(payroll.getBonusPaiment())
-                .employeeId(payroll.getEmployeeId())
+                .employee(employeeResponse)
                 .build();
+    }
+
+    private Double getNetSalaryPerMonth(Payroll payroll)
+    {
+        Double salaryPerHour = (payroll.getMonthlyBasedSalary() / 24) / 8;
+        return (salaryPerHour * payroll.getMonthlyHoursWorked()) + payroll.getBonusPaiment();
     }
 }

@@ -32,6 +32,4 @@ public class Payslip {
     private Long payrollId;
 
     private Double monthlyNetSalary;
-
-
 }

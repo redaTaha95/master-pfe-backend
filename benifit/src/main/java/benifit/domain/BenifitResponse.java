@@ -19,5 +19,5 @@ public class BenifitResponse {
 
     private EmployeeResponse employee;
 
-    private TypeValidationResponse typeValidationId;
+    private TypeValidationResponse typeValidation;
 }

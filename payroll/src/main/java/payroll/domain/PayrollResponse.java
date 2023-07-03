@@ -1,7 +1,10 @@
 package payroll.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Column;
 import lombok.*;
+import payroll.application.out.http.payroll.EmployeeResponse;
 
 import java.util.Date;
 
@@ -14,8 +17,10 @@ public class PayrollResponse {
 
     private Long id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date payrollDate;
 
+    @JsonSerialize(using = CustomDoubleSerializer.class)
     private Double monthlyNetSalary;
 
     private Double monthlyBasedSalary;
@@ -24,5 +29,5 @@ public class PayrollResponse {
 
     private Double  bonusPaiment;
 
-    private Long employeeId;
+    private EmployeeResponse employee;
 }

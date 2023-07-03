@@ -65,6 +65,10 @@ spring:
           predicates:
             - Path=/benifits/**
 
+        - id: typeValidation-service
+          uri: lb://typeValidation-service
+          predicates:
+            - Path=/typeValidations/**
 
   application:
     name: API-GATEWAY
