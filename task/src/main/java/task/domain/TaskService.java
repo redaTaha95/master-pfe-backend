@@ -29,6 +29,7 @@ public class TaskService {
                     .name(taskRequest.getName())
                     .description(taskRequest.getDescription())
                     .projectId(taskRequest.getProjectId())
+                    .status(taskRequest.getStatus())
                     .startDate(taskRequest.getStartDate())
                     .endDate(taskRequest.getEndDate())
                     .build();
@@ -38,7 +39,7 @@ public class TaskService {
             return  convertToResponse(savedTask);
         }
         else {
-            throw new ProjectNotFoundException("payroll not found");
+            throw new ProjectNotFoundException("task not found");
         }
     }
 
@@ -88,6 +89,7 @@ public class TaskService {
         task.setName(taskRequest.getName());
         task.setDescription(taskRequest.getDescription());
         task.setProjectId(taskRequest.getProjectId());
+        task.setStatus(taskRequest.getStatus());
         task.setStartDate(taskRequest.getStartDate());
         task.setEndDate(taskRequest.getEndDate());
     }
@@ -103,6 +105,7 @@ public class TaskService {
                 .name(task.getName())
                 .description(task.getDescription())
                 .projectId(task.getProjectId())
+                .status(task.getStatus())
                 .startDate(task.getStartDate())
                 .endDate(task.getEndDate())
                 .build();

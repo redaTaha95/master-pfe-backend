@@ -3,6 +3,7 @@ package task.application.in;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import task.domain.TaskStatus;
 
 import java.util.Date;
 
@@ -21,6 +22,9 @@ public class TaskRequest {
 
     @NotNull(message = "projectId is required")
     private Long projectId;
+
+    @NotNull(message = "projectId is required")
+    private TaskStatus status;
 
     @NotNull(message = "startDate is required")
     private Date startDate;

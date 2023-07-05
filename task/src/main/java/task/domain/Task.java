@@ -23,8 +23,14 @@ public class Task {
     @Column(nullable = false)
     private String description;
 
+
     @Column(nullable = false)
     private Long projectId;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+
 
     @Column(nullable = false)
     private Date startDate;

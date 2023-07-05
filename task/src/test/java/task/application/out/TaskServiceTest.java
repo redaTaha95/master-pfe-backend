@@ -14,6 +14,7 @@ import task.application.out.http.project.ProjectGateway;
 import task.application.out.http.project.ProjectResponse;
 import task.domain.Task;
 import task.domain.TaskService;
+import task.domain.TaskStatus;
 import task.domain.out.TaskRepository;
 import task.domain.TaskResponse;
 
@@ -47,6 +48,7 @@ public class TaskServiceTest {
         taskRequest.setName("Yassine");
         taskRequest.setDescription("Haddaj");
         taskRequest.setProjectId(1L);
+        taskRequest.setStatus(TaskStatus.TODO);
         taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 
@@ -54,6 +56,7 @@ public class TaskServiceTest {
                 .name(taskRequest.getName())
                 .description(taskRequest.getDescription())
                 .projectId(taskRequest.getProjectId())
+                .status(taskRequest.getStatus())
                 .startDate(taskRequest.getStartDate())
                 .endDate(taskRequest.getEndDate())
                 .build();
@@ -88,8 +91,8 @@ public class TaskServiceTest {
         Date endDate2 = startDateCalendar.getTime();
 
         List<Task> tasks = Arrays.asList(
-                new Task(1L,"P1", "D1",1L, startDate, endDate),
-                new Task(2L,"P2", "D2",1L, startDate2, endDate2)
+                new Task(1L,"P1", "D1",1L,TaskStatus.TODO, startDate, endDate),
+                new Task(2L,"P2", "D2",1L,TaskStatus.TODO , startDate2, endDate2)
         );
         Mockito.when(taskRepository.findAll()).thenReturn(tasks);
 
@@ -111,7 +114,7 @@ public class TaskServiceTest {
         startDateCalendar.set(Calendar.MILLISECOND, 0);
         Date endDate = startDateCalendar.getTime();
 
-        Task task = new Task(1L,"P1", "D1",1L, startDate, endDate);
+        Task task = new Task(1L,"P1", "D1",1L,TaskStatus.TODO, startDate, endDate);
         Mockito.when(taskRepository.findById(TaskId)).thenReturn(Optional.of(task));
 
         TaskResponse taskResponse = taskService.getTaskById(TaskId);
@@ -152,7 +155,7 @@ public class TaskServiceTest {
         taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 
-        Task existingTask = new Task(taskId, "old P1", "old D1",1L,oldStartDate,oldEndDate);
+        Task existingTask = new Task(taskId, "old P1", "old D1",1L,TaskStatus.TODO,oldStartDate,oldEndDate);
         Mockito.when(taskRepository.findById(taskId)).thenReturn(Optional.of(existingTask));
 
         Mockito.when(projectGateway.getProject(taskRequest.getProjectId())).thenReturn(new ProjectResponse());

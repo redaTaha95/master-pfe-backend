@@ -15,6 +15,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import task.domain.Task;
+import task.domain.TaskStatus;
 import task.domain.out.TaskRepository;
 
 
@@ -51,6 +52,7 @@ public class TaskReponsitoryTest {
         task.setName("Yassine's task");
         task.setDescription("Small little one");
         task.setProjectId(1L);
+        task.setStatus(TaskStatus.TODO);
         task.setStartDate(startDate);
         task.setEndDate(endDate);
 
@@ -59,6 +61,7 @@ public class TaskReponsitoryTest {
         Assertions.assertEquals(savedTask.getName(), "Yassine's task");
         Assertions.assertEquals(savedTask.getDescription(), "Small little one");
         Assertions.assertEquals(savedTask.getProjectId(), 1);
+        Assertions.assertEquals(savedTask.getStatus().toString(), "TODO");
         Assertions.assertEquals(savedTask.getStartDate(), startDate);
         Assertions.assertEquals(savedTask.getEndDate(), endDate);
     }
@@ -80,6 +83,7 @@ public class TaskReponsitoryTest {
         task.setName("Yassine's task");
         task.setDescription("Small little one");
         task.setProjectId(1L);
+        task.setStatus(TaskStatus.TODO);
         task.setStartDate(startDate);
         task.setEndDate(endDate);
 
@@ -108,6 +112,7 @@ public class TaskReponsitoryTest {
         task.setName("Yassine's task");
         task.setDescription("Small little one");
         task.setProjectId(1L);
+        task.setStatus(TaskStatus.TODO);
         task.setStartDate(startDate);
         task.setEndDate(endDate);
 
@@ -135,6 +140,7 @@ public class TaskReponsitoryTest {
         task.setName("Yassine's task");
         task.setDescription("Small little one");
         task.setProjectId(1L);
+        task.setStatus(TaskStatus.TODO);
         task.setStartDate(startDate);
         task.setEndDate(endDate);
 
@@ -171,6 +177,7 @@ public class TaskReponsitoryTest {
         task.setName("Yassine's task");
         task.setDescription("Small little one");
         task.setProjectId(1L);
+        task.setStatus(TaskStatus.TODO);
         task.setStartDate(startDate);
         task.setEndDate(endDate);
 
@@ -178,6 +185,7 @@ public class TaskReponsitoryTest {
         task2.setName("Yassine's task 2");
         task2.setDescription("Small little one 2");
         task2.setProjectId(1L);
+        task2.setStatus(TaskStatus.TODO);
         task2.setStartDate(startDate2);
         task2.setEndDate(endDate2);
 
