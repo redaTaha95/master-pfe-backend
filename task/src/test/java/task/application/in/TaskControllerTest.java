@@ -9,6 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+import task.application.out.http.employee.EmployeeResponse;
 import task.domain.TaskService;
 import task.domain.TaskResponse;
 import task.domain.TaskStatus;
@@ -54,8 +55,8 @@ public class TaskControllerTest {
         // Arrange
         System.out.println(startDate);
         List<TaskResponse> taskResponse = Arrays.asList(
-                new TaskResponse(1L, "P1", "D1",1L, TaskStatus.TODO,startDate,endDate ),
-                new TaskResponse(2L, "P2", "D2",1L,TaskStatus.TODO,startDate2,endDate2)
+                new TaskResponse(1L, "P1", "D1",1L, TaskStatus.TODO,new EmployeeResponse(1L, "John", "Doe", "john.doe@example.com"),startDate,endDate ),
+                new TaskResponse(2L, "P2", "D2",1L,TaskStatus.TODO,new EmployeeResponse(2L, "John", "Doe", "john.doe@example.com"),startDate2,endDate2)
         );
         Mockito.when(taskService.getAllTasks()).thenReturn(taskResponse);
         System.out.println(taskResponse);
@@ -68,15 +69,23 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$[0].description").value("D1"))
                 .andExpect(jsonPath("$[0].projectId").value(1))
                 .andExpect(jsonPath("$[0].status").value("TODO"))
-                .andExpect(jsonPath("$[0].startDate").value("2023-01-01T00:00:00.000+00:00"))
-                .andExpect(jsonPath("$[0].endDate").value("2023-08-01T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$[0].employee.id").value(1))
+                .andExpect(jsonPath("$[0].employee.firstName").value("John"))
+                .andExpect(jsonPath("$[0].employee.lastName").value("Doe"))
+                .andExpect(jsonPath("$[0].employee.email").value("john.doe@example.com"))
+                .andExpect(jsonPath("$[0].startDate").value("2023-01-01"))
+                .andExpect(jsonPath("$[0].endDate").value("2023-08-01"))
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].name").value("P2"))
                 .andExpect(jsonPath("$[1].description").value("D2"))
                 .andExpect(jsonPath("$[1].projectId").value(1))
                 .andExpect(jsonPath("$[1].status").value("TODO"))
-                .andExpect(jsonPath("$[1].startDate").value("2024-01-01T00:00:00.000+00:00"))
-                .andExpect(jsonPath("$[1].endDate").value("2024-08-01T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$[1].employee.id").value(2))
+                .andExpect(jsonPath("$[1].employee.firstName").value("John"))
+                .andExpect(jsonPath("$[1].employee.lastName").value("Doe"))
+                .andExpect(jsonPath("$[1].employee.email").value("john.doe@example.com"))
+                .andExpect(jsonPath("$[1].startDate").value("2024-01-01"))
+                .andExpect(jsonPath("$[1].endDate").value("2024-08-01"));
     }
 
     @Test
@@ -93,7 +102,7 @@ public class TaskControllerTest {
 
         // Arrange
         Long taskId = 1L;
-        TaskResponse taskResponse = new TaskResponse(taskId, "P1", "D1",1L,TaskStatus.TODO, startDate,endDate);
+        TaskResponse taskResponse = new TaskResponse(taskId, "P1", "D1",1L,TaskStatus.TODO,new EmployeeResponse(1L, "John", "Doe", "john.doe@example.com"), startDate,endDate);
         Mockito.when(taskService.getTaskById(taskId)).thenReturn(taskResponse);
 
         // Act and Assert
@@ -104,8 +113,8 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.description").value("D1"))
                 .andExpect(jsonPath("$.projectId").value(1))
                 .andExpect(jsonPath("$.status").value("TODO"))
-                .andExpect(jsonPath("$.startDate").value("2023-01-01T00:00:00.000+00:00"))
-                .andExpect(jsonPath("$.endDate").value("2023-08-01T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$.startDate").value("2023-01-01"))
+                .andExpect(jsonPath("$.endDate").value("2023-08-01"));
     }
 
     @Test
@@ -124,10 +133,11 @@ public class TaskControllerTest {
         taskRequest.setName("P1");
         taskRequest.setDescription("D1");
         taskRequest.setProjectId(1L);
+        taskRequest.setEmployeeId(1L);
         taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 
-        TaskResponse createdTask = new TaskResponse(1L, "P1", "D1",1L,TaskStatus.TODO, startDate,endDate);
+        TaskResponse createdTask = new TaskResponse(1L, "P1", "D1",1L,TaskStatus.TODO,new EmployeeResponse(1L, "John", "Doe", "john.doe@example.com"), startDate,endDate);
         Mockito.when(taskService.createTask(taskRequest)).thenReturn(createdTask);
 
         // Act and Assert
@@ -140,8 +150,12 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.description").value("D1"))
                 .andExpect(jsonPath("$.projectId").value(1))
                 .andExpect(jsonPath("$.status").value("TODO"))
-                .andExpect(jsonPath("$.startDate").value("2023-01-01T00:00:00.000+00:00"))
-                .andExpect(jsonPath("$.endDate").value("2023-08-01T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$.employee.id").value(1))
+                .andExpect(jsonPath("$.employee.firstName").value("John"))
+                .andExpect(jsonPath("$.employee.lastName").value("Doe"))
+                .andExpect(jsonPath("$.employee.email").value("john.doe@example.com"))
+                .andExpect(jsonPath("$.startDate").value("2023-01-01"))
+                .andExpect(jsonPath("$.endDate").value("2023-08-01"));
     }
 
     @Test
@@ -161,11 +175,12 @@ public class TaskControllerTest {
         taskRequest.setName("P1");
         taskRequest.setDescription("D1");
         taskRequest.setProjectId(1L);
+        taskRequest.setEmployeeId(1L);
         taskRequest.setStatus(TaskStatus.TODO);
         taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 
-        TaskResponse updatedTask = new TaskResponse(taskId, "P1", "D1",1L,TaskStatus.TODO, startDate,endDate);
+        TaskResponse updatedTask = new TaskResponse(taskId, "P1", "D1",1L,TaskStatus.TODO,new EmployeeResponse(1L, "John", "Doe", "john.doe@example.com"), startDate,endDate);
 
         Mockito.when(taskService.updateTask(taskId, taskRequest)).thenReturn(updatedTask);
 
@@ -179,8 +194,12 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.description").value("D1"))
                 .andExpect(jsonPath("$.projectId").value(1))
                 .andExpect(jsonPath("$.status").value("TODO"))
-                .andExpect(jsonPath("$.startDate").value("2023-01-01T00:00:00.000+00:00"))
-                .andExpect(jsonPath("$.endDate").value("2023-08-01T00:00:00.000+00:00"));
+                .andExpect(jsonPath("$.employee.id").value(1))
+                .andExpect(jsonPath("$.employee.firstName").value("John"))
+                .andExpect(jsonPath("$.employee.lastName").value("Doe"))
+                .andExpect(jsonPath("$.employee.email").value("john.doe@example.com"))
+                .andExpect(jsonPath("$.startDate").value("2023-01-01"))
+                .andExpect(jsonPath("$.endDate").value("2023-08-01"));
     }
 
     @Test

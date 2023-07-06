@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import task.application.in.TaskRequest;
+import task.application.out.http.employee.EmployeeGateway;
+import task.application.out.http.employee.EmployeeResponse;
 import task.application.out.http.project.ProjectGateway;
 import task.application.out.http.project.ProjectResponse;
 import task.domain.Task;
@@ -28,6 +30,8 @@ public class TaskServiceTest {
     private TaskRepository taskRepository;
     @Mock
     private ProjectGateway projectGateway;
+    @Mock
+    private EmployeeGateway employeeGateway;
 
     @InjectMocks
     private TaskService taskService;
@@ -49,6 +53,7 @@ public class TaskServiceTest {
         taskRequest.setDescription("Haddaj");
         taskRequest.setProjectId(1L);
         taskRequest.setStatus(TaskStatus.TODO);
+        taskRequest.setEmployeeId(1L);
         taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 
@@ -64,6 +69,7 @@ public class TaskServiceTest {
         Mockito.when(taskRepository.save(any(Task.class))).thenReturn(savedTask);
 
         Mockito.when(projectGateway.getProject(taskRequest.getProjectId())).thenReturn(new ProjectResponse());
+        Mockito.when(employeeGateway.getEmployee(taskRequest.getEmployeeId())).thenReturn(new EmployeeResponse());
 
         TaskResponse task = taskService.createTask(taskRequest);
 
@@ -91,8 +97,8 @@ public class TaskServiceTest {
         Date endDate2 = startDateCalendar.getTime();
 
         List<Task> tasks = Arrays.asList(
-                new Task(1L,"P1", "D1",1L,TaskStatus.TODO, startDate, endDate),
-                new Task(2L,"P2", "D2",1L,TaskStatus.TODO , startDate2, endDate2)
+                new Task(1L,"P1", "D1",1L,TaskStatus.TODO,1L, startDate, endDate),
+                new Task(2L,"P2", "D2",1L,TaskStatus.TODO ,1L, startDate2, endDate2)
         );
         Mockito.when(taskRepository.findAll()).thenReturn(tasks);
 
@@ -114,8 +120,16 @@ public class TaskServiceTest {
         startDateCalendar.set(Calendar.MILLISECOND, 0);
         Date endDate = startDateCalendar.getTime();
 
-        Task task = new Task(1L,"P1", "D1",1L,TaskStatus.TODO, startDate, endDate);
+        EmployeeResponse employee = new EmployeeResponse();
+        employee.setId(1L);
+        employee.setFirstName("John");
+        employee.setLastName("Doe");
+        employee.setEmail("john.doe@example.com");
+
+        Task task = new Task(1L,"P1", "D1",1L,TaskStatus.TODO,1L, startDate, endDate);
         Mockito.when(taskRepository.findById(TaskId)).thenReturn(Optional.of(task));
+        Mockito.when(employeeGateway.getEmployee(1L)).thenReturn(employee);
+
 
         TaskResponse taskResponse = taskService.getTaskById(TaskId);
 
@@ -123,6 +137,7 @@ public class TaskServiceTest {
         Assertions.assertEquals(task.getName(), taskResponse.getName());
         Assertions.assertEquals(task.getDescription(), taskResponse.getDescription());
         Assertions.assertEquals(task.getProjectId(), taskResponse.getProjectId());
+        Assertions.assertEquals(task.getStatus(), taskResponse.getStatus());
         Assertions.assertEquals(task.getStartDate(), taskResponse.getStartDate());
         Assertions.assertEquals(task.getEndDate(), taskResponse.getEndDate());
     }
@@ -152,13 +167,16 @@ public class TaskServiceTest {
         taskRequest.setName("P1");
         taskRequest.setDescription("D1");
         taskRequest.setProjectId(1L);
+        taskRequest.setStatus(TaskStatus.TODO);
+        taskRequest.setEmployeeId(1L);
         taskRequest.setStartDate(startDate);
         taskRequest.setEndDate(endDate);
 
-        Task existingTask = new Task(taskId, "old P1", "old D1",1L,TaskStatus.TODO,oldStartDate,oldEndDate);
+        Task existingTask = new Task(taskId, "old P1", "old D1",1L,TaskStatus.TODO,1L,oldStartDate,oldEndDate);
         Mockito.when(taskRepository.findById(taskId)).thenReturn(Optional.of(existingTask));
 
         Mockito.when(projectGateway.getProject(taskRequest.getProjectId())).thenReturn(new ProjectResponse());
+        Mockito.when(employeeGateway.getEmployee(taskRequest.getEmployeeId())).thenReturn(new EmployeeResponse());
 
         TaskResponse updatedTaskResponse = taskService.updateTask(taskId, taskRequest);
 
@@ -166,6 +184,7 @@ public class TaskServiceTest {
         Assertions.assertEquals(taskRequest.getName(), updatedTaskResponse.getName());
         Assertions.assertEquals(taskRequest.getDescription(), updatedTaskResponse.getDescription());
         Assertions.assertEquals(taskRequest.getProjectId(), updatedTaskResponse.getProjectId());
+        Assertions.assertEquals(taskRequest.getStatus(), updatedTaskResponse.getStatus());
         Assertions.assertEquals(taskRequest.getStartDate(), updatedTaskResponse.getStartDate());
         Assertions.assertEquals(taskRequest.getEndDate(), updatedTaskResponse.getEndDate());
     }

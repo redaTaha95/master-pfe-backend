@@ -26,6 +26,9 @@ public class TaskRequest {
     @NotNull(message = "projectId is required")
     private TaskStatus status;
 
+    @NotNull(message = "employeeId is required")
+    private Long employeeId;
+
     @NotNull(message = "startDate is required")
     private Date startDate;
 

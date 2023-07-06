@@ -31,6 +31,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
+    @Column(nullable = false)
+    private Long employeeId;
 
     @Column(nullable = false)
     private Date startDate;

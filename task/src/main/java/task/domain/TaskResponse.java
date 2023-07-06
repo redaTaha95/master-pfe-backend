@@ -4,6 +4,7 @@ package task.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import task.application.out.http.employee.EmployeeResponse;
 
 import java.util.Date;
 @Getter
@@ -26,6 +27,9 @@ public class TaskResponse {
 
 
     private TaskStatus status;
+
+
+    private EmployeeResponse employee;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date startDate;
