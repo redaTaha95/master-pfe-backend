@@ -1,6 +1,6 @@
 <app-layout>
     <nav class="flex" aria-label="Breadcrumb">
-        <p class="text-xl font-medium text-gray-900 dark:text-white">Ajouter un employé</p>
+        <p class="text-xl font-medium text-gray-900 dark:text-white">Ajouter un avantage social</p>
         <ol class="flex items-center space-x-1 md:space-x-3 ml-auto">
             <li class="inline-flex items-center">
                 <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -33,19 +33,20 @@
             </div>
 
             <div class="relative z-0 w-full mb-6 group">
-                <input [formControlName]="'type'" type="text" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Type*</label>
-            </div>
+                <label for="floating_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type*</label>
+                <input [formControlName]="'type'" type="text" name="floating_email" id="floating_email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+           </div>
             <div class="grid md:grid-cols-2 md:gap-3">
                 <div class="flex">
                     <div class="flex items-center mr-4">
-                        <input [formControlName]="'matricule'" id="inline-radio"  type="radio" value="true" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="inline-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-900">Avec matricule</label>
+                        <label for="floating_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Avec matricule*</label>
+                        <input [formControlName]="'matricule'" type="radio" name="floating_email" id="floating_email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
                     </div>
                     <div class="flex items-center mr-4">
-                        <input [formControlName]="'matricule'" id="inline-2-radio" type="radio" value="false" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="inline-2-radio" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-900">Sans matricule</label>
-                    </div>
+                        <label for="floating_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sans matricule*</label>
+                        <input [formControlName]="'matricule'" type="radio" name="floating_email" id="floating_email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
+        
+                     </div>
             </div>
         </div>
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto mt-5 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajouter</button>

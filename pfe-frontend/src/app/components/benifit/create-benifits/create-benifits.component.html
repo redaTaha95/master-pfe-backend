@@ -11,7 +11,7 @@
             <li>
                 <div class="flex items-center">
                     <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Employés</a>
+                    <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">avantage sociaux</a>
                 </div>
             </li>
             <li aria-current="page">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="relative z-0 w-full mb-6 group">
-                <select [formControlName]="'typeValidationId'" (change)="checkMatriculeVisibility()" name="floating_typeValidation" id="floating_typeValidation" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" name="typeValidationId" id="typeValidationId" placeholder="Avantage social" required>
+                <select [formControlName]="'typeValidationId'" (change)="checkMatriculeVisibility()" name="floating_typeValidation" id="floating_typeValidation" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="typeValidationId" id="typeValidationId" placeholder="Avantage social" required>
                     <option disabled selected value="">Avantage social</option>
                     <option *ngFor="let typeValidation of typeValidations" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" [value]="typeValidation.id">{{ typeValidation.type }}</option>
                 </select>
@@ -41,13 +41,13 @@
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div *ngIf="showMatriculeField">
                 <div class="relative z-0 w-full mb-6 group">
-                <input [formControlName]="'matricule'" type="text" name="floating_matricule" id="floating_matricule" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Matricule*</label>
+                    <label for="floating_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule*</label>
+                    <input [formControlName]="'matricule'" type="text" name="floating_email" id="floating_email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
                 </div>
             </div>
               <div class="relative z-0 w-full mb-6 group">
-                  <input [formControlName]="'details'" type="text" name="floating_details" id="floating_details" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                  <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Détails *</label>
+                <label for="floating_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Détails*</label>
+                <input [formControlName]="'details'" type="text" name="floating_email" id="floating_email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
               </div>
              
             </div>

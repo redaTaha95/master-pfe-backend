@@ -1,6 +1,6 @@
 <app-layout>
     <nav class="flex" aria-label="Breadcrumb">
-        <p class="text-xl font-medium text-gray-900 dark:text-white">Ajouter une paie</p>
+        <p class="text-xl font-medium text-gray-900 dark:text-white">Modifier l'avantage social de cet employé</p>
         <ol class="flex items-center space-x-1 md:space-x-3 ml-auto">
             <li class="inline-flex items-center">
                 <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="relative z-0 w-full mb-6 group">
-                <select [formControlName]="'typeValidationId'" (change)="checkMatriculeVisibility()" name="floating_typeValidation" id="floating_typeValidation" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
+                <select [formControlName]="'typeValidationId'" (change)="checkMatriculeVisibility()" name="floating_typeValidation" id="floating_typeValidation" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                     <option [value]="null">Avantage social</option> <!-- Add a default option with null value -->
                     <option *ngFor="let typeValidation of typeValidations" [value]="typeValidation.id" [selected]="typeValidation.id">{{ typeValidation.type }}</option>
                 </select>
@@ -41,17 +41,17 @@
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div *ngIf="showMatriculeField">
                 <div class="relative z-0 w-full mb-6 group">
-                <input [formControlName]="'matricule'" type="text" name="floating_matricule" id="floating_matricule" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Matricule*</label>
+                    <label for="floating_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule*</label>
+                    <input [formControlName]="'matricule'" type="text" name="floating_email" id="floating_email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
                 </div>
             </div>
               <div class="relative z-0 w-full mb-6 group">
-                  <input [formControlName]="'details'" type="text" name="floating_details" id="floating_details" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                  <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Détails *</label>
+                <label for="floating_email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Détails*</label>
+                <input [formControlName]="'details'" type="text" name="floating_email" id="floating_email" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=" " required />
               </div>
              
             </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajouter</button>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Modifer</button>
             <button [routerLink]="['/benifits']" class="text-white ml-4 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Annuler</button>
 
             <div *ngIf='this.isError' id="alert-border-2" class="flex mt-4 p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800" role="alert">
