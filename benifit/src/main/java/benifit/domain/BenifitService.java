@@ -70,7 +70,7 @@ public class BenifitService {
     public BenifitResponse getBenifitsById(Long id) {
         Benifit benifit = getBenifitByIdIfExists(id);
         EmployeeResponse employee = employeeGateway.getEmployee(id);
-        TypeValidationResponse typeValidationResponse = typeValidationGateway.getTypeValidation(id);
+        TypeValidationResponse typeValidationResponse = typeValidationGateway.getTypeValidation(benifit.getTypeValidationId());
 
         return convertToResponse(benifit,employee,typeValidationResponse);
     }
