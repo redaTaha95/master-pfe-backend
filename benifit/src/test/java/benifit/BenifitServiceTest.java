@@ -30,6 +30,9 @@ public class BenifitServiceTest {
     @Mock
     private TypeValidationGateway typeValidationGateway;
 
+    @InjectMocks
+    private BenifitService benifitService;
+
     @Test
     @DisplayName("should create a benifit")
     public void shouldCreateBenifit() {
@@ -47,7 +50,6 @@ public class BenifitServiceTest {
         Benifit savedBenifit = new Benifit();
         Mockito.when(benifitRepository.save(Mockito.any(Benifit.class))).thenReturn(savedBenifit);
 
-        BenifitService benifitService = new BenifitService(benifitRepository, employeeGateway, typeValidationGateway);
 
         BenifitResponse benifitResponse = benifitService.createBenifit(benifitRequest);
 
@@ -61,8 +63,6 @@ public class BenifitServiceTest {
         List<Benifit> benifits = new ArrayList<>();
         Mockito.when(benifitRepository.findAll()).thenReturn(benifits);
 
-        BenifitService benifitService = new BenifitService(benifitRepository, employeeGateway, typeValidationGateway);
-
         List<BenifitResponse> benifitResponses = benifitService.getAllBenifits();
 
         Mockito.verify(benifitRepository).findAll();
@@ -73,15 +73,13 @@ public class BenifitServiceTest {
     @DisplayName("should get benifit by ID")
     public void shouldGetBenifitById() {
         Long benifitId = 1L;
-        Optional<Benifit> optionalBenifit = Optional.of(new Benifit());
+        Optional<Benifit> optionalBenifit = Optional.of(new Benifit(1L,"dddd","AA3SDQ",1L,1L));
         Mockito.when(benifitRepository.findById(benifitId)).thenReturn(optionalBenifit);
 
         EmployeeResponse employeeResponse = new EmployeeResponse();
         TypeValidationResponse typeValidationResponse = new TypeValidationResponse();
-        Mockito.when(employeeGateway.getEmployee(Mockito.anyLong())).thenReturn(employeeResponse);
-        Mockito.when(typeValidationGateway.getTypeValidation(Mockito.anyLong())).thenReturn(typeValidationResponse);
-
-        BenifitService benifitService = new BenifitService(benifitRepository, employeeGateway, typeValidationGateway);
+        Mockito.when(employeeGateway.getEmployee(1L)).thenReturn(employeeResponse);
+        Mockito.when(typeValidationGateway.getTypeValidation(1L)).thenReturn(typeValidationResponse);
 
         BenifitResponse benifitResponse = benifitService.getBenifitsById(benifitId);
 
@@ -98,8 +96,6 @@ public class BenifitServiceTest {
 
         EmployeeResponse employeeResponse = new EmployeeResponse();
         Mockito.when(employeeGateway.getEmployee(Mockito.anyLong())).thenReturn(employeeResponse);
-
-        BenifitService benifitService = new BenifitService(benifitRepository, employeeGateway, typeValidationGateway);
 
         List<BenifitResponse> benifitResponses = benifitService.getBenifitsByEmployeeId(employeeId);
 
@@ -123,8 +119,6 @@ public class BenifitServiceTest {
         Benifit existingBenifit = new Benifit();
         Mockito.when(benifitRepository.findById(benifitId)).thenReturn(Optional.of(existingBenifit));
 
-        BenifitService benifitService = new BenifitService(benifitRepository, employeeGateway, typeValidationGateway);
-
         BenifitResponse benifitResponse = benifitService.updateBenifit(benifitId, benifitRequest);
 
         Mockito.verify(benifitRepository).save(existingBenifit);
@@ -136,8 +130,6 @@ public class BenifitServiceTest {
     public void shouldDeleteBenifit() {
         Long benifitId = 1L;
         Mockito.when(benifitRepository.existsById(benifitId)).thenReturn(true);
-
-        BenifitService benifitService = new BenifitService(benifitRepository, employeeGateway, typeValidationGateway);
 
         benifitService.deleteBenifit(benifitId);
 
