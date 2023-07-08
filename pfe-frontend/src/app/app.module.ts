@@ -28,6 +28,12 @@ import { SelectProjectComponent } from './components/task/select-project/select-
 import { CreateTaskComponent } from './components/task/create-task/create-task.component';
 import { IndexTaskComponent } from './components/task/index-task/index-task.component';
 import { EditTaskComponent } from './components/task/edit-task/edit-task.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { ViewQuestionsComponent } from './components/chatbot/questions-management/view-questions/view-questions.component';
+import { CreateQuestionsComponent } from './components/chatbot/questions-management/create-questions/create-questions.component';
+import { UpdateQuestionsComponent } from './components/chatbot/questions-management/update-questions/update-questions.component';
+import { IndexQuestionsComponent } from './components/chatbot/questions-management/index-questions/index-questions.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -47,6 +53,10 @@ const routes: Routes = [
 
 
   { path: 'employees/:id/edit', component: EditEmployeesComponent, canActivate: [AuthGuard] },
+  { path: 'chatbot', component: IndexQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/add', component: CreateQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/:id', component: ViewQuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'questions/:id/edit', component: UpdateQuestionsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -72,6 +82,11 @@ const routes: Routes = [
     CreateTaskComponent,
     IndexTaskComponent,
     EditTaskComponent,
+    ChatbotComponent,
+    ViewQuestionsComponent,
+    CreateQuestionsComponent,
+    UpdateQuestionsComponent,
+    IndexQuestionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +97,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     DragDropModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [
     {
