@@ -9,6 +9,8 @@
 		<module>api-gateway</module>
 		<module>identity</module>
         <module>chatbot</module>
+        <module>project</module>
+        <module>task</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

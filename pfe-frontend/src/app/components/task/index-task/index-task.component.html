@@ -1,0 +1,154 @@
+<app-layout>
+    <nav class="flex" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Projets</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Taches</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+<div class="h-screen p-2" cdkDropListGroup>
+    <div class="grid lg:grid-cols-3 md:grid-cols-4 sm:grid-cols-2 gap-5" >
+      <!-- To-do -->
+      <div class="bg-white rounded px-2 py-2"cdkDropList [cdkDropListData]="todoTasks" (cdkDropListDropped)="drop($event)">
+        <!-- board category header -->
+        <div class="flex flex-row justify-between items-center mb-2 mx-1">
+          <div class="flex items-center" >
+            <h2 class="bg-red-100 text-sm w-max px-1 rounded mr-2 text-gray-700"  >To-Do</h2>
+            <p class="text-gray-400 text-sm">3</p>
+          </div>
+          <div class="flex items-center text-gray-300">
+            <p class="mr-2 text-2xl">---</p>
+            <a [routerLink]="['/tasks/add', todo, projectId]" class="text-2xl text-gray-500">+ </a>
+          </div>
+        </div>
+        <!-- board card -->
+        <div class="grid grid-rows-2 gap-2" >
+          <div class="p-2 rounded shadow-sm border-gray-100 border-2" *ngFor="let task of todoTasks" cdkDrag>
+            <h3 class="text-sm mb-3 text-gray-700">{{task.description}}</h3>
+            <p class="bg-red-100 text-xs w-max p-1 rounded mr-2 text-gray-700">To-do</p>
+            <div class="flex flex-row items-center mt-2">
+              <div class="bg-gray-300 rounded-full w-4 h-4 mr-3"></div>
+              <a href="#" class="text-xs text-gray-500">{{task.employee.firstName}} {{task.employee.lastName}}</a>
+            </div>
+            <div class="grid grid-cols-6 gap-4">
+              <p class="text-xs text-gray-500 mt-2 col-start-1 col-end-3">PM/{{task.id}}</p>
+              <a [routerLink]="['/tasks/edit', task.id]" class="w-4 mr-2 transform hover:text-green-500 hover:scale-110 text-gray-500 col-start-7 col-end-7">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </a>
+              <a (click)="deletetask(task.id)" class="w-4 mr-2 transform hover:text-red-500 hover:scale-110 text-gray-500 col-start-8 col-end-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </a>
+             
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+      <!-- WIP Kanban -->
+      <div class="bg-white rounded px-2 py-2"  cdkDropList [cdkDropListData]="inProgressTasks" (cdkDropListDropped)="drop($event)">
+        <!-- board category header -->
+        <div class="flex flex-row justify-between items-center mb-2 mx-1">
+          <div class="flex items-center">
+            <h2 class="bg-yellow-100 text-sm w-max px-1 rounded mr-2 text-gray-700">WIP</h2>
+            <p class="text-gray-400 text-sm">2</p>
+          </div>
+          <div class="flex items-center text-gray-300">
+            <p class="mr-2 text-2xl">---</p>
+            <a [routerLink]="['/tasks/add', inprogress, projectId]" class="text-2xl text-gray-500">+ </a>
+          </div>
+        </div>
+        <!-- board card -->
+        <div class="grid grid-rows-2 gap-2">
+          <div class="p-2 rounded shadow-sm border-gray-100 border-2" *ngFor="let task of inProgressTasks" cdkDrag>
+            <h3 class="text-sm mb-3 text-gray-700">{{task.description}}</h3>
+            <p class="bg-yellow-100 text-xs w-max p-1 rounded mr-2 text-gray-700">WIP</p>
+            <div class="flex flex-row items-center mt-2">
+              <div class="bg-gray-300 rounded-full w-4 h-4 mr-3"></div>
+              <a href="#" class="text-xs text-gray-500">{{task.employee.firstName}} {{task.employee.lastName}}</a>
+            </div>
+            <div class="grid grid-cols-6 gap-4">
+              <p class="text-xs text-gray-500 mt-2 col-start-1 col-end-3">PM/{{task.id}}</p>
+              <a [routerLink]="['/tasks/edit', task.id]" class="w-4 mr-2 transform hover:text-green-500 hover:scale-110 text-gray-500 col-start-7 col-end-7">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </a>
+              <a (click)="deletetask(task.id)" class="w-4 mr-2 transform hover:text-red-500 hover:scale-110 text-gray-500 col-start-8 col-end-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </a>
+             
+            </div>
+          </div>
+  
+        </div>
+       
+      </div>
+
+      <!-- Complete Kanban cdkDropList (cdkDropListDropped)="drop($event)" -->
+      <div class="bg-white rounded px-2 py-2" cdkDropList [cdkDropListData]="doneTasks" (cdkDropListDropped)="drop($event)" >
+        <!-- board category header -->
+        <div class="flex flex-row justify-between items-center mb-2 mx-1">
+          <div class="flex items-center">
+            <h2 class="bg-green-100 text-sm w-max px-1 rounded mr-2 text-gray-700">Complete</h2>
+            <p class="text-gray-400 text-sm">4</p>
+          </div>
+          <div class="flex items-center">
+            <p class="text-gray-300 mr-2 text-2xl">---</p>
+            <a [routerLink]="['/tasks/add', done, projectId]" class="text-2xl text-gray-500">+ </a>
+          </div>
+        </div>
+        <!-- board card -->
+        <div class="grid grid-rows-2 gap-2">
+          <div class="p-2 rounded shadow-sm border-gray-100 border-2" *ngFor="let task  of doneTasks" cdkDrag>
+            <h3 class="text-sm mb-3 text-gray-700">{{task.description}}</h3>
+            <p class="bg-green-100 text-xs w-max p-1 rounded mr-2 text-gray-700">Complete</p>
+            <div class="flex flex-row items-center mt-2">
+              <div class="bg-gray-300 rounded-full w-4 h-4 mr-3"></div>
+              <a href="#" class="text-xs text-gray-500">{{task.employee.firstName}} {{task.employee.lastName}}</a>
+            </div>
+            <div class="grid grid-cols-6 gap-4">
+              <p class="text-xs text-gray-500 mt-2 col-start-1 col-end-3">PM/{{task.id}}</p>
+              <a [routerLink]="['/tasks/edit', task.id]" class="w-4 mr-2 transform hover:text-green-500 hover:scale-110 text-gray-500 col-start-7 col-end-7">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </a>
+              <a (click)="deletetask(task.id)" class="w-4 mr-2 transform hover:text-red-500 hover:scale-110 text-gray-500 col-start-8 col-end-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </a>
+             
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-row items-center text-gray-300 mt-2 px-1">
+          <p class="rounded mr-2 text-2xl">+</p>
+          <p class="pt-1 rounded text-sm">New</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-layout>

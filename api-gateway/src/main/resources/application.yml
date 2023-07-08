@@ -19,6 +19,20 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: project-service
+          uri: lb://project-service
+          predicates:
+            - Path=/projects/**
+          filters:
+            - AuthenticationFilter
+
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/tasks/**
+          filters:
+            - AuthenticationFilter
+
         - id: chatbot-service
           uri: lb://chatbot-service
           predicates:
