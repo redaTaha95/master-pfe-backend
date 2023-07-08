@@ -31,6 +31,52 @@ spring:
           predicates:
             - Path=/auth/**
 
+        - id: project-service
+          uri: lb://project-service
+          predicates:
+            - Path=/projects/**
+          filters:
+            - AuthenticationFilter
+
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/tasks/**
+          filters:
+            - AuthenticationFilter
+
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/tasks/**
+          filters:
+            - AuthenticationFilter
+
+        - id: payslip-service
+          uri: lb://payslip-service
+          predicates:
+            - Path=/payslips/**
+
+        - id: payroll-service
+          uri: lb://payroll-service
+          predicates:
+            - Path=/payrolls/**
+
+        - id: pto-service
+          uri: lb://pto-service
+          predicates:
+            - Path=/paidTimesOff/**
+
+        - id: benifit-service
+          uri: lb://benifit-service
+          predicates:
+            - Path=/benifits/**
+
+        - id: typeValidation-service
+          uri: lb://typeValidation-service
+          predicates:
+            - Path=/typeValidations/**
+
   application:
     name: API-GATEWAY
 

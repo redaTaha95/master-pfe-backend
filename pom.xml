@@ -8,6 +8,11 @@
 		<module>discovery</module>
 		<module>api-gateway</module>
 		<module>identity</module>
+		<module>benifit</module>
+		<module>paidTimeOff</module>
+		<module>payroll</module>
+		<module>payslip</module>
+		<module>type-validation</module>
         <module>chatbot</module>
     </modules>
 	<parent>

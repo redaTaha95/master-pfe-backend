@@ -1,0 +1,117 @@
+<app-layout>
+    <div class="h-full bg-gray-200 p-8">
+        
+
+        <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+            <div class="w-full flex flex-col">
+                <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
+                    <h4 class="text-xl text-gray-900 font-bold">Paie Info</h4>
+                    <ul class="mt-2 text-gray-700">
+                        <li class="flex border-y py-2 flex-auto">
+                            <span class="font-bold w-72">Nom et prénom:</span>
+                            <span class="text-gray-700 ">{{payroll.employee.firstName}} {{payroll.employee.lastName}}</span>
+
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-72">Email:</span>
+                            <span class="text-gray-700 ">{{payroll.employee.email}}</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-72">Date de paie:</span>
+                            <span class="text-gray-700 ">{{payroll.payrollDate}}</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-72">Salaire de base: </span>
+                            <span class="text-gray-700 ">{{payroll.monthlyBasedSalary}}</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-72">Les heures travaillées ce mois-ci: </span>
+                            <span class="text-gray-700 ">{{payroll.monthlyHoursWorked}}</span>
+                        </li> 
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-72">paiement de Prime: </span>
+                            <span class="text-gray-700  "> {{payroll.bonusPaiment}}</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-72">Salaire brut par mois: </span>
+                            <span class="text-gray-700  "> {{payroll.monthlyNetSalary}} DH</span>
+                        </li>
+                    </ul>
+                </div>
+                <button (click)="createPayslip()" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mt-2 ml-auto mb-2 mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ">Créer le bulletin de paie</button>
+                <button [routerLink]="['/payslips/payroll', payroll.id]" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mt-2 ml-auto mb-2 mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 ">Voir les bulletins de paie de cet employé</button>
+                <div class="bg-white shadow-md rounded my-6">
+                    <table class="min-w-max w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                <th class="py-3 px-6 text-left">#</th>
+                                <th class="py-3 px-6 text-left">Date de paie </th>
+                                <th class="py-3 px-6 text-left">Salaire de base par mois</th>
+                                <th class="py-3 px-6 text-center">Heures travaillées ce mois</th>
+                                <th class="py-3 px-6 text-center">Paiement bonus</th>
+                                <th class="py-3 px-6 text-center">Salaire brut:</th>
+                                <th class="py-3 px-6 text-center">Action</th>
+                        </thead>
+                        <tbody class="text-gray-600 text-sm font-light">
+                            <tr *ngFor="let payroll of payrolls; let i = index" class="border-b border-gray-200 hover:bg-gray-100">
+                                <td class="py-3 px-6 text-left">
+                                    <div class="flex items-center">
+                                        <span>{{i + 1}}</span>
+                                    </div>
+                                </td>
+                                
+                                <td class="py-3 px-6 text-center">
+                                    
+                                        <span>{{payroll.payrollDate}}</span>
+                              
+                                </td>
+        
+                                <td class="py-3 px-6 text-center">
+                                  
+                                        <span>{{payroll.monthlyBasedSalary}} DH</span>
+                                
+                                </td>
+        
+                                <td class="py-3 px-6 text-center">
+                               
+                                        <span>{{payroll.monthlyHoursWorked}} h</span>
+                                  
+                                </td>
+                               
+                                <td class="py-3 px-6 text-center">
+                                    {{payroll.bonusPaiment}} DH
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                    {{payroll.monthlyNetSalary}} DH
+                                </td>
+                        
+                                <td class="py-3 px-6 text-center">
+                                    <div class="flex item-center justify-center">
+                                        <a [routerLink]="['/payrolls', payroll.id]" (click)="changePayroll(payroll.id)" class="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                        <a [routerLink]="['/payrolls', payroll.id, 'edit']" class="w-4 mr-2 transform hover:text-green-500 hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </a>
+                                        <a (click)="deletePayroll(payroll.id)" class="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                
+            </div>
+            
+        </div>
+    </div>
+</app-layout>
