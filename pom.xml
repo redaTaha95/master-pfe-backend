@@ -6,8 +6,11 @@
 	<modules>
 		<module>employee</module>
 		<module>discovery</module>
+        <module>candidate</module>
+        <module>recruitment_demand</module>
 		<module>api-gateway</module>
 		<module>identity</module>
+        <module>interview</module>
         <module>chatbot</module>
     </modules>
 	<parent>
