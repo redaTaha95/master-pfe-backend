@@ -4,3 +4,5 @@ CREATE DATABASE "payroll";
 CREATE DATABASE "payslip";
 CREATE DATABASE "benifit";
 CREATE DATABASE "typeValidation";
+CREATE DATABASE "user";
+CREATE DATABASE chatbot ;

@@ -19,6 +19,13 @@ spring:
           filters:
             - AuthenticationFilter
 
+        - id: chatbot-service
+          uri: lb://chatbot-service
+          predicates:
+            - Path=/questions/**
+          filters:
+            - AuthenticationFilter
+
         - id: identity-service
           uri: lb://identity-service
           predicates:
