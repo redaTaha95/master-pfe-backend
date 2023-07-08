@@ -96,7 +96,7 @@ const routes: Routes = [
     ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    DragDropModule
+    DragDropModule,
     ReactiveFormsModule,
     NgxPaginationModule
   ],
