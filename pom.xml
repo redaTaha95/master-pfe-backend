@@ -13,7 +13,6 @@
 		<module>payroll</module>
 		<module>payslip</module>
 		<module>type-validation</module>
-	</modules>
         <module>chatbot</module>
     </modules>
 	<parent>
