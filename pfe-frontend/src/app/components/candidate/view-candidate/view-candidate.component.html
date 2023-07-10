@@ -1,0 +1,110 @@
+<app-layout>
+
+    <nav class="flex" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <a [routerLink]="['/candidates']" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">Candidats</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Détails</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <div class="h-full bg-gray-200 p-8">
+        <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+            <div class="w-full flex flex-col 2xl:w-1/3">
+                <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
+                    <h4 class="text-xl text-gray-900 font-bold">Informations Personnelles</h4>
+                    <ul class="mt-2 text-gray-700">
+                        <li class="flex border-y py-2">
+                            <span class="font-bold w-50 mr-4">Nom Complet :</span>
+                            <span class="text-gray-700">Wiam IDRISSI KHAMLICHI</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-50 mr-4">Email:</span>
+                            <span class="text-gray-700">khamlichiwiam2000@gmail.com</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-50 mr-4">Téléphone:</span>
+                            <span class="text-gray-700">0699515293</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-50 mr-4">Adresse:</span>
+                            <span class="text-gray-700">Belvedere, Casablanca</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-50 mr-4">Secteur:</span>
+                            <span class="text-gray-700">IT, Web, Développement</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-50 mr-4">Nombre d'années d'expérience:</span>
+                            <span class="text-gray-700">1</span>
+                        </li>
+                        <li class="flex border-b py-2">
+                            <span class="font-bold w-50 mr-4">Niveau d'études:</span>
+                            <span class="text-gray-700">Bac + 3</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
+                    <h4 class="text-xl text-gray-900 font-bold">Expériences Professionnelles</h4>
+                    <div class="relative px-4">
+                        <div class="absolute h-full border border-dashed border-opacity-20 border-secondary"></div>
+
+                        <div class="flex items-center w-full my-6 -ml-1.5">
+                            <div class="w-1/12 z-10">
+                                <div class="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                            </div>
+                            <div class="w-11/12">
+                                <p class="text-sm text-blue-600 font-bold">Capgemini</p>
+                                <p class="text-xs text-gray-500">Mai 2022 - Présent</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center w-full my-6 -ml-1.5">
+                            <div class="w-1/12 z-10">
+                                <div class="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                            </div>
+                            <div class="w-11/12">
+                                <p class="text-sm text-blue-600 font-bold">Atos</p>
+                                <p class="text-xs text-gray-500">Janvier 2021 - Mai 2022</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center w-full my-6 -ml-1.5">
+                            <div class="w-1/12 z-10">
+                                <div class="w-3.5 h-3.5 bg-blue-600 rounded-full"></div>
+                            </div>
+                            <div class="w-11/12">
+                                <p class="text-sm text-blue-600 font-bold">GFI</p>
+                                <p class="text-xs text-gray-500">Janvier 2020 - Décembre 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col w-full 2xl:w-2/3">
+                <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
+                    <h4 class="text-xl text-gray-900 font-bold">Resumé</h4>
+                    <p class="mt-2 text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt voluptates obcaecati numquam error et ut fugiat asperiores. Sunt nulla ad incidunt laboriosam, laudantium est unde natus cum numquam, neque facere. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, magni odio magnam commodi sunt ipsum eum! Voluptas eveniet aperiam at maxime, iste id dicta autem odio laudantium eligendi commodi distinctio!</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</app-layout>
