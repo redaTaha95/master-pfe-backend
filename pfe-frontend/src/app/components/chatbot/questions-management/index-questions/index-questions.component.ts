@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class IndexQuestionsComponent {
   questions: Array<Question> = [];
+  p: number = 1; // Current page number
 
   constructor(private router: Router, private questionsService: QuestionService) {
     this.questionsService.getAllQuestions().subscribe(questions => this.questions = questions);

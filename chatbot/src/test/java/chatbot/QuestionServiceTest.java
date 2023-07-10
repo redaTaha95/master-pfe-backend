@@ -245,10 +245,19 @@ public class QuestionServiceTest {
 
     @Test
     void testDeleteQuestion() {
+        // Create a mock question
+        Question question = new Question();
+        question.setId(1L);
+        question.setQuestionText("Old question");
+        question.setAnswerText("Old answer");
+
+        // Mock the question repository to return the question
+        when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
+
         // Delete the question using the service
         questionService.deleteQuestion(1L);
 
         // Verify the question repository deleteById operation
-        verify(questionRepository, times(1)).deleteById(1L);
+        verify(questionRepository, times(1)).delete(question);
     }
 }
