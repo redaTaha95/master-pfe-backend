@@ -36,6 +36,7 @@ import { ViewQuestionsComponent } from './components/chatbot/questions-managemen
 import { CreateQuestionsComponent } from './components/chatbot/questions-management/create-questions/create-questions.component';
 import { UpdateQuestionsComponent } from './components/chatbot/questions-management/update-questions/update-questions.component';
 import { IndexQuestionsComponent } from './components/chatbot/questions-management/index-questions/index-questions.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -102,7 +103,8 @@ const routes: Routes = [
     NgxWebstorageModule.forRoot(),
     ToastrModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [
     {

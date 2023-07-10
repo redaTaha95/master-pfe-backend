@@ -16,10 +16,10 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String questionText;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String answerText;
 
     @ManyToOne
